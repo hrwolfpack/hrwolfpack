@@ -1,13 +1,13 @@
 # Project Name
 
-> Pithy project description
+> Wolfpack
 
 ## Team
 
-  - teamMember
-  - teamMember
-  - teamMember
-  - teamMember
+  - Clarence Bowen
+  - Dylan Baker
+  - Jason Lee
+  - Kevin Huang
 
 ## Table of Contents
 
