@@ -1,34 +1,45 @@
 
-DROP DATABASE IF EXISTS `wolfpack`;
+DROP DATABASE IF EXISTS wolfpack;
+CREATE DATABASE wolfpack;
 
 USE wolfpack;
 
-DROP TABLE IF EXISTS `Users`;
+DROP TABLE IF EXISTS participantListings;
+DROP TABLE IF EXISTS listings;
+DROP TABLE IF EXISTS users;
 
-CREATE TABLE `Users` (
-  `ID` INTEGER NOT NULL AUTO_INCREMENT DEFAULT NULL,
-  `Username` VARCHAR(20) NOT NULL DEFAULT 'NULL',
-  `Password` VARCHAR NOT NULL DEFAULT 'NULL',
-  PRIMARY KEY (`ID`)
+CREATE TABLE users (
+  id INT NOT NULL AUTO_INCREMENT,
+  username VARCHAR(20) NOT NULL,
+  password VARCHAR(25) NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE (username)
 );
 
-DROP TABLE IF EXISTS `Listings`;
 
-CREATE TABLE `Listings` (
-  `ID` INTEGER NOT NULL AUTO_INCREMENT DEFAULT NULL,
-  `Initializer` INT NOT NULL DEFAULT NULL,
-  `Price` INTEGER NOT NULL DEFAULT NULL,
-  `Complete` INTEGER NOT NULL DEFAULT 0,
-  `Location` MEDIUMTEXT NOT NULL DEFAULT 'NULL',
-  `Num_of_participants` INTEGER NOT NULL DEFAULT NULL,
-  PRIMARY KEY (`Initializer`)
+CREATE TABLE listings (
+  id INT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(50) NOT NULL,
+  initializer INT NOT NULL,
+  price DECIMAL(5,2) NOT NULL,
+  complete INT NOT NULL DEFAULT 0,
+  location VARCHAR(100) NOT NULL ,
+  num_of_participants INT NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE (initializer),
+  FOREIGN KEY (initializer) REFERENCES users (id)
 );
 
-DROP TABLE IF EXISTS `User Listings`;
 
-CREATE TABLE `User Listings` (
-  `User_ID` INTEGER NOT NULL DEFAULT NULL,
-  `Listing_ID` INTEGER NOT NULL DEFAULT NULL,
-  `Received` INTEGER NOT NULL DEFAULT 0,
-  PRIMARY KEY (`User_ID`)
+CREATE TABLE participantListings (
+  id INT NOT NULL AUTO_INCREMENT,
+  user_id INT NOT NULL,
+  listing_id INT NOT NULL,
+  received INT NOT NULL DEFAULT 0,
+  PRIMARY KEY (id),
+  UNIQUE(user_id, listing_id),
+  FOREIGN KEY (user_id)
+    REFERENCES users (id),
+  FOREIGN KEY (listing_id)
+    REFERENCES listings (id)
 );
