@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+import Dashboard from './components/Dashboard.jsx'
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -13,9 +13,8 @@ class App extends React.Component {
     return (
 
       <div>
-        {this.state.currentUser}
+        {this.state.currentUser}'this is App.jsx'
         <Dashboard />
-
       </div>
     )
   }
