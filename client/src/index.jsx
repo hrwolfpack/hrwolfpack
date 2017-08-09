@@ -6,12 +6,17 @@ class App extends React.Component {
     super(props);
     this.state = {
       currentUser: 'Bob Marley',
-    }
+    };
   }
 
   render() {
     return (
-      <div>{this.state.currentUser}</div>
+
+      <div>
+        {this.state.currentUser}
+        <Dashboard />
+
+      </div>
     )
   }
 }
