@@ -25,8 +25,9 @@ CREATE TABLE listings (
   complete INT NOT NULL DEFAULT 0,
   location VARCHAR(100) NOT NULL ,
   num_of_participants INT NOT NULL,
+  created_dt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
-  UNIQUE (initializer),
+  UNIQUE (initializer, created_dt),
   FOREIGN KEY (initializer) REFERENCES users (id)
 );
 
