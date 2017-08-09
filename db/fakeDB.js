@@ -29,5 +29,22 @@ var findById = (id, callback) => {
 	return callback(err, user);
 };
 
+var addUser = (user, callback) => {
+	findByUsername(user.username, (err, oldUser) => {
+		if (oldUser) {
+			return callback(null, false);
+		}
+		user.id = records.length + 1;
+		records.push(user);
+		return callback(null, records[records.length - 1]);
+	});
+};
+
+var getUsers = () => {
+	return records;
+}
+
 module.exports.findByUsername = findByUsername;
 module.exports.findById = findById;
+module.exports.addUser = addUser;
+module.exports.getUsers = getUsers;

@@ -45,7 +45,7 @@ passport.deserializeUser(function(id, cb) {
 
 let app = express();
 //Use middleware
-app.use(morgan('combined'));
+app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -56,6 +56,7 @@ app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use('/login', express.static(path.join(__dirname, '../client/dist/login.html')));
+app.use('/signup', express.static(path.join(__dirname, '../client/dist/signup.html')));
 
 app.post('/login', 
 	passport.authenticate('local', {failureRedirect: '/login'}),
@@ -64,6 +65,23 @@ app.post('/login',
 	}
 );
 
+app.post('/signup', (req, res) => {
+	var {username, password} = req.body;
+	db.fakeDB.addUser(req.body, (err, user) => {
+		if (!user) {
+			console.log('username already exists');
+			res.redirect('/signup');
+		}
+		req.login(user, (err) => {
+			// if (err) { return next(err); }
+  			res.redirect('/');
+		});
+	});
+})
+
+app.get('/users', (req, res) => {
+	res.send(db.fakeDB.getUsers());
+})
 
 let port = process.env.PORT || 3000;
 app.listen(port, () => console.log('Listening on port ', port));
