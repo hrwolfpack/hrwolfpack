@@ -41,7 +41,6 @@ class Dashboard extends React.Component {
           </Modal.Body>
           <Modal.Footer>
             <Button bsStyle="danger" onClick={this.hideModal.bind(this)}>Cancel</Button>
-            <Button bsStyle="success" onClick={this.showModal.bind(this)}>Create</Button>
 
           </Modal.Footer>
         </Modal>
