@@ -30,11 +30,11 @@ var User = db.define('User', {
 var Listing = db.define('Listing', {
   id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
   name: Sequelize.STRING,
-  initializer: Sequelize.INTEGER,
+  initializer: { type: Sequelize.INTEGER, defaultValue: 1},
   price: Sequelize.DECIMAL(5, 2),
-  complete: Sequelize.BOOLEAN,
+  complete: { type: Sequelize.BOOLEAN, defaultValue: false},
   location: Sequelize.STRING,
-  num_of_participants: Sequelize.INTEGER,
+  num_of_participants:{ type: Sequelize.INTEGER, defaultValue: 4},
   created_dt: Sequelize.DATE
 });
 
