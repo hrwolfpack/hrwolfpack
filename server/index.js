@@ -74,7 +74,7 @@ app.use('/login', express.static(path.join(__dirname, '../client/dist/login.html
 app.use('/signup', express.static(path.join(__dirname, '../client/dist/signup.html')));
 
 
-app.post('/login', 
+app.post('/login',
 	passport.authenticate('local', {failureRedirect: '/login'}),
 	(req, res) => {
 		res.redirect('/');
@@ -82,12 +82,18 @@ app.post('/login',
 );
 
 app.post('/signup', (req, res) => {
-	db.User.create(req.body)
+	db.User.findOne({where: {username: req.body.username}})
 		.then(user => {
-			req.login(user, function(err) {
-			  // if (err) { return next(err); }
-			  return res.redirect('/');
-			});
+			if (user) {
+				res.send('User ' + req.body.username + ' already exists!!!')
+			} else {
+				db.User.create(req.body).then(user => {
+					req.login(user, function(err) {
+						// if (err) { return next(err); }
+						return res.redirect('/');
+					});
+				});
+			}
 		})
 		.catch((err) => {
 			console.log('Error: ', err);
@@ -101,7 +107,7 @@ app.get('/logout', (req, res) => {
 
 
 //testing end point
-app.get('/users', 
+app.get('/users',
 	(req, res) => {
 	if (req.user) {
 		console.log('this is the user: ', req.user);
