@@ -105,6 +105,13 @@ app.get('/logout', (req, res) => {
   res.redirect('/login');
 });
 
+app.post('/listings', (req,res) => {
+	console.log(req.user.dataValues.username);
+	db.Listing.create({name: req.body.name, price: parseInt(req.body.price), location: req.body.location, initializer: req.user.dataValues.usename, })
+	.then(listing => {
+
+	});
+})
 
 //testing end point
 app.get('/users',
