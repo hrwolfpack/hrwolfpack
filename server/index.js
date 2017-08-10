@@ -68,7 +68,7 @@ var isLoggedIn = (req, res, next) => {
 		next();
 	}
 };
-
+app.get('/', isLoggedIn);
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use('/login', express.static(path.join(__dirname, '../client/dist/login.html')));
 app.use('/signup', express.static(path.join(__dirname, '../client/dist/signup.html')));
@@ -96,22 +96,25 @@ app.post('/signup', (req, res) => {
 
 app.get('/logout', (req, res) => {
   req.logout();
-  res.redirect('/');
+  res.redirect('/login');
 });
 
 
 //testing end point
 app.get('/users', 
-	passport.authenticate('local', {failureRedirect: '/login'}),
 	(req, res) => {
-	console.log('this is the user: ', req.user);
-	db.User.findAll()
-		.then(results => {
-			res.send(results);
-		})
-		.catch(err => {
-			console.log('Error: ', err);
-		});
+	if (req.user) {
+		console.log('this is the user: ', req.user);
+		db.User.findAll()
+			.then(results => {
+				res.send(results);
+			})
+			.catch(err => {
+				console.log('Error: ', err);
+			});
+	} else {
+		res.redirect('/login');
+	}
 });
 
 
