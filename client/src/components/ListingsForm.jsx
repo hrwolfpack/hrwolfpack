@@ -17,7 +17,7 @@ function Form (props){
         <InputGroup>
           <InputGroup.Addon>$</InputGroup.Addon>
           <FormControl type="text" placeholder = "Cost"/>
-          <InputGroup.Addon>.00</InputGroup.Addon>
+          <InputGroup.Addon></InputGroup.Addon>
         </InputGroup>
       </FormGroup>
 
