@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Listings from './Listings.jsx'
-import { Button, Modal, Form } from 'react-bootstrap';
+import Form from './ListingsForm.jsx'
+import { Button, Modal, FormGroup } from 'react-bootstrap';
 
 class Dashboard extends React.Component {
 
@@ -34,9 +35,9 @@ class Dashboard extends React.Component {
             <Modal.Title id="contained-modal-title-sm">Create New Listing</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <h4>Sup</h4>
-            <p>Some awesome form here</p>
-            
+            <h4>Create a Listing!</h4>
+            <p>Fill out the form below</p>
+            <Form/>
           </Modal.Body>
           <Modal.Footer>
             <Button bsStyle="danger" onClick={this.hideModal.bind(this)}>Cancel</Button>
