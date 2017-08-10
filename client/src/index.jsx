@@ -6,7 +6,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: 'Bob Marley',
+      currentUser: '',
     };
   }
 
@@ -14,7 +14,7 @@ class App extends React.Component {
     return (
 
       <div>
-        {this.state.currentUser}'this is App.jsx'
+        {this.state.currentUser}
         <Dashboard />
       </div>
     )

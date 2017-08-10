@@ -31,7 +31,7 @@ class Dashboard extends React.Component {
     return (
       <div>
         <Modal show={this.state.lgShow}  bsSize="large" aria-labelledby="contained-modal-title-sm">
-          <Modal.Header closeButton>
+          <Modal.Header >
             <Modal.Title id="contained-modal-title-sm">Create New Listing</Modal.Title>
           </Modal.Header>
           <Modal.Body>

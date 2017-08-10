@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 function Listing (props) {
   return (
-    <div>'this is the listing.jsx'</div>
+    <div></div>
   )
 }
 
