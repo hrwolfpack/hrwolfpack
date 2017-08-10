@@ -1,5 +1,3 @@
-module.exports.fakeDB = require('./fakeDB.js');
-
 var Sequelize = require('sequelize');
 //create 'wolfpack' database
 var db = new Sequelize('wolfpack', 'root', '', {
@@ -9,6 +7,7 @@ var db = new Sequelize('wolfpack', 'root', '', {
         timestamps: false
     }
 });
+
 
 //test connection
 db
@@ -20,13 +19,13 @@ db
     console.error('Unable to connect to the database:', err);
   });
 
-//define schema here
 
+//define schema
 var User = db.define('User', {
   id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
   username: Sequelize.STRING,
   password: Sequelize.STRING
-}, {ignoreDuplicates: true });
+});
 
 var Listing = db.define('Listing', {
   id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
@@ -39,12 +38,10 @@ var Listing = db.define('Listing', {
   created_dt: Sequelize.DATE
 });
 
+//create Users and listings table
 User.sync();
-	// .then(function() {
- //    // Now instantiate an object and save it:
- //    return User.create({username: 'Jean Valjean', password: '123j'});
- //  })
 Listing.sync();
+
 
 exports.User = User;
 exports.Listing = Listing;

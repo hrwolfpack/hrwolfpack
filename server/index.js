@@ -16,14 +16,18 @@ const session = require('express-session');
 // will be set at `req.user` in route handlers after authentication.
 passport.use(new LocalStrategy(
 	function(username, password, callback) {
-		db.fakeDB.findByUsername(username, function(err, user) {
-			if (err) {return callback(err);}
-			if (!user) {return callback(null, false);}
-			if (user.password !== password) {return callback(null, false);}
-			return callback(null, user);
-		});
+		db.User.findOne({where: {username: username}})
+			.then(user => {
+				if (!user) {return callback(null, false);}
+				if (user.password !== password) {return callback(null, false);}
+				return callback(null, user);
+			})
+			.catch(err => {
+				return callback(err);
+			});
 	}
 ));
+
 // Configure Passport authenticated session persistence.
 //
 // In order to restore authentication state across HTTP requests, Passport needs
@@ -36,10 +40,13 @@ passport.serializeUser(function(user, cb) {
 });
 
 passport.deserializeUser(function(id, cb) {
-  db.fakeDB.findById(id, function (err, user) {
-    if (err) { return cb(err); }
-    cb(null, user);
-  });
+  db.User.findOne({where: {id: id}})
+  	.then(user => {
+  		cb(null, user);
+  	})
+  	.catch(err => {
+  		return cb(err);
+  	})
 });
 
 
@@ -54,9 +61,18 @@ app.use(session({secret: 'keyboard cat', resave: false,	saveUninitialized: false
 app.use(passport.initialize());
 app.use(passport.session());
 
+var isLoggedIn = (req, res, next) => {
+	if (!req.user) {
+		res.redirect('/login');
+	} else {
+		next();
+	}
+};
+
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use('/login', express.static(path.join(__dirname, '../client/dist/login.html')));
 app.use('/signup', express.static(path.join(__dirname, '../client/dist/signup.html')));
+
 
 app.post('/login', 
 	passport.authenticate('local', {failureRedirect: '/login'}),
@@ -67,17 +83,37 @@ app.post('/login',
 
 app.post('/signup', (req, res) => {
 	db.User.create(req.body)
-		.then(() => {
-			res.send('users added!');
+		.then(user => {
+			req.login(user, function(err) {
+			  // if (err) { return next(err); }
+			  return res.redirect('/');
+			});
 		})
 		.catch((err) => {
 			console.log('Error: ', err);
 		});
-})
+});
 
-app.get('/users', (req, res) => {
-	res.send(db.fakeDB.getUsers());
-})
+app.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/');
+});
+
+
+//testing end point
+app.get('/users', 
+	passport.authenticate('local', {failureRedirect: '/login'}),
+	(req, res) => {
+	console.log('this is the user: ', req.user);
+	db.User.findAll()
+		.then(results => {
+			res.send(results);
+		})
+		.catch(err => {
+			console.log('Error: ', err);
+		});
+});
+
 
 let port = process.env.PORT || 3000;
 app.listen(port, () => console.log('Listening on port ', port));
