@@ -24,6 +24,7 @@
     "mongoose": "^4.11.5",
     "morgan": "^1.8.2",
     "mysql": "^2.14.1",
+    "mysql2": "^1.4.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "react": "^15.6.1",

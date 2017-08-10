@@ -66,17 +66,13 @@ app.post('/login',
 );
 
 app.post('/signup', (req, res) => {
-	var {username, password} = req.body;
-	db.fakeDB.addUser(req.body, (err, user) => {
-		if (!user) {
-			console.log('username already exists');
-			res.redirect('/signup');
-		}
-		req.login(user, (err) => {
-			// if (err) { return next(err); }
-  			res.redirect('/');
+	db.User.create(req.body)
+		.then(() => {
+			res.send('users added!');
+		})
+		.catch((err) => {
+			console.log('Error: ', err);
 		});
-	});
 })
 
 app.get('/users', (req, res) => {
