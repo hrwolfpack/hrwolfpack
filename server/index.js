@@ -109,7 +109,7 @@ app.post('/listings', (req,res) => {
 	console.log(req.user.dataValues.username);
 	db.Listing.create({name: req.body.name, price: parseInt(req.body.price), location: req.body.location, initializer: req.user.dataValues.usename, })
 	.then(listing => {
-
+		res.send('success');
 	});
 })
 

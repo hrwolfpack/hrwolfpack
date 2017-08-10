@@ -27,6 +27,7 @@ class Form extends React.Component {
     e.preventDefault();
     $.post("/listings", {
       name: that.state.name, price: that.state.price, location: that.state.location}, function(data){
+        console.log(data);
     });
   }
 
