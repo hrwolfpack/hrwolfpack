@@ -21,13 +21,13 @@ class Form extends React.Component {
     });
   }
 
+
   onSubmit(e){
-    console.log(this);
     var that = this;
     e.preventDefault();
     $.post("/listings", {
       name: that.state.name, price: that.state.price, location: that.state.location}, function(data){
-        console.log(data);
+        that.props.getListings();
     });
   }
 

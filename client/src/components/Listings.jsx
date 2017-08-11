@@ -5,14 +5,13 @@ import Listing from './Listing.jsx';
 class Listings extends React.Component  {
   constructor(props){
     super(props);
-    this.state = {
-
-    };
   }
   render (){
     return (
       <div>
-        <Listing/>
+        {this.props.currentListings.map((listingInfo, i) => {
+          return <Listing listingInfo={listingInfo} key={i}/> ;
+        })}
       </div>
     );
   }
@@ -21,3 +20,4 @@ class Listings extends React.Component  {
 
 
 export default Listings
+

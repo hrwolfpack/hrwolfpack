@@ -113,6 +113,17 @@ app.post('/listings', (req,res) => {
 	});
 })
 
+app.get('/listings', (req, res) => {
+	db.Listing.findAll()
+		.then(results => {
+			console.log('Data sent!', results);
+			res.send(results);
+		})
+		.catch(err => {
+			console.log('Error: ', err);
+		});
+})
+
 //testing end point
 app.get('/users',
 	(req, res) => {

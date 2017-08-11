@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Listings from './Listings.jsx'
 import Form from './ListingsForm.jsx'
+import $ from 'jquery';
 import { Button, Modal, FormGroup } from 'react-bootstrap';
 
 class Dashboard extends React.Component {
@@ -9,8 +10,13 @@ class Dashboard extends React.Component {
   constructor(props){
     super(props);
     this.state ={
-      lgShow: false
+      lgShow: false,
+      currentListings: []
     };
+  }
+
+  componentDidMount() {
+    this.getListings();
   }
 
   hideModal(e){
@@ -27,6 +33,17 @@ class Dashboard extends React.Component {
   }
 
 
+
+  getListings() {
+    $.get('/listings', (data) => {
+      this.setState({
+        currentListings: data,
+        lgShow: false
+      });
+      console.log(this.state.currentListings);
+    });
+  }
+
   render () {
     return (
       <div>
@@ -37,14 +54,14 @@ class Dashboard extends React.Component {
           <Modal.Body>
             <h4>Create a Listing!</h4>
             <p>Fill out the form below</p>
-            <Form/>
+            <Form getListings={this.getListings.bind(this)}/>
           </Modal.Body>
           <Modal.Footer>
             <Button bsStyle="danger" onClick={this.hideModal.bind(this)}>Cancel</Button>
 
           </Modal.Footer>
         </Modal>
-        <Listings/>
+        <Listings currentListings={this.state.currentListings}/>
         <Button bsStyle="primary" onClick={this.showModal.bind(this)}>Create Listing</Button>
       </div>
     )
