@@ -11,10 +11,12 @@ class Listing extends React.Component {
             userJoined: false,
             packed: false,
             listingParticipants: [],
-            arrived: false
+            arrived: false,
+            received: false
         };
         this.handleJoin = this.handleJoin.bind(this);
         this.handleArrive = this.handleArrive.bind(this);
+        this.handleReceive = this.handleReceive.bind(this);
     }
 
     componentDidMount() {
@@ -22,11 +24,14 @@ class Listing extends React.Component {
             {listingId: this.props.listingInfo.id}, 
             (data) => {
                 if (data.length > 0) {
+                    console.log(data);
                     this.setState({
-                        userJoined: true
+                        userJoined: true,
+                        received: data[0].received
                     });
                 }
                 this.checkPackSize();
+                this.checkReceive();
             });
         this.setState({
             arrived: this.props.listingInfo.arrived
@@ -48,7 +53,6 @@ class Listing extends React.Component {
         $.post('/packsize', 
             {listingId: this.props.listingInfo.id},
             (data) => {
-                console.log('count: ', data);
                 this.setState({
                     listingParticipants: data.rows
                 });
@@ -71,23 +75,45 @@ class Listing extends React.Component {
     }
 
     handleReceive() {
-        
+        $.post('/received', 
+            {listingId: this.props.listingInfo.id}, 
+            (data) => {
+                this.setState({
+                    received: true
+                });
+            });
+    }
+
+    checkReceive() {
+        $.post('/receiveCount', 
+            {listingId: this.props.listingInfo.id},
+            (data) => {
+                if (data.count === this.props.listingInfo.num_of_participants) {
+                    this.setState({
+                        completed: true
+                    });
+                }
+            })
     }
 
     render() {
       var footer;
       if (this.props.listingInfo.initializer === this.props.userId) {
-        if (!this.state.packed) {
-            footer = (<div>Your Wolfpack Is Asssembling...</div>);
+        if (!this.state.completed) {
+            if (!this.state.packed) {
+                footer = (<div>Your Wolfpack Is Asssembling...</div>);
+            } else {
+                footer = (
+                    <div>
+                        Wolfpack Assembled! Go get the goods!
+                        <Button onClick={this.handleArrive}>Good are here!</Button>
+                    </div>);
+            }
+            if (this.state.arrived) {
+              footer = (<div>The pack has been notified. They will come pick up soon...</div>);
+            }
         } else {
-            footer = (
-                <div>
-                    Wolfpack Assembled! Go get the goods!
-                    <Button onClick={this.handleArrive}>Good are here!</Button>
-                </div>);
-        }
-        if (this.state.arrived) {
-          footer = (<div>The pack has been notified. They will come pick up soon...</div>);
+            footer = (<div>Mission Complete!</div>);
         }
       } else {
         var involved = this.state.listingParticipants.some(listing => {
@@ -101,11 +127,15 @@ class Listing extends React.Component {
                     footer = (<div>Packed Assembled! Goods Will Arrive Soon!</div>);
                 }
             } else {
-                footer = (
-                    <div>
-                        Goods are here! Go pick it up from the Pack Leader!
-                        <Button onClick={this.handleReceive}>Received Goods!</Button>
-                    </div>);
+                if (this.state.received) {
+                    footer = (<div>Thanks for being part of the Pack! Could not have done it without you!</div>);
+                } else {
+                    footer = (
+                        <div>
+                            Goods are here! Go pick it up from the Pack Leader!
+                            <Button onClick={this.handleReceive}>Received Goods!</Button>
+                        </div>);                    
+                }
             }
         } else {
             if (!this.state.packed) {

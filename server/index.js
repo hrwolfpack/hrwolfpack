@@ -128,7 +128,9 @@ app.get('/user', (req, res) => {
 });
 
 app.post('/join', (req, res) => {
-	db.UserListings.create({listing_id: req.body.listingId, user_id: req.user.id})
+	db.UserListings.create(
+		{listing_id: req.body.listingId, 
+			user_id: req.user.id})
 		.then(results => {
 			res.send(results);
 		})
@@ -165,7 +167,6 @@ app.post('/packsize', (req, res) => {
 });
 
 app.post('/arrived', (req, res) => {
-	// db.listings.
 	db.Listing.update({
 		arrived: true
 	}, {
@@ -173,6 +174,36 @@ app.post('/arrived', (req, res) => {
 	})
 	.then(result => {
 		res.send('Listing status updated');
+	})
+	.catch(err => {
+		console.log('Error: ', err);
+	});
+});
+
+app.post('/received', (req, res) => {
+	db.UserListings.update({
+		received: true
+	}, {
+		where: {
+			listing_id: req.body.listingId,
+			user_id: req.user.id
+		}
+	})
+	.then(result => {
+		res.send('Received!');
+	})
+	.catch(err => {
+		console.log('Error: ', err);
+	});
+});
+
+app.post('/receiveCount', (req, res) => {
+	db.UserListings.findAndCountAll({
+		where: {listing_id: req.body.listingId,
+				received: true}
+	})
+	.then(result => {
+		res.send(result);
 	})
 	.catch(err => {
 		console.log('Error: ', err);
