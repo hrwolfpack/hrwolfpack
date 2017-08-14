@@ -1,7 +1,6 @@
 const express = require('express');
 const path = require('path');
 const passport = require('passport');
-// const db = require('../db');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
@@ -23,7 +22,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 var isLoggedIn = (req, res, next) => {
-	if (!req.user) {
+	// if (!req.user) {
+	if (!req.isAuthenticated()) {
 		res.redirect('/login');
 	} else {
 		next();
