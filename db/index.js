@@ -38,10 +38,19 @@ var Listing = db.define('Listing', {
   created_dt: Sequelize.DATE
 });
 
+var UserListings = db.define('UserListings', {
+  received: { type: Sequelize.BOOLEAN, defaultValue: false}
+});
+
+User.belongsToMany(Listing, { through: UserListings});
+Listing.belongsToMany(User, { through: UserListings});
+
 //create Users and listings table
 User.sync();
 Listing.sync();
+UserListings.sync();
 
 
 exports.User = User;
 exports.Listing = Listing;
+exports.UserListings = UserListings;

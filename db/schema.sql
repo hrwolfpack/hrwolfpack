@@ -4,7 +4,7 @@ CREATE DATABASE wolfpack;
 
 USE wolfpack;
 
-DROP TABLE IF EXISTS participantListings;
+DROP TABLE IF EXISTS userListings;
 DROP TABLE IF EXISTS listings;
 DROP TABLE IF EXISTS users;
 
@@ -32,7 +32,7 @@ CREATE TABLE listings (
 );
 
 
-CREATE TABLE participantListings (
+CREATE TABLE userListings (
   id INT NOT NULL AUTO_INCREMENT,
   user_id INT NOT NULL,
   listing_id INT NOT NULL,

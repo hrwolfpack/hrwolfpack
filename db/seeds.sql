@@ -4,7 +4,7 @@ CREATE DATABASE wolfpack;
 
 USE wolfpack;
 
-DROP TABLE IF EXISTS participantListings;
+DROP TABLE IF EXISTS userListings;
 DROP TABLE IF EXISTS listings;
 DROP TABLE IF EXISTS users;
 
@@ -32,7 +32,7 @@ CREATE TABLE listings (
 );
 
 
-CREATE TABLE participantListings (
+CREATE TABLE userListings (
   id INT NOT NULL AUTO_INCREMENT,
   user_id INT NOT NULL,
   listing_id INT NOT NULL,
@@ -57,11 +57,11 @@ VALUES ('30 pack of paper towels', 1, 7.50, 0, '944 Market St, San Francisco, CA
 INSERT INTO listings (name, initializer, price, complete, location, num_of_participants)
 VALUES ('100 pack of protein bars', 2, 20.00, 0, '1015 Folsom St, San Francisco, CA 94103', 4);
 
--- Case 1: Full-participation closed listing (complete transaction) created by Dylan and joined by 3 other participants
-INSERT INTO participantListings (user_id, listing_id, received) VALUES (2, 1, 1), (3, 1, 1), (4, 1, 1);
+-- -- Case 1: Full-participation closed listing (complete transaction) created by Dylan and joined by 3 other participants
+-- INSERT INTO userListings (user_id, listing_id, received) VALUES (2, 1, 1), (3, 1, 1), (4, 1, 1);
 
--- Case 2: Full-participation open listing (incomplete transaction) created by Dylan and joined by 2 other participants
-INSERT INTO participantListings (user_id, listing_id, received) VALUES (3, 2, 1), (4, 2, 0);
+-- -- Case 2: Full-participation open listing (incomplete transaction) created by Dylan and joined by 2 other participants
+-- INSERT INTO userListings (user_id, listing_id, received) VALUES (3, 2, 1), (4, 2, 0);
 
--- Case 3: Partial-participation open listing created by Clarence requiring 4 participants, but only Dylan has joined (initializer from case 1)
-INSERT INTO participantListings (user_id, listing_id, received) VALUES (1, 3, 0);
+-- -- Case 3: Partial-participation open listing created by Clarence requiring 4 participants, but only Dylan has joined (initializer from case 1)
+-- INSERT INTO userListings (user_id, listing_id, received) VALUES (1, 3, 0);
