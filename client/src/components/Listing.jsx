@@ -10,9 +10,11 @@ class Listing extends React.Component {
             completed: false,
             userJoined: false,
             packed: false,
-            listingParticipants: []
+            listingParticipants: [],
+            arrived: false
         };
         this.handleJoin = this.handleJoin.bind(this);
+        this.handleArrive = this.handleArrive.bind(this);
     }
 
     componentDidMount() {
@@ -26,6 +28,9 @@ class Listing extends React.Component {
                 }
                 this.checkPackSize();
             });
+        this.setState({
+            arrived: this.props.listingInfo.arrived
+        });
     }
 
     handleJoin() {
@@ -55,23 +60,52 @@ class Listing extends React.Component {
             });
     }
 
+    handleArrive() {
+        $.post('/arrived', 
+            {listingId: this.props.listingInfo.id}, 
+            (data) => {
+                this.setState({
+                    arrived: true
+                });
+            });
+    }
+
+    handleReceive() {
+        
+    }
+
     render() {
       var footer;
       if (this.props.listingInfo.initializer === this.props.userId) {
         if (!this.state.packed) {
             footer = (<div>Your Wolfpack Is Asssembling...</div>);
         } else {
-            footer = (<div>Wolfpack Assembled! Go get the goods!</div>);
+            footer = (
+                <div>
+                    Wolfpack Assembled! Go get the goods!
+                    <Button onClick={this.handleArrive}>Good are here!</Button>
+                </div>);
+        }
+        if (this.state.arrived) {
+          footer = (<div>The pack has been notified. They will come pick up soon...</div>);
         }
       } else {
         var involved = this.state.listingParticipants.some(listing => {
             return listing.user_id === this.props.userId ? true : false;
         });
         if (involved) {
-            if (!this.state.packed) {
-                footer = (<div>Waiting for the Rest of the Pack to Assemble</div>);
+            if (!this.state.arrived) {
+                if (!this.state.packed) {
+                    footer = (<div>Waiting for the Rest of the Pack to Assemble</div>);
+                } else {
+                    footer = (<div>Packed Assembled! Goods Will Arrive Soon!</div>);
+                }
             } else {
-                footer = (<div>Packed Assembled! Goods Will Arrive Soon!</div>);
+                footer = (
+                    <div>
+                        Goods are here! Go pick it up from the Pack Leader!
+                        <Button onClick={this.handleReceive}>Received Goods!</Button>
+                    </div>);
             }
         } else {
             if (!this.state.packed) {
@@ -80,16 +114,7 @@ class Listing extends React.Component {
                 footer = (<div>Sorry, this Pack is full.</div>);
             }
         }
-    }
-
-
-
-      //   if (!this.state.userJoined) {
-      //       footer = (<Button onClick={this.handleJoin}>Join the Pack</Button>);
-      //   } else {
-      //       footer = (<div>Waiting for the Goods...</div>);
-      //   }
-      // }
+      }
 
       return (
         <Panel header={this.props.listingInfo.name} footer={footer}>

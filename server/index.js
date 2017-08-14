@@ -164,5 +164,20 @@ app.post('/packsize', (req, res) => {
 	});
 });
 
+app.post('/arrived', (req, res) => {
+	// db.listings.
+	db.Listing.update({
+		arrived: true
+	}, {
+		where: {id: req.body.listingId}
+	})
+	.then(result => {
+		res.send('Listing status updated');
+	})
+	.catch(err => {
+		console.log('Error: ', err);
+	});
+});
+
 let port = process.env.PORT || 3000;
 app.listen(port, () => console.log('Listening on port ', port));
