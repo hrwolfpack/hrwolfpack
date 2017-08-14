@@ -1,20 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Dashboard from './components/Dashboard.jsx'
+import Dashboard from './components/Dashboard.jsx';
+import $ from 'jquery';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: '',
+      userId: '',
+      currentUser: 'Wolf'
     };
+  }
+
+  componentDidMount() {
+    $.get('/user', (data) => {
+      this.setState({
+        userId: data.id,
+        currentUser: data.username
+      });
+    });
   }
 
   render() {
     return (
       <div>
-        {this.state.currentUser}
-        <Dashboard />
+        <div>
+          Hello, {this.state.currentUser}
+        </div>
+        <Dashboard userId={this.state.userId}/>
       </div>
     )
   }

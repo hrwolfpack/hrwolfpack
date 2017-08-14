@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Listing from './Listing.jsx';
+import { ListGroup } from 'react-bootstrap';
 
 class Listings extends React.Component  {
   constructor(props){
@@ -10,7 +11,7 @@ class Listings extends React.Component  {
     return (
       <div>
         {this.props.currentListings.map((listingInfo, i) => {
-          return <Listing listingInfo={listingInfo} key={i}/> ;
+          return <Listing listingInfo={listingInfo} key={i} userId={this.props.userId}/> ;
         })}
       </div>
     );

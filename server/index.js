@@ -106,8 +106,7 @@ app.get('/logout', (req, res) => {
 });
 
 app.post('/listings', (req,res) => {
-	console.log(req.user.dataValues.username);
-	db.Listing.create({name: req.body.name, price: parseInt(req.body.price), location: req.body.location, initializer: req.user.dataValues.usename, })
+	db.Listing.create({name: req.body.name, price: parseInt(req.body.price), location: req.body.location, initializer: req.user.id })
 	.then(listing => {
 		res.send('success');
 	});
@@ -116,7 +115,6 @@ app.post('/listings', (req,res) => {
 app.get('/listings', (req, res) => {
 	db.Listing.findAll()
 		.then(results => {
-			console.log('Data sent!', results);
 			res.send(results);
 		})
 		.catch(err => {
@@ -124,21 +122,9 @@ app.get('/listings', (req, res) => {
 		});
 })
 
-//testing end point
-app.get('/users',
-	(req, res) => {
-	if (req.user) {
-		console.log('this is the user: ', req.user);
-		db.User.findAll()
-			.then(results => {
-				res.send(results);
-			})
-			.catch(err => {
-				console.log('Error: ', err);
-			});
-	} else {
-		res.redirect('/login');
-	}
+app.get('/user', (req, res) => {
+	var {id, username} = req.user;
+	res.send({id, username});
 });
 
 
