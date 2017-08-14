@@ -7,7 +7,8 @@ class Listing extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            completed: false
+            completed: false,
+            userJoined: false
         };
         this.handleJoin = this.handleJoin.bind(this);
     }
@@ -16,7 +17,9 @@ class Listing extends React.Component {
         $.post('/join', 
             {listingId: this.props.listingInfo.id}, 
             (data) => {
-                console.log(data);
+                this.setState({
+                    userJoined: true
+                });
             });
     }
 
@@ -25,7 +28,11 @@ class Listing extends React.Component {
       if (this.props.listingInfo.initializer === this.props.userId) {
         footer = (<div>Your Wolfpack Is Asssembling...</div>);
       } else {
-        footer = (<Button onClick={this.handleJoin}>Join the Pack</Button>);
+        if (this.state.userJoined) {
+            footer = (<div>Waiting for the Goods...</div>);
+        } else {
+            footer = (<Button onClick={this.handleJoin}>Join the Pack</Button>);
+        }
       }
 
       return (
