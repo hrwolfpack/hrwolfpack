@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import { ListGroupItem } from 'react-bootstrap';
 import { Panel, Button } from 'react-bootstrap';
+import $ from 'jquery';
 
 class Listing extends React.Component {
     constructor(props) {
@@ -9,10 +9,15 @@ class Listing extends React.Component {
         this.state = {
             completed: false
         };
+        this.handleJoin = this.handleJoin.bind(this);
     }
 
     handleJoin() {
-
+        $.post('/join', 
+            {listingId: this.props.listingInfo.id}, 
+            (data) => {
+                console.log(data);
+            });
     }
 
     render() {
@@ -20,7 +25,7 @@ class Listing extends React.Component {
       if (this.props.listingInfo.initializer === this.props.userId) {
         footer = (<div>Your Wolfpack Is Asssembling...</div>);
       } else {
-        footer = (<Button>Join the Pack</Button>);
+        footer = (<Button onClick={this.handleJoin}>Join the Pack</Button>);
       }
 
       return (

@@ -127,6 +127,15 @@ app.get('/user', (req, res) => {
 	res.send({id, username});
 });
 
+app.post('/join', (req, res) => {
+	db.UserListings.create({listing_id: req.body.listingId, user_id: req.user.id})
+		.then(results => {
+			res.send(results);
+		})
+		.catch(err => {
+			console.log('Error', err);
+		});
+});
 
 let port = process.env.PORT || 3000;
 app.listen(port, () => console.log('Listening on port ', port));

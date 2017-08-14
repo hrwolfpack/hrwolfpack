@@ -25,7 +25,7 @@ var User = db.define('User', {
   id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
   username: Sequelize.STRING,
   password: Sequelize.STRING
-});
+}, {underscored: true});
 
 var Listing = db.define('Listing', {
   id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
@@ -36,7 +36,7 @@ var Listing = db.define('Listing', {
   location: Sequelize.STRING,
   num_of_participants:{ type: Sequelize.INTEGER, defaultValue: 4},
   created_dt: Sequelize.DATE
-});
+}, {underscored: true});
 
 var UserListings = db.define('UserListings', {
   received: { type: Sequelize.BOOLEAN, defaultValue: false}
