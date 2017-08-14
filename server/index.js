@@ -137,5 +137,32 @@ app.post('/join', (req, res) => {
 		});
 });
 
+app.post('/userListings', (req, res) => {
+	db.UserListings.findAll({
+		where: {
+			listing_id: req.body.listingId,
+			user_id: req.user.id
+		}
+	})
+	.then(results => {
+		res.send(results);
+	})
+	.catch(err => {
+		console.log('Error: ', err);
+	})
+});
+
+app.post('/packsize', (req, res) => {
+	db.UserListings.findAndCountAll({
+		where: {listing_id: req.body.listingId}
+	})
+	.then(results => {
+		res.send(results);
+	})
+	.catch(err => {
+		console.log('Error: ', err);
+	});
+});
+
 let port = process.env.PORT || 3000;
 app.listen(port, () => console.log('Listening on port ', port));
