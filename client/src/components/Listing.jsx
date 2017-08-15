@@ -33,7 +33,8 @@ class Listing extends React.Component {
                 this.checkReceive(); //check if everyone received goods
             });
         this.setState({
-            arrived: this.props.listingInfo.arrived
+            arrived: this.props.listingInfo.arrived,
+            completed: this.props.listingInfo.complete
         });
     }
 
@@ -139,10 +140,14 @@ class Listing extends React.Component {
                 }
             }
         } else { //if current user has not joined this listing yet
-            if (!this.state.packed) { //if this pack is not yet filled
-                footer = (<Button onClick={this.handleJoin}>Join the Pack</Button>);
-            } else { //if this pack is already filled
-                footer = (<div>Sorry, this Pack is full.</div>);
+            if (!this.state.completed) { //if listing is already complete
+                if (!this.state.packed) { //if this pack is not yet filled
+                    footer = (<Button onClick={this.handleJoin}>Join the Pack</Button>);
+                } else { //if this pack is already filled
+                    footer = (<div>Sorry, this Pack is full.</div>);
+                }
+            } else {
+                footer = (<div>Listing Closed</div>);
             }
         }
       }
