@@ -7,49 +7,38 @@ class Listing extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            completed: false,
-            userJoined: false,
-            packed: false,
-            listingParticipants: [],
-            arrived: false,
-            received: false
+            completed: false, //listing property
+            arrived: false, //listing property
+            packed: false, //listing user relation
+            userJoined: false, //listing user relation
+            received: false, //listing user relation
+            listingParticipants: [] //listing user relation
         };
         this.handleJoin = this.handleJoin.bind(this);
         this.handleArrive = this.handleArrive.bind(this);
         this.handleReceive = this.handleReceive.bind(this);
     }
 
-    componentDidMount() {
+    componentDidMount() { //when component refreshes, do the following: 
         $.post('/userListings', 
             {listingId: this.props.listingInfo.id}, 
             (data) => {
-                if (data.length > 0) {
-                    console.log(data);
+                if (data.length > 0) { //if there's a match in the UserListing table with listing_id and user_id
                     this.setState({
-                        userJoined: true,
-                        received: data[0].received
+                        userJoined: true, //indicate this current user has joined the listing
+                        received: data[0].received //show if the goods been received by this user according to the UserListing table
                     });
                 }
-                this.checkPackSize();
-                this.checkReceive();
+                this.checkPackSize(); // check if pack size is full
+                this.checkReceive(); //check if everyone received goods
             });
         this.setState({
             arrived: this.props.listingInfo.arrived
         });
     }
 
-    handleJoin() {
-        $.post('/join', 
-            {listingId: this.props.listingInfo.id}, 
-            (data) => {
-                this.setState({
-                    userJoined: true
-                });
-                this.checkPackSize();
-            });
-    }
 
-    checkPackSize() {
+    checkPackSize() { //check how many wolves has joined this pack
         $.post('/packsize', 
             {listingId: this.props.listingInfo.id},
             (data) => {
@@ -64,27 +53,7 @@ class Listing extends React.Component {
             });
     }
 
-    handleArrive() {
-        $.post('/arrived', 
-            {listingId: this.props.listingInfo.id}, 
-            (data) => {
-                this.setState({
-                    arrived: true
-                });
-            });
-    }
-
-    handleReceive() {
-        $.post('/received', 
-            {listingId: this.props.listingInfo.id}, 
-            (data) => {
-                this.setState({
-                    received: true
-                });
-            });
-    }
-
-    checkReceive() {
+    checkReceive() { //check if all parties have received the goods 
         $.post('/receiveCount', 
             {listingId: this.props.listingInfo.id},
             (data) => {
@@ -95,41 +64,73 @@ class Listing extends React.Component {
                 }
             })
     }
+    
+    handleJoin() { //when user joins listing, update db UserListing record
+        $.post('/join', 
+            {listingId: this.props.listingInfo.id}, 
+            (data) => {
+                this.setState({
+                    userJoined: true
+                });
+                this.checkPackSize(); //see if pack is filled after this user joins
+            });
+    }
+
+    handleArrive() { //when initializer confirms arrival, update db listing record
+        $.post('/arrived', 
+            {listingId: this.props.listingInfo.id}, 
+            (data) => {
+                this.setState({
+                    arrived: true
+                });
+            });
+    }
+
+    handleReceive() { //when participant confirms receipt, update db UserListing record
+        $.post('/received', 
+            {listingId: this.props.listingInfo.id}, 
+            (data) => {
+                this.setState({
+                    received: true
+                });
+            });
+    }
 
     render() {
       var footer;
-      if (this.props.listingInfo.initializer === this.props.userId) {
-        if (!this.state.completed) {
-            if (!this.state.packed) {
-                footer = (<div>Your Wolfpack Is Asssembling...</div>);
-            } else {
-                footer = (
-                    <div>
-                        Wolfpack Assembled! Go get the goods!
-                        <Button onClick={this.handleArrive}>Good are here!</Button>
-                    </div>);
+      if (this.props.listingInfo.initializer === this.props.userId) { //if current user is the initializer for this listing
+        if (!this.state.completed) { //if not all parties have received the goods
+            if (!this.state.arrived) { //if initializer has not yet notified the arrival of goods
+                if (!this.state.packed) { //if wolfpack is not yet filled
+                    footer = (<div>Your Wolfpack Is Asssembling...</div>);
+                } else { //if wolfpack is filled
+                    footer = (
+                        <div>
+                            Wolfpack Assembled! Go get the goods!
+                            <Button onClick={this.handleArrive}>Good are here!</Button>
+                        </div>);
+                }
+            } else { //if initializer has notified the arrival of goods
+                footer = (<div>The pack has been notified. They will come pick up soon...</div>);
             }
-            if (this.state.arrived) {
-              footer = (<div>The pack has been notified. They will come pick up soon...</div>);
-            }
-        } else {
+        } else { //if all parties have received the goods
             footer = (<div>Mission Complete!</div>);
         }
-      } else {
+      } else { //if current user is not the initializer for this listing
         var involved = this.state.listingParticipants.some(listing => {
             return listing.user_id === this.props.userId ? true : false;
         });
-        if (involved) {
-            if (!this.state.arrived) {
-                if (!this.state.packed) {
+        if (involved) { //if current user has joined the listing already
+            if (!this.state.arrived) { //if initializer has not yet notified the arrivial of goods
+                if (!this.state.packed) { //if the pack is not filled
                     footer = (<div>Waiting for the Rest of the Pack to Assemble</div>);
-                } else {
+                } else { //if the pack is filled
                     footer = (<div>Packed Assembled! Goods Will Arrive Soon!</div>);
                 }
-            } else {
-                if (this.state.received) {
+            } else { //if initializer has notified the arrivial of goods
+                if (this.state.received) { //if current user has confirmed the receipt of goods
                     footer = (<div>Thanks for being part of the Pack! Could not have done it without you!</div>);
-                } else {
+                } else { //if current user has not confirmed the receipt of goods 
                     footer = (
                         <div>
                             Goods are here! Go pick it up from the Pack Leader!
@@ -137,10 +138,10 @@ class Listing extends React.Component {
                         </div>);                    
                 }
             }
-        } else {
-            if (!this.state.packed) {
+        } else { //if current user has not joined this listing yet
+            if (!this.state.packed) { //if this pack is not yet filled
                 footer = (<Button onClick={this.handleJoin}>Join the Pack</Button>);
-            } else {
+            } else { //if this pack is already filled
                 footer = (<div>Sorry, this Pack is full.</div>);
             }
         }
