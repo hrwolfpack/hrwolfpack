@@ -45,10 +45,42 @@ var UserListings = db.define('UserListings', {
 
 User.belongsToMany(Listing, { through: UserListings});
 Listing.belongsToMany(User, { through: UserListings});
-
 //create Users and listings table
+
 User.sync();
+// .then(() => User.create({username: 'dylan', password: '123d'}))
+// .then(() => User.create({username: 'clarence', password: '123c'}))
+// .then(() => User.create({username: 'kevin', password: '123k'}))
+// .then(() => User.create({username: 'jason', password: '123j'}))
+// .then(() => User.create({username: 'fred', password: '1234'}))
+
 Listing.sync();
+// .then(() => Listing.create({
+//   name: '20 pack of shampoo', 
+//   initializer: 1,
+//   price: 5.00,
+//   complete: true,
+//   location: '944 Market St, San Francisco, CA 94121',
+//   num_of_participants: 3
+// }))
+// .then(() => Listing.create({
+//   name: '30 pack of paper towels', 
+//   initializer: 1,
+//   price: 7.50,
+//   complete: false,
+//   location: '944 Market St, San Francisco, CA 94121',
+//   num_of_participants: 2,
+//   created_dt:'2017-08-11 20:11:30'
+// }))
+// .then(() => Listing.create({
+//   name: '100 pack of protein bars', 
+//   initializer: 2,
+//   price: 20.00,
+//   complete: false,
+//   location: '1015 Folsom St, San Francisco, CA 94103',
+//   num_of_participants: 4
+// }));
+
 UserListings.sync();
 
 
