@@ -32,21 +32,19 @@ class Dashboard extends React.Component {
     });
   }
 
-
-
   getListings() {
     $.get('/listings', (data) => {
       this.setState({
         currentListings: data,
         lgShow: false
       });
-      console.log(this.state.currentListings);
     });
   }
 
   render () {
     return (
       <div>
+        <Button bsStyle="primary" onClick={this.showModal.bind(this)}>Create Listing</Button>
         <Modal show={this.state.lgShow}  bsSize="large" aria-labelledby="contained-modal-title-sm">
           <Modal.Header >
             <Modal.Title id="contained-modal-title-sm">Create New Listing</Modal.Title>
@@ -58,11 +56,9 @@ class Dashboard extends React.Component {
           </Modal.Body>
           <Modal.Footer>
             <Button bsStyle="danger" onClick={this.hideModal.bind(this)}>Cancel</Button>
-
           </Modal.Footer>
         </Modal>
-        <Listings currentListings={this.state.currentListings}/>
-        <Button bsStyle="primary" onClick={this.showModal.bind(this)}>Create Listing</Button>
+        <Listings currentListings={this.state.currentListings} userId={this.props.userId}/>
       </div>
     )
   }

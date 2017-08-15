@@ -4,7 +4,7 @@ CREATE DATABASE wolfpack;
 
 USE wolfpack;
 
-DROP TABLE IF EXISTS participantListings;
+DROP TABLE IF EXISTS userListings;
 DROP TABLE IF EXISTS listings;
 DROP TABLE IF EXISTS users;
 
@@ -23,6 +23,7 @@ CREATE TABLE listings (
   initializer INT NOT NULL,
   price DECIMAL(5,2) NOT NULL,
   complete INT NOT NULL DEFAULT 0,
+  arrived INT NOT NULL DEFAULT 0,
   location VARCHAR(100) NOT NULL ,
   num_of_participants INT NOT NULL,
   created_dt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -32,7 +33,7 @@ CREATE TABLE listings (
 );
 
 
-CREATE TABLE participantListings (
+CREATE TABLE userListings (
   id INT NOT NULL AUTO_INCREMENT,
   user_id INT NOT NULL,
   listing_id INT NOT NULL,

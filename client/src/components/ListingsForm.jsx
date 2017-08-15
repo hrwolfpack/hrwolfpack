@@ -21,20 +21,20 @@ class Form extends React.Component {
     });
   }
 
-
   onSubmit(e){
-    var that = this;
     e.preventDefault();
     $.post("/listings", {
-      name: that.state.name, price: that.state.price, location: that.state.location}, function(data){
-        that.props.getListings();
+      name: this.state.name, 
+      price: this.state.price, 
+      location: this.state.location
+    }, (data) => {
+        this.props.getListings();
     });
   }
 
   render () {
     return (
       <form>
-
         <FormGroup>
           <InputGroup>
             <FormControl
@@ -47,7 +47,6 @@ class Form extends React.Component {
             <InputGroup.Addon></InputGroup.Addon>
           </InputGroup>
         </FormGroup>
-
         <FormGroup>
           <InputGroup>
             <InputGroup.Addon>$</InputGroup.Addon>
@@ -58,11 +57,9 @@ class Form extends React.Component {
               value={this.state.price}
               onChange={this.onChange}
               />
-
             <InputGroup.Addon></InputGroup.Addon>
           </InputGroup>
         </FormGroup>
-
         <FormGroup>
           <InputGroup>
             <FormControl
@@ -89,7 +86,6 @@ class Form extends React.Component {
           <MenuItem key="7">8</MenuItem>
         </DropdownButton>
         <Button bsStyle="success" onClick={this.onSubmit}>Create</Button>
-
       </form>
     );
   }
