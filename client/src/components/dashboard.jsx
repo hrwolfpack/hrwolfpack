@@ -13,10 +13,18 @@ class Dashboard extends React.Component {
       lgShow: false,
       currentListings: []
     };
+    this.hideModal = this.hideModal.bind(this);
+    this.showModal = this.showModal.bind(this);
   }
 
   componentDidMount() {
     this.getListings();
+    this.props.socket.on('newListing', (data) => {
+      // console.log('Listing created here are all the listings', data);
+      this.setState({
+        currentListings: data
+      });
+    });
   }
 
   hideModal(e){
@@ -44,7 +52,7 @@ class Dashboard extends React.Component {
   render () {
     return (
       <div>
-        <Button bsStyle="primary" onClick={this.showModal.bind(this)}>Create Listing</Button>
+        <Button bsStyle="primary" onClick={this.showModal}>Create Listing</Button>
         <Modal show={this.state.lgShow}  bsSize="large" aria-labelledby="contained-modal-title-sm">
           <Modal.Header >
             <Modal.Title id="contained-modal-title-sm">Create New Listing</Modal.Title>
@@ -52,10 +60,13 @@ class Dashboard extends React.Component {
           <Modal.Body>
             <h4>Create a Listing!</h4>
             <p>Fill out the form below</p>
-            <Form getListings={this.getListings.bind(this)} socket={this.props.socket} userId={this.props.userId}/>
+            <Form 
+            getListings={this.getListings.bind(this)} 
+            socket={this.props.socket} userId={this.props.userId}
+            hideModal={this.hideModal}/>
           </Modal.Body>
           <Modal.Footer>
-            <Button bsStyle="danger" onClick={this.hideModal.bind(this)}>Cancel</Button>
+            <Button bsStyle="danger" onClick={this.hideModal}>Cancel</Button>
           </Modal.Footer>
         </Modal>
         <Listings currentListings={this.state.currentListings} userId={this.props.userId} socket={this.props.socket}/>

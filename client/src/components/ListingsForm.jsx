@@ -37,6 +37,7 @@ class Form extends React.Component {
       location: this.state.location,
       initializer: this.props.userId
     });
+    this.props.hideModal();
   }
 
   render () {

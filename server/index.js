@@ -75,7 +75,14 @@ io.on('connection', (socket) => {
 	socket.on('newListing', (data) => {
 		db.Listing.create({name: data.name, price: parseInt(data.price), location: data.location, initializer: data.initializer })
 			.then(listing => {
-				io.sockets.emit('newListing', data);
+				db.Listing.findAll()
+						.then(results => {
+							io.sockets.emit('newListing', results);
+						})
+						.catch(err => {
+							console.log('Error: ', err);
+						});
+				// io.sockets.emit('newListing', data);
 			});
 	});
 });

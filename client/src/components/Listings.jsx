@@ -9,12 +9,6 @@ class Listings extends React.Component {
 		
 	}
 
-	componentDidMount() {
-		this.props.socket.on('newListing', (data) => {
-			console.log('new Listing created by someone', data);
-		});
-	}
-
 	render() {
 		return (
 		  <div>
