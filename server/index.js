@@ -8,6 +8,7 @@ const session = require('express-session');
 const passportConfig = require('./passport.js');
 const router = require('./routes.js');
 const socket = require('socket.io');
+const db = require('../db');
 
 let app = express();
 //Use middleware
@@ -70,4 +71,11 @@ var io = socket(server);
 
 io.on('connection', (socket) => {
 	console.log('Make socket connection', socket.id);
+
+	socket.on('newListing', (data) => {
+		db.Listing.create({name: data.name, price: parseInt(data.price), location: data.location, initializer: data.initializer })
+			.then(listing => {
+				io.sockets.emit('newListing', data);
+			});
+	});
 });

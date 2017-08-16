@@ -29,9 +29,9 @@ class App extends React.Component {
         <div>
           Hello, {this.state.currentUser}
         </div>
-        <Dashboard userId={this.state.userId}/>
+        <Dashboard userId={this.state.userId} socket={socket}/>
       </div>
-    )
+    );
   }
 }
 

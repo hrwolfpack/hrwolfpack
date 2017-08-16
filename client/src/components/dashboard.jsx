@@ -52,13 +52,13 @@ class Dashboard extends React.Component {
           <Modal.Body>
             <h4>Create a Listing!</h4>
             <p>Fill out the form below</p>
-            <Form getListings={this.getListings.bind(this)}/>
+            <Form getListings={this.getListings.bind(this)} socket={this.props.socket} userId={this.props.userId}/>
           </Modal.Body>
           <Modal.Footer>
             <Button bsStyle="danger" onClick={this.hideModal.bind(this)}>Cancel</Button>
           </Modal.Footer>
         </Modal>
-        <Listings currentListings={this.state.currentListings} userId={this.props.userId}/>
+        <Listings currentListings={this.state.currentListings} userId={this.props.userId} socket={this.props.socket}/>
       </div>
     )
   }
