@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Dashboard from './components/Dashboard.jsx';
 import $ from 'jquery';
+import io from 'socket.io-client';
+let socket = io('http://localhost:3000');
 
 class App extends React.Component {
   constructor(props) {
@@ -27,9 +29,9 @@ class App extends React.Component {
         <div>
           Hello, {this.state.currentUser}
         </div>
-        <Dashboard userId={this.state.userId}/>
+        <Dashboard userId={this.state.userId} socket={socket}/>
       </div>
-    )
+    );
   }
 }
 

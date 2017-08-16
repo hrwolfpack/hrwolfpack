@@ -7,10 +7,12 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const passportConfig = require('./passport.js');
 const router = require('./routes.js');
+const socket = require('socket.io');
+const db = require('../db');
 
 let app = express();
 //Use middleware
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -60,4 +62,27 @@ app.get('/logout', (req, res) => {
 app.use(router);
 
 let port = process.env.PORT || 3000;
-app.listen(port, () => console.log('Listening on port ', port));
+var server = app.listen(port, () => console.log('Listening on port ', port));
+
+
+
+//socket setup
+var io = socket(server);
+
+io.on('connection', (socket) => {
+	console.log('Make socket connection', socket.id);
+
+	socket.on('newListing', (data) => {
+		db.Listing.create({name: data.name, price: parseInt(data.price), location: data.location, initializer: data.initializer })
+			.then(listing => {
+				db.Listing.findAll()
+						.then(results => {
+							io.sockets.emit('newListing', results);
+						})
+						.catch(err => {
+							console.log('Error: ', err);
+						});
+				// io.sockets.emit('newListing', data);
+			});
+	});
+});

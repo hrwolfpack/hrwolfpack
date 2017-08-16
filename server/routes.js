@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 
-router.post('/listings', (req,res) => {
-	db.Listing.create({name: req.body.name, price: parseInt(req.body.price), location: req.body.location, initializer: req.user.id })
-	.then(listing => {
-		res.send('success');
-	});
-})
+// router.post('/listings', (req,res) => {
+// 	db.Listing.create({name: req.body.name, price: parseInt(req.body.price), location: req.body.location, initializer: req.user.id })
+// 	.then(listing => {
+// 		res.send('success');
+// 	});
+// })
 
 router.get('/listings', (req, res) => {
 	db.Listing.findAll()

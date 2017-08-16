@@ -3,6 +3,7 @@ var Sequelize = require('sequelize');
 var db = new Sequelize('wolfpack', 'root', '', {
 	host: 'localhost',
 	dialect: 'mysql',
+  logging: false,
 	define: {
         timestamps: false
     }
