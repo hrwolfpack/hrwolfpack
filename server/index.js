@@ -105,4 +105,33 @@ io.on('connection', (socket) => {
 			});
 	});
 
+	socket.on('arrived', (data) => {
+		db.Listing.update(
+			{arrived: true},
+			{where: {id: data.listingId}})
+			.then(result => {
+				return db.Listing.findOne({
+					where: {id: data.listingId}});
+			})
+			.then(result => {
+				io.sockets.emit('arrived', result);
+			})
+			.catch(err => {
+				console.log('Error: ', err);
+			});
+	});
+
+	socket.on('received', (data) => {
+		db.UserListings.update(
+			{received: true}, 
+			{where: {
+				listing_id: req.body.listingId,
+				user_id: req.user.id}})
+			.then(result => {
+				res.send('Received!');
+			})
+			.catch(err => {
+				console.log('Error: ', err);
+			});
+	})
 });

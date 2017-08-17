@@ -49,6 +49,14 @@ class Listing extends React.Component {
                 this.hasUserJoined();
             }
         });
+
+        this.props.socket.on('arrived', (data) => {
+            if (this.props.listingInfo.id === data.id) {
+                this.setState({
+                    arrived: data.arrived
+                });
+            }
+        });
     }
 
     checkPackSize() { //check how many wolves has joined this pack
@@ -102,23 +110,30 @@ class Listing extends React.Component {
     }
 
     handleArrive() { //when initializer confirms arrival, update db listing record
-        $.post('/arrived', 
-            {listingId: this.props.listingInfo.id}, 
-            (data) => {
-                this.setState({
-                    arrived: true
-                });
-            });
+        // $.post('/arrived', 
+        //     {listingId: this.props.listingInfo.id}, 
+        //     (data) => {
+        //         this.setState({
+        //             arrived: true
+        //         });
+        //     });
+        this.props.socket.emit('arrived', {
+            listingId: this.props.listingInfo.id
+        });
     }
 
     handleReceive() { //when participant confirms receipt, update db UserListing record
-        $.post('/received', 
-            {listingId: this.props.listingInfo.id}, 
-            (data) => {
-                this.setState({
-                    received: true
-                });
-            });
+        // $.post('/received', 
+        //     {listingId: this.props.listingInfo.id}, 
+        //     (data) => {
+        //         this.setState({
+        //             received: true
+        //         });
+        //     });
+        this.props.socket.emit('received', {
+            listingId: this.props.listingInfo.id,
+            userId: this.props.userId
+        });
     }
 
     render() {

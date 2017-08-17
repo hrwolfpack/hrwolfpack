@@ -63,19 +63,19 @@ router.post('/packsize', (req, res) => {
 	});
 });
 
-router.post('/arrived', (req, res) => {
-	db.Listing.update({
-		arrived: true
-	}, {
-		where: {id: req.body.listingId}
-	})
-	.then(result => {
-		res.send('Listing status updated');
-	})
-	.catch(err => {
-		console.log('Error: ', err);
-	});
-});
+// router.post('/arrived', (req, res) => {
+// 	db.Listing.update({
+// 		arrived: true
+// 	}, {
+// 		where: {id: req.body.listingId}
+// 	})
+// 	.then(result => {
+// 		res.send('Listing status updated');
+// 	})
+// 	.catch(err => {
+// 		console.log('Error: ', err);
+// 	});
+// });
 
 router.post('/received', (req, res) => {
 	db.UserListings.update({
