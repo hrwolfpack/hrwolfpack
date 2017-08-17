@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Panel, Button } from 'react-bootstrap';
 import $ from 'jquery';
+import Promise from 'bluebird';
 
 class Listing extends React.Component {
     constructor(props) {
@@ -20,38 +21,56 @@ class Listing extends React.Component {
     }
 
     componentDidMount() { //when component refreshes, do the following: 
-        $.post('/userListings', 
-            {listingId: this.props.listingInfo.id}, 
-            (data) => {
-                if (data.length > 0) { //if there's a match in the UserListing table with listing_id and user_id
-                    this.setState({
-                        userJoined: true, //indicate this current user has joined the listing
-                        received: data[0].received //show if the goods been received by this user according to the UserListing table
-                    });
-                }
-                this.checkPackSize(); // check if pack size is full
-                this.checkReceive(); //check if everyone received goods
-            });
+        // $.post('/userListings', 
+        //     {listingId: this.props.listingInfo.id}, 
+        //     (data) => {
+        //         if (data.length > 0) { //if there's a match in the UserListing table with listing_id and user_id
+        //             this.setState({
+        //                 userJoined: true, //indicate this current user has joined the listing
+        //                 received: data[0].received //show if the goods been received by this user according to the UserListing table
+        //             });
+        //         }
+        //         // this.checkPackSize(); // check if pack size is full
+        //         this.checkReceive(); //check if everyone received goods
+        //     });
         this.setState({
             arrived: this.props.listingInfo.arrived,
             completed: this.props.listingInfo.complete
         });
-    }
 
+        this.checkPackSize();
+        //socket stuff
+        this.props.socket.on('join', (data) => {
+            if (this.props.listingInfo.id === data.rows[0].listing_id) {
+                this.setState({listingParticipants: data.rows});
+                if (data.count === this.props.listingInfo.num_of_participants) {
+                    this.setState({packed: true});
+                }
+                this.hasUserJoined();
+            }
+        });
+    }
 
     checkPackSize() { //check how many wolves has joined this pack
         $.post('/packsize', 
             {listingId: this.props.listingInfo.id},
             (data) => {
-                this.setState({
-                    listingParticipants: data.rows
-                });
+                this.setState({listingParticipants: data.rows});
+                this.hasUserJoined();
                 if (data.count === this.props.listingInfo.num_of_participants) {
-                    this.setState({
-                        packed: true
-                    });
+                    this.setState({packed: true});
                 }
             });
+    }
+
+    hasUserJoined() {
+        var involved = this.state.listingParticipants.some(listing => {
+            return listing.user_id === this.props.userId ? true : false;
+        });
+
+        if (involved) {
+            this.setState({userJoined: true});
+        }
     }
 
     checkReceive() { //check if all parties have received the goods 
@@ -67,14 +86,19 @@ class Listing extends React.Component {
     }
     
     handleJoin() { //when user joins listing, update db UserListing record
-        $.post('/join', 
-            {listingId: this.props.listingInfo.id}, 
-            (data) => {
-                this.setState({
-                    userJoined: true
-                });
-                this.checkPackSize(); //see if pack is filled after this user joins
-            });
+        // $.post('/join', 
+        //     {listingId: this.props.listingInfo.id}, 
+        //     (data) => {
+        //         this.setState({
+        //             userJoined: true
+        //         });
+        //         this.checkPackSize(); //see if pack is filled after this user joins
+        //     });
+        this.props.socket.emit('join', {
+            listingId: this.props.listingInfo.id,
+            userId: this.props.userId
+        });
+
     }
 
     handleArrive() { //when initializer confirms arrival, update db listing record
@@ -121,7 +145,7 @@ class Listing extends React.Component {
         var involved = this.state.listingParticipants.some(listing => {
             return listing.user_id === this.props.userId ? true : false;
         });
-        if (involved) { //if current user has joined the listing already
+        if (this.state.userJoined) { //if current user has joined the listing already
             if (!this.state.arrived) { //if initializer has not yet notified the arrivial of goods
                 if (!this.state.packed) { //if the pack is not filled
                     footer = (<div>Waiting for the Rest of the Pack to Assemble</div>);
@@ -162,6 +186,7 @@ class Listing extends React.Component {
         		<li>complete: {this.props.listingInfo.complete}</li>
         		<li>location: {this.props.listingInfo.location}</li>
         		<li>participants: {this.props.listingInfo.num_of_participants}</li>
+                <li>num of wolves joined: {this.state.listingParticipants.length}</li>
         	</ul>
         </Panel>
       );

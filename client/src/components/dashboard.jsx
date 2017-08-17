@@ -69,7 +69,10 @@ class Dashboard extends React.Component {
             <Button bsStyle="danger" onClick={this.hideModal}>Cancel</Button>
           </Modal.Footer>
         </Modal>
-        <Listings currentListings={this.state.currentListings} userId={this.props.userId} socket={this.props.socket}/>
+        <Listings 
+        currentListings={this.state.currentListings} 
+        userId={this.props.userId} 
+        socket={this.props.socket}/>
       </div>
     )
   }

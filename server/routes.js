@@ -24,17 +24,17 @@ router.get('/user', (req, res) => {
 	res.send({id, username});
 });
 
-router.post('/join', (req, res) => {
-	db.UserListings.create(
-		{listing_id: req.body.listingId, 
-			user_id: req.user.id})
-		.then(results => {
-			res.send(results);
-		})
-		.catch(err => {
-			console.log('Error', err);
-		});
-});
+// router.post('/join', (req, res) => {
+// 	db.UserListings.create(
+// 		{listing_id: req.body.listingId, 
+// 			user_id: req.user.id})
+// 		.then(results => {
+// 			res.send(results);
+// 		})
+// 		.catch(err => {
+// 			console.log('Error', err);
+// 		});
+// });
 
 router.post('/userListings', (req, res) => {
 	db.UserListings.findAll({

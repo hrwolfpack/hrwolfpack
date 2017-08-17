@@ -13,7 +13,11 @@ class Listings extends React.Component {
 		return (
 		  <div>
 		    {this.props.currentListings.map((listingInfo, i) => {
-		      return <Listing listingInfo={listingInfo} key={i} userId={this.props.userId}/> ;
+		      return <Listing 
+		      listingInfo={listingInfo} 
+		      key={i} 
+		      userId={this.props.userId}
+		      socket={this.props.socket}/> ;
 		    })}
 		  </div>
 		);
