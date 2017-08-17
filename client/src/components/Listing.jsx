@@ -9,11 +9,12 @@ class Listing extends React.Component {
         super(props);
         this.state = {
             completed: false, //listing property
-            arrived: false, //listing property
             packed: false, //listing user relation
+            arrived: false, //listing property
             userJoined: false, //listing user relation
             received: false, //listing user relation
-            listingParticipants: [] //listing user relation
+            listingParticipants: [], //listing user relation
+            receivedParticipants: []
         };
         this.handleJoin = this.handleJoin.bind(this);
         this.handleArrive = this.handleArrive.bind(this);
@@ -43,18 +44,26 @@ class Listing extends React.Component {
         this.props.socket.on('join', (data) => {
             if (this.props.listingInfo.id === data.rows[0].listing_id) {
                 this.setState({listingParticipants: data.rows});
+                this.hasUserJoined();
                 if (data.count === this.props.listingInfo.num_of_participants) {
                     this.setState({packed: true});
                 }
-                this.hasUserJoined();
             }
         });
 
         this.props.socket.on('arrived', (data) => {
             if (this.props.listingInfo.id === data.id) {
-                this.setState({
-                    arrived: data.arrived
-                });
+                this.setState({arrived: data.arrived});
+            }
+        });
+
+        this.props.socket.on('received', (data) => {
+            if (this.props.listingInfo.id === data.rows[0].listing_id) {
+                this.setState({receivedParticipants: data.rows});
+                this.hasUserReceived();
+                if (data.count === this.props.listingInfo.num_of_participants) {
+                    this.setState({completed: true});
+                }
             }
         });
     }
@@ -64,10 +73,20 @@ class Listing extends React.Component {
             {listingId: this.props.listingInfo.id},
             (data) => {
                 this.setState({listingParticipants: data.rows});
-                this.hasUserJoined();
                 if (data.count === this.props.listingInfo.num_of_participants) {
-                    this.setState({packed: true});
+                    var receivedEntries = data.rows.filter(entry => {
+                        return entry.received;
+                    });
+                    this.setState({
+                        packed: true,
+                        receivedParticipants: receivedEntries
+                    });
+                    if (receivedEntries.length === this.props.listingInfo.num_of_participants) {
+                        this.setState({completed: true});
+                    }
                 }
+                this.hasUserJoined();
+                this.hasUserReceived();
             });
     }
 
@@ -75,23 +94,31 @@ class Listing extends React.Component {
         var involved = this.state.listingParticipants.some(listing => {
             return listing.user_id === this.props.userId ? true : false;
         });
-
         if (involved) {
             this.setState({userJoined: true});
         }
     }
 
-    checkReceive() { //check if all parties have received the goods 
-        $.post('/receiveCount', 
-            {listingId: this.props.listingInfo.id},
-            (data) => {
-                if (data.count === this.props.listingInfo.num_of_participants) {
-                    this.setState({
-                        completed: true
-                    });
-                }
-            })
+    hasUserReceived() {
+        var received = this.state.receivedParticipants.some(listing => {
+            return listing.user_id === this.props.userId ? true : false;
+        });
+        if (received) {
+            this.setState({received: true});
+        }
     }
+
+    // checkReceive() { //check if all parties have received the goods 
+    //     $.post('/receiveCount', 
+    //         {listingId: this.props.listingInfo.id},
+    //         (data) => {
+    //             if (data.count === this.props.listingInfo.num_of_participants) {
+    //                 this.setState({
+    //                     completed: true
+    //                 });
+    //             }
+    //         })
+    // }
     
     handleJoin() { //when user joins listing, update db UserListing record
         // $.post('/join', 
@@ -202,6 +229,7 @@ class Listing extends React.Component {
         		<li>location: {this.props.listingInfo.location}</li>
         		<li>participants: {this.props.listingInfo.num_of_participants}</li>
                 <li>num of wolves joined: {this.state.listingParticipants.length}</li>
+                <li>num of wolves received the goods: {this.state.receivedParticipants.length}</li>
         	</ul>
         </Panel>
       );

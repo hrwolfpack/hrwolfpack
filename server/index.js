@@ -125,10 +125,16 @@ io.on('connection', (socket) => {
 		db.UserListings.update(
 			{received: true}, 
 			{where: {
-				listing_id: req.body.listingId,
-				user_id: req.user.id}})
+				listing_id: data.listingId,
+				user_id: data.userId}})
 			.then(result => {
-				res.send('Received!');
+				return db.UserListings.findAndCountAll({
+					where: {
+						listing_id: data.listingId,
+						received: true}});
+			})
+			.then(results => {
+				io.sockets.emit('received', results);
 			})
 			.catch(err => {
 				console.log('Error: ', err);
