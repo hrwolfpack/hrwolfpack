@@ -73,16 +73,81 @@ io.on('connection', (socket) => {
 	console.log('Make socket connection', socket.id);
 
 	socket.on('newListing', (data) => {
-		db.Listing.create({name: data.name, price: parseInt(data.price), location: data.location, initializer: data.initializer })
+		db.Listing.create(
+			{name: data.name, 
+				price: parseInt(data.price), 
+				location: data.location, 
+				initializer: data.initializer})
 			.then(listing => {
-				db.Listing.findAll()
-						.then(results => {
-							io.sockets.emit('newListing', results);
-						})
-						.catch(err => {
-							console.log('Error: ', err);
-						});
-				// io.sockets.emit('newListing', data);
+				return db.Listing.findAll();
+			})
+			.then(results => {
+				io.sockets.emit('newListing', results);
+			})
+			.catch(err => {
+				console.log('Error: ', err);
+			})
+	});
+
+	socket.on('join', (data) => {
+		db.UserListings.create(
+			{listing_id: data.listingId, 
+				user_id: data.userId})
+			.then(results => {
+				return db.UserListings.findAndCountAll({
+					where: {listing_id: data.listingId}});
+			})
+			.then(results => {
+				io.sockets.emit('join', results);
+				if (results.count === data.packSize) {
+					db.Listing.update(
+						{packed: true}, 
+						{where: {id: data.listingId}});
+				}
+			})
+			.catch(err => {
+				console.log('Error', err);
 			});
 	});
+
+	socket.on('arrived', (data) => {
+		db.Listing.update(
+			{arrived: true},
+			{where: {id: data.listingId}})
+			.then(result => {
+				return db.Listing.findOne({
+					where: {id: data.listingId}});
+			})
+			.then(result => {
+				io.sockets.emit('arrived', result);
+			})
+			.catch(err => {
+				console.log('Error: ', err);
+			});
+	});
+
+	socket.on('received', (data) => {
+		db.UserListings.update(
+			{received: true}, 
+			{where: {
+				listing_id: data.listingId,
+				user_id: data.userId}})
+			.then(result => {
+				return db.UserListings.findAndCountAll({
+					where: {
+						listing_id: data.listingId,
+						received: true}});
+			})
+			.then(results => {
+				io.sockets.emit('received', results);
+				if (results.count === data.packSize) {
+					db.Listing.update(
+						{completed: true}, 
+						{where: {id: data.listingId}});
+				}
+			})
+			.catch(err => {
+				console.log('Error: ', err);
+			});
+	})
 });

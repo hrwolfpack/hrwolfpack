@@ -20,7 +20,6 @@ class Dashboard extends React.Component {
   componentDidMount() {
     this.getListings();
     this.props.socket.on('newListing', (data) => {
-      // console.log('Listing created here are all the listings', data);
       this.setState({
         currentListings: data
       });
@@ -69,7 +68,10 @@ class Dashboard extends React.Component {
             <Button bsStyle="danger" onClick={this.hideModal}>Cancel</Button>
           </Modal.Footer>
         </Modal>
-        <Listings currentListings={this.state.currentListings} userId={this.props.userId} socket={this.props.socket}/>
+        <Listings 
+        currentListings={this.state.currentListings} 
+        userId={this.props.userId} 
+        socket={this.props.socket}/>
       </div>
     )
   }

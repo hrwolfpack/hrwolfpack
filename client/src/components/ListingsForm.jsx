@@ -23,14 +23,6 @@ class Form extends React.Component {
 
   onSubmit(e){
     e.preventDefault();
-    // $.post("/listings", {
-    //   name: this.state.name, 
-    //   price: this.state.price, 
-    //   location: this.state.location
-    // }, (data) => {
-    //     this.props.getListings();
-    // });
-    //socket stuff
     this.props.socket.emit('newListing', {
       name: this.state.name, 
       price: this.state.price, 

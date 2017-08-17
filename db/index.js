@@ -33,8 +33,9 @@ var Listing = db.define('Listing', {
   name: Sequelize.STRING,
   initializer: { type: Sequelize.INTEGER, defaultValue: 1},
   price: Sequelize.DECIMAL(5, 2),
-  complete: { type: Sequelize.BOOLEAN, defaultValue: false},
+  completed: { type: Sequelize.BOOLEAN, defaultValue: false},
   arrived: { type: Sequelize.BOOLEAN, defaultValue: false},
+  packed: { type: Sequelize.BOOLEAN, defaultValue: false},
   location: Sequelize.STRING,
   num_of_participants:{ type: Sequelize.INTEGER, defaultValue: 4},
   created_dt: Sequelize.DATE
