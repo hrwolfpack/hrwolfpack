@@ -99,6 +99,11 @@ io.on('connection', (socket) => {
 			})
 			.then(results => {
 				io.sockets.emit('join', results);
+				if (results.count === data.packSize) {
+					db.Listing.update(
+						{packed: true}, 
+						{where: {id: data.listingId}});
+				}
 			})
 			.catch(err => {
 				console.log('Error', err);
@@ -135,6 +140,11 @@ io.on('connection', (socket) => {
 			})
 			.then(results => {
 				io.sockets.emit('received', results);
+				if (results.count === data.packSize) {
+					db.Listing.update(
+						{completed: true}, 
+						{where: {id: data.listingId}});
+				}
 			})
 			.catch(err => {
 				console.log('Error: ', err);

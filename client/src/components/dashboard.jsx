@@ -20,7 +20,6 @@ class Dashboard extends React.Component {
   componentDidMount() {
     this.getListings();
     this.props.socket.on('newListing', (data) => {
-      // console.log('Listing created here are all the listings', data);
       this.setState({
         currentListings: data
       });

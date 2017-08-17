@@ -2,18 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Panel, Button } from 'react-bootstrap';
 import $ from 'jquery';
-import Promise from 'bluebird';
 
 class Listing extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            completed: false, //listing property
-            packed: false, //listing user relation
-            arrived: false, //listing property
-            userJoined: false, //listing user relation
-            received: false, //listing user relation
-            listingParticipants: [], //listing user relation
+            completed: false,
+            arrived: false,
+            packed: false,
+            userJoined: false,
+            received: false,
+            listingParticipants: [],
             receivedParticipants: []
         };
         this.handleJoin = this.handleJoin.bind(this);
@@ -21,26 +20,15 @@ class Listing extends React.Component {
         this.handleReceive = this.handleReceive.bind(this);
     }
 
-    componentDidMount() { //when component refreshes, do the following: 
-        // $.post('/userListings', 
-        //     {listingId: this.props.listingInfo.id}, 
-        //     (data) => {
-        //         if (data.length > 0) { //if there's a match in the UserListing table with listing_id and user_id
-        //             this.setState({
-        //                 userJoined: true, //indicate this current user has joined the listing
-        //                 received: data[0].received //show if the goods been received by this user according to the UserListing table
-        //             });
-        //         }
-        //         // this.checkPackSize(); // check if pack size is full
-        //         this.checkReceive(); //check if everyone received goods
-        //     });
+    componentDidMount() {
         this.setState({
+            packed: this.props.listingInfo.packed,
             arrived: this.props.listingInfo.arrived,
-            completed: this.props.listingInfo.complete
+            completed: this.props.listingInfo.completed
         });
 
-        this.checkPackSize();
-        //socket stuff
+        this.checkListingStatus();
+
         this.props.socket.on('join', (data) => {
             if (this.props.listingInfo.id === data.rows[0].listing_id) {
                 this.setState({listingParticipants: data.rows});
@@ -68,23 +56,15 @@ class Listing extends React.Component {
         });
     }
 
-    checkPackSize() { //check how many wolves has joined this pack
-        $.post('/packsize', 
+    checkListingStatus() {
+        $.post('/listingStatus', 
             {listingId: this.props.listingInfo.id},
             (data) => {
                 this.setState({listingParticipants: data.rows});
-                if (data.count === this.props.listingInfo.num_of_participants) {
-                    var receivedEntries = data.rows.filter(entry => {
-                        return entry.received;
-                    });
-                    this.setState({
-                        packed: true,
-                        receivedParticipants: receivedEntries
-                    });
-                    if (receivedEntries.length === this.props.listingInfo.num_of_participants) {
-                        this.setState({completed: true});
-                    }
-                }
+                var receivedEntries = data.rows.filter(entry => {
+                    return entry.received;
+                });
+                this.setState({receivedParticipants: receivedEntries});
                 this.hasUserJoined();
                 this.hasUserReceived();
             });
@@ -108,58 +88,25 @@ class Listing extends React.Component {
         }
     }
 
-    // checkReceive() { //check if all parties have received the goods 
-    //     $.post('/receiveCount', 
-    //         {listingId: this.props.listingInfo.id},
-    //         (data) => {
-    //             if (data.count === this.props.listingInfo.num_of_participants) {
-    //                 this.setState({
-    //                     completed: true
-    //                 });
-    //             }
-    //         })
-    // }
-    
-    handleJoin() { //when user joins listing, update db UserListing record
-        // $.post('/join', 
-        //     {listingId: this.props.listingInfo.id}, 
-        //     (data) => {
-        //         this.setState({
-        //             userJoined: true
-        //         });
-        //         this.checkPackSize(); //see if pack is filled after this user joins
-        //     });
+    handleJoin() {
         this.props.socket.emit('join', {
             listingId: this.props.listingInfo.id,
-            userId: this.props.userId
+            userId: this.props.userId,
+            packSize: this.props.listingInfo.num_of_participants
         });
-
     }
 
-    handleArrive() { //when initializer confirms arrival, update db listing record
-        // $.post('/arrived', 
-        //     {listingId: this.props.listingInfo.id}, 
-        //     (data) => {
-        //         this.setState({
-        //             arrived: true
-        //         });
-        //     });
+    handleArrive() {
         this.props.socket.emit('arrived', {
             listingId: this.props.listingInfo.id
         });
     }
 
-    handleReceive() { //when participant confirms receipt, update db UserListing record
-        // $.post('/received', 
-        //     {listingId: this.props.listingInfo.id}, 
-        //     (data) => {
-        //         this.setState({
-        //             received: true
-        //         });
-        //     });
+    handleReceive() {
         this.props.socket.emit('received', {
             listingId: this.props.listingInfo.id,
-            userId: this.props.userId
+            userId: this.props.userId,
+            packSize: this.props.listingInfo.num_of_participants
         });
     }
 
@@ -221,13 +168,12 @@ class Listing extends React.Component {
       return (
         <Panel header={this.props.listingInfo.name} footer={footer}>
         	<ul>
-        		<li>id: {this.props.listingInfo.id}</li>
-        		<li>name: {this.props.listingInfo.name}</li>
+        		<li>listing id: {this.props.listingInfo.id}</li>
+        		<li>listing name: {this.props.listingInfo.name}</li>
         		<li>initializer: {this.props.listingInfo.initializer}</li>
         		<li>price: {this.props.listingInfo.price}</li>
-        		<li>complete: {this.props.listingInfo.complete}</li>
-        		<li>location: {this.props.listingInfo.location}</li>
-        		<li>participants: {this.props.listingInfo.num_of_participants}</li>
+        		<li>pick up location: {this.props.listingInfo.location}</li>
+        		<li>required num of wolves: {this.props.listingInfo.num_of_participants}</li>
                 <li>num of wolves joined: {this.state.listingParticipants.length}</li>
                 <li>num of wolves received the goods: {this.state.receivedParticipants.length}</li>
         	</ul>
