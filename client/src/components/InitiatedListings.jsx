@@ -20,12 +20,6 @@ class InitiatedListings extends React.Component {
     this.setState({
       currentListings: this.props.initiatedListings
     });
-
-    this.props.socket.on('newListing', (data) => {
-      this.setState({
-        currentListings: data
-      });
-    });
   }
 
   hideModal(e){

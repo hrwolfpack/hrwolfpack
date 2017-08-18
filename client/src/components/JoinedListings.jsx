@@ -15,12 +15,6 @@ class JoinedListings extends React.Component {
     this.setState({
       currentListings: this.props.joinedListings
     });
-
-    this.props.socket.on('newListing', (data) => {
-      this.setState({
-        currentListings: data
-      });
-    });
   }
 
   render () {

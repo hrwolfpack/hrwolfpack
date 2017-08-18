@@ -27,6 +27,6 @@ class Listings extends React.Component {
 	}
 }
 
-export default Listings
+export default Listings;
 
 //<Button bsStyle="primary" onClick={this.showModal}>Create Listing</Button>

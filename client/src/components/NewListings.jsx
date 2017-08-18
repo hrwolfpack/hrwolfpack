@@ -15,12 +15,6 @@ class NewListings extends React.Component {
     this.setState({
       currentListings: this.props.newListings
     });
-
-    this.props.socket.on('newListing', (data) => {
-      this.setState({
-        currentListings: data
-      });
-    });
   }
 
   render () {

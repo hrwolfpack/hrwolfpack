@@ -20,6 +20,22 @@ class Main extends React.Component {
 		this.getNewListings();
 		this.getJoinedListings();
 		this.getInitiatedListings();
+	    
+	    this.props.socket.on('newListing', (data) => {
+	    	console.log('got some new stuff', data);
+	      if (data.initializer === this.props.userId) {
+	      	var nInitiatedListings = this.state.initiatedListings.concat(data);
+	      	this.setState({
+	      		initiatedListings: nInitiatedListings
+	      	});
+	      } else {
+	      	var nNewListings = this.state.newListings.concat(data);
+	      	this.setState({
+	      		newListings: nNewListings
+	      	});
+	      }
+	    });
+
 	}
 
 	getNewListings() {
@@ -50,27 +66,22 @@ class Main extends React.Component {
 		return (
 			<div>
 		        <Switch>
-		          <Route path="/new" render={(props) => (
+		          <Route exact path="/new" render={(props) => (
 		            <NewListings 
 		            userId={this.props.userId}
 		            newListings={this.state.newListings} 
 		            socket={this.props.socket}/>
 		          )}/>
-		          <Route path="/joined" render={(props) => (
+		          <Route exact path="/joined" render={(props) => (
 		            <JoinedListings 
 		            userId={this.props.userId}
 		            joinedListings={this.state.joinedListings} 
 		            socket={this.props.socket}/>		            
 		          )}/>
-		          <Route path="/initiated" render={(props) => (
+		          <Route exact path="/initiated" render={(props) => (
 		            <InitiatedListings 
 		            userId={this.props.userId}
 		            initiatedListings={this.state.initiatedListings} 
-		            socket={this.props.socket}/>
-		          )}/>
-		          <Route exact path="/" render={(props) => (
-		            <Dashboard 
-		            userId={this.props.userId} 
 		            socket={this.props.socket}/>
 		          )}/>
 		        </Switch>
@@ -79,4 +90,9 @@ class Main extends React.Component {
 	}
 }
 
+		          // <Route exact path="/" render={(props) => (
+		          //   <Dashboard 
+		          //   userId={this.props.userId} 
+		          //   socket={this.props.socket}/>
+		          // )}/>
 export default Main;
