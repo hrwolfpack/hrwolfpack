@@ -7,15 +7,15 @@ class Main extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			newListing: [],
+			newListings: [],
 			joinedListings: [],
 			initiatedListings: []
 		};
 	}
 
 	componentDidMount() {
-		this.getNewListings();
-		this.getJoinedListings();
+		// this.getNewListings();
+		// this.getJoinedListings();
 		this.getInitiatedListings();
 	}
 
@@ -39,7 +39,6 @@ class Main extends React.Component {
 
 	getInitiatedListings() {
 		$.get('/initiatedListings', (data) => {
-			console.log(data);
 			this.setState({
 				initiatedListings: data
 			});
