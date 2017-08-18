@@ -16,7 +16,7 @@ class Main extends React.Component {
 
 	componentDidMount() {
 		// this.getNewListings();
-		// this.getJoinedListings();
+		this.getJoinedListings();
 		this.getInitiatedListings();
 	}
 
@@ -31,7 +31,6 @@ class Main extends React.Component {
 
 	getJoinedListings() {
 		$.get('/joinedListings', (data) => {
-			console.log(data);
 			this.setState({
 				joinedListings: data
 			});

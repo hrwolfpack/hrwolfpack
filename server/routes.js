@@ -36,11 +36,28 @@ router.get('/newListings', (req, res) => {
 });
 
 router.get('/joinedListings', (req, res) => {
-
+	db.UserListings.findAll({
+		attributes: ['listing_id']
+	}, {
+		where: {user_id: req.body.userId}
+	})
+	.then(results => {
+		var listingIdArray = results.map(item => {
+			return item.listing_id;
+		});
+		return db.Listing.findAll({
+			where: {id: listingIdArray}
+		});
+	})
+	.then(results => {
+		res.send(results);
+	})
+	.catch(err => {
+		console.log('Error: ', err);
+	});
 });
 
 router.get('/initiatedListings', (req, res) => {
-	console.log('this is the user: ', req.user);
 	db.Listing.findAll({
 		where: {initializer: req.user.id}
 	})
