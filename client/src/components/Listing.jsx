@@ -15,7 +15,8 @@ class Listing extends React.Component {
             lgShow: false,
             btShow: true,
             listingParticipants: [],
-            receivedParticipants: []
+            receivedParticipants: [],
+            initializer: false
         };
         this.handleJoin = this.handleJoin.bind(this);
         this.handleArrive = this.handleArrive.bind(this);
@@ -34,6 +35,7 @@ class Listing extends React.Component {
         });
 
         this.checkListingStatus();
+        this.isUserInitializer();
 
         this.props.socket.on('join', (data) => {
             if (this.props.listingInfo.id === data.rows[0].listing_id) {
@@ -95,6 +97,15 @@ class Listing extends React.Component {
         }
     }
 
+    isUserInitializer() {
+        if (this.props.listingInfo.initializer === this.props.userId) {
+            this.setState({
+                btShow: false,
+                initializer: true
+            });
+        }
+    }
+
     handleJoin() {
         this.props.socket.emit('join', {
             listingId: this.props.listingInfo.id,
@@ -138,7 +149,7 @@ class Listing extends React.Component {
 
     render() {
       var footer;
-      if (this.props.listingInfo.initializer === this.props.userId) { //if current user is the initializer for this listing
+      if (this.state.initializer) { //if current user is the initializer for this listing
         if (!this.state.completed) { //if not all parties have received the goods
             if (!this.state.arrived) { //if initializer has not yet notified the arrival of goods
                 if (!this.state.packed) { //if wolfpack is not yet filled
@@ -214,7 +225,7 @@ class Listing extends React.Component {
 
             </Modal.Body>
             <Modal.Footer>
-              <Button bsStyle="danger" onClick={this.hideModal}>Cancel</Button>
+              <Button bsStyle="danger" onClick={this.hideModal}>Exit</Button>
 
               {this.state.btShow ? <Button onClick={this.handleJoin} >Join the Pack</Button>: null}
             </Modal.Footer>

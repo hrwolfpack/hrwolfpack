@@ -31,16 +31,15 @@ var isLoggedIn = (req, res, next) => {
 		next();
 	}
 };
-app.get('/', isLoggedIn);
-app.use(express.static(path.join(__dirname, '../client/dist')));
-
 app.get('/login', (req, res) => {
 	res.sendFile(path.join(__dirname, '../client/dist/login.html'));
 });
-
 app.get('/signup', (req, res) => {
 	res.sendFile(path.join(__dirname, '../client/dist/signup.html'));
 });
+
+app.get('/*', isLoggedIn);
+app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.post('/login',
 	passport.authenticate('local-login', {
@@ -72,6 +71,23 @@ var io = socket(server);
 io.on('connection', (socket) => {
 	console.log('Make socket connection', socket.id);
 
+	// socket.on('newListing', (data) => {
+	// 	db.Listing.create(
+	// 		{name: data.name, 
+	// 			price: parseInt(data.price), 
+	// 			location: data.location, 
+	// 			initializer: data.initializer})
+	// 		.then(listing => {
+	// 			return db.Listing.findAll();
+	// 		})
+	// 		.then(results => {
+	// 			io.sockets.emit('newListing', results);
+	// 		})
+	// 		.catch(err => {
+	// 			console.log('Error: ', err);
+	// 		})
+	// });
+
 	socket.on('newListing', (data) => {
 		db.Listing.create(
 			{name: data.name, 
@@ -79,10 +95,7 @@ io.on('connection', (socket) => {
 				location: data.location, 
 				initializer: data.initializer})
 			.then(listing => {
-				return db.Listing.findAll();
-			})
-			.then(results => {
-				io.sockets.emit('newListing', results);
+				io.sockets.emit('newListing', listing);
 			})
 			.catch(err => {
 				console.log('Error: ', err);

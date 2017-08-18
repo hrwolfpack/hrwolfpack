@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Dashboard from './components/Dashboard.jsx';
 import $ from 'jquery';
+import { BrowserRouter } from 'react-router-dom';
+import Header from './components/Header.jsx';
+import Main from './components/Main.jsx';
 import io from 'socket.io-client';
 let socket = io('http://localhost:3000');
 
@@ -26,13 +28,15 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <div>
-          Hello, {this.state.currentUser}
-        </div>
-        <Dashboard userId={this.state.userId} socket={socket}/>
+        <Header currentUser={this.state.currentUser}/>
+        <Main userId={this.state.userId} socket={socket}/>
       </div>
     );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render((
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+), document.getElementById('app'));
