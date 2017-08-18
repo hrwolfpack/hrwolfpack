@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const path = require('path');
 const db = require('../db');
 
 router.get('/listings', (req, res) => {
@@ -27,6 +28,10 @@ router.post('/listingStatus', (req, res) => {
 	.catch(err => {
 		console.log('Error: ', err);
 	});
+});
+
+router.get('/*', (req, res) => {
+	res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
 module.exports = router;
