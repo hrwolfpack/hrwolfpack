@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Panel, Button, Modal } from 'react-bootstrap';
 import $ from 'jquery';
-
+-u root < db/seeds.sql
 class Listing extends React.Component {
     constructor(props) {
         super(props);
@@ -206,7 +206,7 @@ class Listing extends React.Component {
             </Modal.Footer>
           </Modal>
 
-          <Button bsStyle="primary" onClick={this.showModal}>More Info</Button>
+          <Button bsStyle="primary" onClick={this.showModal}>{this.props.listingInfo.name}</Button>
 
         </Panel>
       );
