@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import $ from 'jquery';
 import Dashboard from './Dashboard.jsx';
 import InitiatedListings from './InitiatedListings.jsx';
+import JoinedListings from './JoinedListings.jsx';
 
 class Main extends React.Component {
 	constructor(props) {
@@ -15,7 +16,7 @@ class Main extends React.Component {
 	}
 
 	componentDidMount() {
-		// this.getNewListings();
+		this.getNewListings();
 		this.getJoinedListings();
 		this.getInitiatedListings();
 	}
@@ -23,9 +24,9 @@ class Main extends React.Component {
 	getNewListings() {
 		$.get('/newListings', (data) => {
 			console.log(data);
-			this.setState({
-				newListings: data
-			});
+			// this.setState({
+			// 	newListings: data
+			// });
 		});
 	}
 
@@ -53,7 +54,10 @@ class Main extends React.Component {
 		            <div>Here are all the new listings!</div>
 		          )}/>
 		          <Route path="/joined" render={(props) => (
-		            <div>Here are all the listings you have joined!</div>
+		            <JoinedListings 
+		            userId={this.props.userId}
+		            joinedListings={this.state.joinedListings} 
+		            socket={this.props.socket}/>		            
 		          )}/>
 		          <Route path="/initiated" render={(props) => (
 		            <InitiatedListings 

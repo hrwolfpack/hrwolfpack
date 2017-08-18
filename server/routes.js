@@ -32,14 +32,41 @@ router.post('/listingStatus', (req, res) => {
 
 
 router.get('/newListings', (req, res) => {
-
+	var notInitListingArray;
+	var partListingArray;
+	db.Listing.findAll({
+		where: {initializer: {$ne: req.user.id}}
+	})
+	.then(results => {
+		notInitListingArray = results.map(item => item.id);
+		return db.UserListings.findAll({
+			where: {user_id: req.user.id}
+		});
+	})
+	.then(results => {
+		partListingArray = results.map(item => item.listing_id);
+		return notInitListingArray.filter(id => {
+			return !partListingArray.includes(id);
+		});
+	})
+	.then(results => {
+		return db.Listing.findAll({
+			where: {id: results}
+		});
+	})
+	.then(results => {
+		res.send(results);
+	})
+	.catch(err => {
+		console.log('Error: ', err);
+	});
 });
 
 router.get('/joinedListings', (req, res) => {
 	db.UserListings.findAll({
 		attributes: ['listing_id']
 	}, {
-		where: {user_id: req.body.userId}
+		where: {user_id: req.user.id}
 	})
 	.then(results => {
 		var listingIdArray = results.map(item => {

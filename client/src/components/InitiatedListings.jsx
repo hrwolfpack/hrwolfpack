@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Listings from './Listings.jsx'
+import Listings from './Listings.jsx';
 import Form from './ListingsForm.jsx'
-import $ from 'jquery';
 import { Button, Modal, FormGroup } from 'react-bootstrap';
 
 class InitiatedListings extends React.Component {
