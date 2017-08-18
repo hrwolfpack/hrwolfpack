@@ -1,6 +1,12 @@
 var expect = require('chai').expect;
 var request = require('request');
 var db = require('../db');
+var chai = require('chai');
+var chaiHTTP = require('chai-http');
+var should = chai.should();
+var server = require('../server/index.js');
+
+
 
 describe('Server Side Testing', function() {
 
