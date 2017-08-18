@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Panel, Button } from 'react-bootstrap';
+import { Panel, Button, Modal } from 'react-bootstrap';
 import $ from 'jquery';
 
 class Listing extends React.Component {
@@ -12,15 +12,19 @@ class Listing extends React.Component {
             packed: false,
             userJoined: false,
             received: false,
+            lgShow: false,
             listingParticipants: [],
             receivedParticipants: []
         };
         this.handleJoin = this.handleJoin.bind(this);
         this.handleArrive = this.handleArrive.bind(this);
         this.handleReceive = this.handleReceive.bind(this);
+        this.hideModal = this.hideModal.bind(this);
+        this.showModal = this.showModal.bind(this);
     }
 
     componentDidMount() {
+      console.log(this);
         this.setState({
             packed: this.props.listingInfo.packed,
             arrived: this.props.listingInfo.arrived,
@@ -110,6 +114,19 @@ class Listing extends React.Component {
         });
     }
 
+    showModal(e){
+      e.preventDefault();
+      this.setState({
+        lgShow: true
+      });
+    }
+
+    hideModal(e){
+      this.setState({
+        lgShow: false
+      });
+    }
+
     render() {
       var footer;
       if (this.props.listingInfo.initializer === this.props.userId) { //if current user is the initializer for this listing
@@ -121,7 +138,7 @@ class Listing extends React.Component {
                     footer = (
                         <div>
                             Wolfpack Assembled! Go get the goods!
-                            <Button onClick={this.handleArrive}>Good are here!</Button>
+                            <Button onClick={this.handleArrive}>Goods are here!</Button>
                         </div>);
                 }
             } else { //if initializer has notified the arrival of goods
@@ -155,7 +172,7 @@ class Listing extends React.Component {
         } else { //if current user has not joined this listing yet
             if (!this.state.completed) { //if listing is already complete
                 if (!this.state.packed) { //if this pack is not yet filled
-                    footer = (<Button onClick={this.handleJoin}>Join the Pack</Button>);
+                    // footer = (<Button onClick={this.handleJoin}>Join the Pack</Button>);
                 } else { //if this pack is already filled
                     footer = (<div>Sorry, this Pack is full.</div>);
                 }
@@ -167,18 +184,30 @@ class Listing extends React.Component {
 
       return (
         <Panel header={this.props.listingInfo.name} footer={footer}>
-        	<ul>
-            <img src={this.props.listingInfo.image_url}/>
-        		<li>listing id: {this.props.listingInfo.id}</li>
-        		<li>listing name: {this.props.listingInfo.name}</li>
-            <li>description: {this.props.listingInfo.description}</li>
-        		<li>initializer: {this.props.listingInfo.initializer}</li>
-        		<li>price: {this.props.listingInfo.price}</li>
-        		<li>pick up location: {this.props.listingInfo.location}</li>
-        		<li>required num of wolves: {this.props.listingInfo.num_of_participants}</li>
-                <li>num of wolves joined: {this.state.listingParticipants.length}</li>
-                <li>num of wolves received the goods: {this.state.receivedParticipants.length}</li>
-        	</ul>
+
+          <Modal show={this.state.lgShow}  bsSize="small" aria-labelledby="contained-modal-title-sm">
+            <Modal.Header >
+              <Modal.Title id="contained-modal-title-sm"><h3>{this.props.listingInfo.name}</h3></Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <ul>
+              <li>listing id: {this.props.listingInfo.id}</li>
+          		<li>listing name: {this.props.listingInfo.name}</li>
+          		<li>initializer: {this.props.listingInfo.initializer}</li>
+          		<li>price: {this.props.listingInfo.price}</li>
+          		<li>pick up location: {this.props.listingInfo.location}</li>
+          		<li>required num of wolves: {this.props.listingInfo.num_of_participants}</li>
+                  <li>num of wolves joined: {this.state.listingParticipants.length}</li>
+                  <li>num of wolves received the goods: {this.state.receivedParticipants.length}</li>
+          	</ul>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button bsStyle="danger" onClick={this.hideModal}>Cancel</Button>
+              <Button onClick={this.handleJoin}>Join the Pack</Button>
+            </Modal.Footer>
+          </Modal>
+
+          <Button bsStyle="primary" onClick={this.showModal}>{this.props.listingInfo.name}</Button>
         </Panel>
       );
     }
