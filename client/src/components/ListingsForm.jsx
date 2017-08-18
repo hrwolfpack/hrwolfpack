@@ -8,8 +8,9 @@ class Form extends React.Component {
     super(props);
     this.state = {
       name: "",
+      description: "",
       price: "",
-      location: ""
+      location: "",
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -24,8 +25,9 @@ class Form extends React.Component {
   onSubmit(e){
     e.preventDefault();
     this.props.socket.emit('newListing', {
-      name: this.state.name, 
-      price: this.state.price, 
+      name: this.state.name,
+      description: this.state.description,
+      price: this.state.price,
       location: this.state.location,
       initializer: this.props.userId
     });

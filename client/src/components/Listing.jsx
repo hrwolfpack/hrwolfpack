@@ -184,6 +184,7 @@ class Listing extends React.Component {
 
       return (
         <Panel header={this.props.listingInfo.name} footer={footer}>
+
           <Modal show={this.state.lgShow}  bsSize="small" aria-labelledby="contained-modal-title-sm">
             <Modal.Header >
               <Modal.Title id="contained-modal-title-sm"><h3>{this.props.listingInfo.name}</h3></Modal.Title>
@@ -207,7 +208,6 @@ class Listing extends React.Component {
           </Modal>
 
           <Button bsStyle="primary" onClick={this.showModal}>{this.props.listingInfo.name}</Button>
-
         </Panel>
       );
     }
