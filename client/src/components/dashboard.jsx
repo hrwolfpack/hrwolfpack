@@ -22,10 +22,9 @@ class Dashboard extends React.Component {
   componentDidMount() {
     this.getListings();
     this.props.socket.on('newListing', (data) => {
-      console.log(data);
-      // this.setState({
-      //   currentListings: data
-      // });
+      this.setState({
+        currentListings: data
+      });
     });
   }
 

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Listings from './Listings.jsx';
 import Form from './ListingsForm.jsx'
 import { Button, Modal, FormGroup } from 'react-bootstrap';
+import $ from 'jquery';
 
 class InitiatedListings extends React.Component {
 
@@ -17,9 +18,7 @@ class InitiatedListings extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({
-      currentListings: this.props.initiatedListings
-    });
+    this.getInitiatedListings();
 
     this.props.socket.on('newListing', (data) => {
       if (data.initializer === this.props.userId) {
@@ -28,6 +27,14 @@ class InitiatedListings extends React.Component {
           currentListings: nInitiatedListings
         });
       }
+    });
+  }
+
+  getInitiatedListings() {
+    $.get('/initiatedListings', (data) => {
+      this.setState({
+        currentListings: data
+      });
     });
   }
 

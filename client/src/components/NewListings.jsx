@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Listings from './Listings.jsx';
+import $ from 'jquery';
 
 class NewListings extends React.Component {
 
@@ -12,9 +13,7 @@ class NewListings extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({
-      currentListings: this.props.newListings
-    });
+    this.getNewListings();
 
     this.props.socket.on('newListing', (data) => {
       if (data.initializer !== this.props.userId) {
@@ -23,6 +22,14 @@ class NewListings extends React.Component {
           currentListings: nNewListings
         });
       }
+    });
+  }
+
+  getNewListings() {
+    $.get('/newListings', (data) => {
+      this.setState({
+        currentListings: data
+      });
     });
   }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Listings from './Listings.jsx';
+import $ from 'jquery';
 
 class JoinedListings extends React.Component {
 
@@ -12,13 +13,15 @@ class JoinedListings extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({
-      currentListings: this.props.joinedListings
-    });
+    this.getJoinedListings();
+  }
 
-    // this.props.socket.on('join', (data) => {
-      
-    // })
+  getJoinedListings() {
+    $.get('/joinedListings', (data) => {
+      this.setState({
+        currentListings: data
+      });
+    });
   }
 
   render () {

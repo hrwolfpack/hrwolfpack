@@ -64,8 +64,6 @@ router.get('/newListings', (req, res) => {
 
 router.get('/joinedListings', (req, res) => {
 	db.UserListings.findAll({
-		attributes: ['listing_id']
-	}, {
 		where: {user_id: req.user.id}
 	})
 	.then(results => {
