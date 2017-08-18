@@ -57,7 +57,7 @@ class Listing extends React.Component {
     }
 
     checkListingStatus() {
-        $.post('/listingStatus', 
+        $.post('/listingStatus',
             {listingId: this.props.listingInfo.id},
             (data) => {
                 this.setState({listingParticipants: data.rows});
@@ -144,12 +144,12 @@ class Listing extends React.Component {
             } else { //if initializer has notified the arrivial of goods
                 if (this.state.received) { //if current user has confirmed the receipt of goods
                     footer = (<div>Thanks for being part of the Pack! Could not have done it without you!</div>);
-                } else { //if current user has not confirmed the receipt of goods 
+                } else { //if current user has not confirmed the receipt of goods
                     footer = (
                         <div>
                             Goods are here! Go pick it up from the Pack Leader!
                             <Button onClick={this.handleReceive}>Received Goods!</Button>
-                        </div>);                    
+                        </div>);
                 }
             }
         } else { //if current user has not joined this listing yet
@@ -168,8 +168,10 @@ class Listing extends React.Component {
       return (
         <Panel header={this.props.listingInfo.name} footer={footer}>
         	<ul>
+            <img src={this.props.listingInfo.image_url}/>
         		<li>listing id: {this.props.listingInfo.id}</li>
         		<li>listing name: {this.props.listingInfo.name}</li>
+            <li>description: {this.props.listingInfo.description}</li>
         		<li>initializer: {this.props.listingInfo.initializer}</li>
         		<li>price: {this.props.listingInfo.price}</li>
         		<li>pick up location: {this.props.listingInfo.location}</li>

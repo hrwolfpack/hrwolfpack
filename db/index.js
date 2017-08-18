@@ -31,6 +31,8 @@ var User = db.define('User', {
 var Listing = db.define('Listing', {
   id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
   name: Sequelize.STRING,
+	description: Sequelize.STRING,
+	image_url: Sequelize.STRING,
   initializer: { type: Sequelize.INTEGER, defaultValue: 1},
   price: Sequelize.DECIMAL(5, 2),
   completed: { type: Sequelize.BOOLEAN, defaultValue: false},
@@ -58,7 +60,7 @@ User.sync();
 
 Listing.sync();
 // .then(() => Listing.create({
-//   name: '20 pack of shampoo', 
+//   name: '20 pack of shampoo',
 //   initializer: 1,
 //   price: 5.00,
 //   complete: true,
@@ -66,7 +68,7 @@ Listing.sync();
 //   num_of_participants: 3
 // }))
 // .then(() => Listing.create({
-//   name: '30 pack of paper towels', 
+//   name: '30 pack of paper towels',
 //   initializer: 1,
 //   price: 7.50,
 //   complete: false,
@@ -75,7 +77,7 @@ Listing.sync();
 //   created_dt:'2017-08-11 20:11:30'
 // }))
 // .then(() => Listing.create({
-//   name: '100 pack of protein bars', 
+//   name: '100 pack of protein bars',
 //   initializer: 2,
 //   price: 20.00,
 //   complete: false,
