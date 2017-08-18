@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Dashboard from './components/Dashboard.jsx';
 import $ from 'jquery';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
 import io from 'socket.io-client';
 let socket = io('http://localhost:3000');
 
@@ -35,7 +35,7 @@ class App extends React.Component {
         <Navbar>
           <Navbar.Header>
             <Navbar.Brand>
-              <a href='#'>WolfPack</a>
+              <span>Wolfpack</span>
             </Navbar.Brand>
           </Navbar.Header>
           <Nav>
@@ -49,24 +49,25 @@ class App extends React.Component {
               <Link to="/initiated">Listings You Initiated</Link>
             </NavItem>
             <NavItem>
-              <Link to="/dashboard">Dashboard</Link>
+              <Link to="/">Dashboard</Link>
             </NavItem>
           </Nav>
         </Navbar> 
 
-        <Route path="/new" render={(props) => (
-          <div>Here are all the new listings!</div>
-        )}/>
-        <Route path="/joined" render={(props) => (
-          <div>Here are all the listings you have joined!</div>
-        )}/>
-        <Route path="/initiated" render={(props) => (
-          <div>Here are all the listings you have initiated!</div>
-        )}/>
-        <Route path="/dashboard" render={(props) => (
-          <Dashboard userId={this.state.userId} socket={socket}/>
-        )}/>
-
+        <Switch>
+          <Route path="/new" render={(props) => (
+            <div>Here are all the new listings!</div>
+          )}/>
+          <Route path="/joined" render={(props) => (
+            <div>Here are all the listings you have joined!</div>
+          )}/>
+          <Route path="/initiated" render={(props) => (
+            <div>Here are all the listings you have initiated!</div>
+          )}/>
+          <Route exact path="/" render={(props) => (
+            <Dashboard userId={this.state.userId} socket={socket}/>
+          )}/>
+        </Switch>
 
       </div>
     );
