@@ -31,16 +31,15 @@ var isLoggedIn = (req, res, next) => {
 		next();
 	}
 };
-app.get('/', isLoggedIn);
-app.use(express.static(path.join(__dirname, '../client/dist')));
-
 app.get('/login', (req, res) => {
 	res.sendFile(path.join(__dirname, '../client/dist/login.html'));
 });
-
 app.get('/signup', (req, res) => {
 	res.sendFile(path.join(__dirname, '../client/dist/signup.html'));
 });
+
+app.get('/*', isLoggedIn);
+app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.post('/login',
 	passport.authenticate('local-login', {
