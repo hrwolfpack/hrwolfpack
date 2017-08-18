@@ -72,15 +72,15 @@ app.get('/api', (req, res) => {
   const pairs = [];
   const product_list = [];
 	const params = {
-      'Service': 'AWSECommerceService',
-      'Operation': 'ItemSearch',
-      'AWSAccessKeyId': access_key_id,
-      'AssociateTag': associateTag,
-      'SearchIndex': 'All',
-      'Keywords': searchTerm,
-      'ResponseGroup': 'Images,ItemAttributes' //, OfferSummary
-  };
-
+		'Service': 'AWSECommerceService',
+		'Operation': 'ItemSearch',
+		'AWSAccessKeyId': access_key_id,
+		'AssociateTag': associateTag,
+		'SearchIndex': 'All',
+		'Keywords': searchTerm,
+		'ResponseGroup': 'Images,ItemAttributes' //, OfferSummary
+	};
+	
   let keys, canonical_query_string, string_to_sign, hash, signature, request_url,
   productListings;
 
