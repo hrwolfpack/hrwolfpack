@@ -13,6 +13,7 @@ class Listing extends React.Component {
             userJoined: false,
             received: false,
             lgShow: false,
+            btShow: true,
             listingParticipants: [],
             receivedParticipants: []
         };
@@ -21,10 +22,11 @@ class Listing extends React.Component {
         this.handleReceive = this.handleReceive.bind(this);
         this.hideModal = this.hideModal.bind(this);
         this.showModal = this.showModal.bind(this);
+        this.handleKeyDown = this.handleKeyDown.bind(this);
+
     }
 
     componentDidMount() {
-      console.log(this);
         this.setState({
             packed: this.props.listingInfo.packed,
             arrived: this.props.listingInfo.arrived,
@@ -80,6 +82,7 @@ class Listing extends React.Component {
         });
         if (involved) {
             this.setState({userJoined: true});
+            this.setState({btShow: false});
         }
     }
 
@@ -127,6 +130,12 @@ class Listing extends React.Component {
       });
     }
 
+    handleKeyDown (e) {
+      if (e.keyCode === 27) {
+        this.hideModal();
+      }
+    }
+
     render() {
       var footer;
       if (this.props.listingInfo.initializer === this.props.userId) { //if current user is the initializer for this listing
@@ -152,6 +161,7 @@ class Listing extends React.Component {
             return listing.user_id === this.props.userId ? true : false;
         });
         if (this.state.userJoined) { //if current user has joined the listing already
+          // this.hideJoinButton();
             if (!this.state.arrived) { //if initializer has not yet notified the arrivial of goods
                 if (!this.state.packed) { //if the pack is not filled
                     footer = (<div>Waiting for the Rest of the Pack to Assemble</div>);
@@ -184,10 +194,11 @@ class Listing extends React.Component {
 
       return (
         <Panel header={this.props.listingInfo.name} footer={footer}>
+            <img src={this.props.listingInfo.image_url}/>
 
-          <Modal show={this.state.lgShow}  bsSize="small" aria-labelledby="contained-modal-title-sm">
+          <Modal show={this.state.lgShow}  bsSize="small" aria-labelledby="contained-modal-title-sm"  onKeyDown={this.handleKeyDown}>
             <Modal.Header >
-              <Modal.Title id="contained-modal-title-sm"><h3>{this.props.listingInfo.name}</h3></Modal.Title>
+              <Modal.Title id="contained-modal-title-sm"><div>{this.props.listingInfo.name}</div></Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <ul>
@@ -197,17 +208,18 @@ class Listing extends React.Component {
           		<li>price: {this.props.listingInfo.price}</li>
           		<li>pick up location: {this.props.listingInfo.location}</li>
           		<li>required num of wolves: {this.props.listingInfo.num_of_participants}</li>
-                  <li>num of wolves joined: {this.state.listingParticipants.length}</li>
-                  <li>num of wolves received the goods: {this.state.receivedParticipants.length}</li>
+              <li>num of wolves joined: {this.state.listingParticipants.length}</li>
+              <li>num of wolves received the goods: {this.state.receivedParticipants.length}</li>
           	</ul>
+
             </Modal.Body>
             <Modal.Footer>
               <Button bsStyle="danger" onClick={this.hideModal}>Cancel</Button>
-              <Button onClick={this.handleJoin}>Join the Pack</Button>
+
+              {this.state.btShow ? <Button onClick={this.handleJoin} >Join the Pack</Button>: null}
             </Modal.Footer>
           </Modal>
-
-          <Button bsStyle="primary" onClick={this.showModal}>{this.props.listingInfo.name}</Button>
+          <Button bsStyle="primary" onClick={this.showModal}>More Info</Button>
         </Panel>
       );
     }
