@@ -15,6 +15,15 @@ class NewListings extends React.Component {
     this.setState({
       currentListings: this.props.newListings
     });
+
+    this.props.socket.on('newListing', (data) => {
+      if (data.initializer !== this.props.userId) {
+        var nNewListings = this.state.currentListings.concat(data);
+        this.setState({
+          currentListings: nNewListings
+        });
+      }
+    });
   }
 
   render () {

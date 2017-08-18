@@ -15,6 +15,10 @@ class JoinedListings extends React.Component {
     this.setState({
       currentListings: this.props.joinedListings
     });
+
+    // this.props.socket.on('join', (data) => {
+      
+    // })
   }
 
   render () {

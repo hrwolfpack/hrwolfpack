@@ -2,9 +2,9 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import $ from 'jquery';
 import Dashboard from './Dashboard.jsx';
-import InitiatedListings from './InitiatedListings.jsx';
-import JoinedListings from './JoinedListings.jsx';
 import NewListings from './NewListings.jsx';
+import JoinedListings from './JoinedListings.jsx';
+import InitiatedListings from './InitiatedListings.jsx';
 
 class Main extends React.Component {
 	constructor(props) {
@@ -20,22 +20,6 @@ class Main extends React.Component {
 		this.getNewListings();
 		this.getJoinedListings();
 		this.getInitiatedListings();
-	    
-	    this.props.socket.on('newListing', (data) => {
-	    	console.log('got some new stuff', data);
-	      if (data.initializer === this.props.userId) {
-	      	var nInitiatedListings = this.state.initiatedListings.concat(data);
-	      	this.setState({
-	      		initiatedListings: nInitiatedListings
-	      	});
-	      } else {
-	      	var nNewListings = this.state.newListings.concat(data);
-	      	this.setState({
-	      		newListings: nNewListings
-	      	});
-	      }
-	    });
-
 	}
 
 	getNewListings() {
@@ -83,6 +67,9 @@ class Main extends React.Component {
 		            userId={this.props.userId}
 		            initiatedListings={this.state.initiatedListings} 
 		            socket={this.props.socket}/>
+		          )}/>
+		          <Route exact path="/" render={(props) => (
+		            <div>Welcome to the Dashboard</div>
 		          )}/>
 		        </Switch>
 	        </div>
