@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import $ from 'jquery';
 import Dashboard from './Dashboard.jsx';
+import InitiatedListings from './InitiatedListings.jsx';
 
 class Main extends React.Component {
 	constructor(props) {
@@ -56,7 +57,10 @@ class Main extends React.Component {
 		            <div>Here are all the listings you have joined!</div>
 		          )}/>
 		          <Route path="/initiated" render={(props) => (
-		            <div>Here are all the listings you have initiated!</div>
+		            <InitiatedListings 
+		            userId={this.props.userId}
+		            initiatedListings={this.state.initiatedListings} 
+		            socket={this.props.socket}/>
 		          )}/>
 		          <Route exact path="/" render={(props) => (
 		            <Dashboard userId={this.props.userId} socket={this.props.socket}/>
