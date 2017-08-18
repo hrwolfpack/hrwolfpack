@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Listings from './Listings.jsx';
 
-class JoinedListings extends React.Component {
+class NewListings extends React.Component {
 
   constructor(props){
     super(props);
@@ -13,7 +13,7 @@ class JoinedListings extends React.Component {
 
   componentDidMount() {
     this.setState({
-      currentListings: this.props.joinedListings
+      currentListings: this.props.newListings
     });
 
     this.props.socket.on('newListing', (data) => {
@@ -35,4 +35,4 @@ class JoinedListings extends React.Component {
   }
 }
 
-export default JoinedListings;
+export default NewListings;

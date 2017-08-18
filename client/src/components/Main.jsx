@@ -4,6 +4,7 @@ import $ from 'jquery';
 import Dashboard from './Dashboard.jsx';
 import InitiatedListings from './InitiatedListings.jsx';
 import JoinedListings from './JoinedListings.jsx';
+import NewListings from './NewListings.jsx';
 
 class Main extends React.Component {
 	constructor(props) {
@@ -23,10 +24,9 @@ class Main extends React.Component {
 
 	getNewListings() {
 		$.get('/newListings', (data) => {
-			console.log(data);
-			// this.setState({
-			// 	newListings: data
-			// });
+			this.setState({
+				newListings: data
+			});
 		});
 	}
 
@@ -51,7 +51,10 @@ class Main extends React.Component {
 			<div>
 		        <Switch>
 		          <Route path="/new" render={(props) => (
-		            <div>Here are all the new listings!</div>
+		            <NewListings 
+		            userId={this.props.userId}
+		            newListings={this.state.newListings} 
+		            socket={this.props.socket}/>
 		          )}/>
 		          <Route path="/joined" render={(props) => (
 		            <JoinedListings 
@@ -66,7 +69,9 @@ class Main extends React.Component {
 		            socket={this.props.socket}/>
 		          )}/>
 		          <Route exact path="/" render={(props) => (
-		            <Dashboard userId={this.props.userId} socket={this.props.socket}/>
+		            <Dashboard 
+		            userId={this.props.userId} 
+		            socket={this.props.socket}/>
 		          )}/>
 		        </Switch>
 	        </div>
