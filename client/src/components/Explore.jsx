@@ -11,7 +11,8 @@ class Explore extends React.Component {
 		this.state = {
 			value: '',
 			deals: [],
-			lgShow: false
+			lgShow: false,
+			prePopulate: {}
 		}
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSearch = this.handleSearch.bind(this);
@@ -41,6 +42,9 @@ class Explore extends React.Component {
 	}
 
 	handleSelect(dealInfo) {
+		this.setState({
+			prePopulate: dealInfo
+		});
 		this.showModal();
 	}
 
@@ -78,6 +82,7 @@ class Explore extends React.Component {
 				lgShow={this.state.lgShow}
 				socket={this.props.socket}
 				hideModal={this.hideModal}
+				prePopulate={this.state.prePopulate}
 				/>
 				<Deals dealInfos={this.state.deals} handleSelect={this.handleSelect}/>
 			</div>
