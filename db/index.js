@@ -52,13 +52,13 @@ Listing.belongsToMany(User, { through: UserListings});
 //create Users and listings table
 
 
-User.sync({force: true})
-.then(() => User.create({username: 'dylan', password: '123d'}))
-.then(() => User.create({username: 'clarence', password: '123c'}))
-.then(() => User.create({username: 'kevin', password: '123k'}))
-.then(() => User.create({username: 'jason', password: '123j'}))
-.then(() => User.create({username: 'fred', password: '1234'}))
-.then(() => User.create({username: 'tyler', password: '123t'}))
+User.sync()
+// .then(() => User.create({username: 'dylan', password: '123d'}))
+// .then(() => User.create({username: 'clarence', password: '123c'}))
+// .then(() => User.create({username: 'kevin', password: '123k'}))
+// .then(() => User.create({username: 'jason', password: '123j'}))
+// .then(() => User.create({username: 'fred', password: '1234'}))
+// .then(() => User.create({username: 'tyler', password: '123t'}))
 .then(() => {
   return Listing.sync();
 })

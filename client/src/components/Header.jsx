@@ -15,6 +15,9 @@ var Header = (props) => (
 	      </Navbar.Header>
 	      <Nav>
 	        <NavItem>
+	          <Link to="/">Explore</Link>
+	        </NavItem>
+	        <NavItem>
 	          <Link to="/new">New Listings Near You</Link>
 	        </NavItem>
 	        <NavItem>
@@ -22,9 +25,6 @@ var Header = (props) => (
 	        </NavItem>
 	        <NavItem>
 	          <Link to="/initiated">Listings You Initiated</Link>
-	        </NavItem>
-	        <NavItem>
-	          <Link to="/">Dashboard</Link>
 	        </NavItem>
 	      </Nav>
 	    </Navbar> 

@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Listing from './Listing.jsx';
 import { ListGroup, Button, Modal } from 'react-bootstrap';
 
