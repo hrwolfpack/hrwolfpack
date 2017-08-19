@@ -1,8 +1,12 @@
 import React from 'react';
-import { Panel } from 'react-bootstrap';
+import { Panel, Button } from 'react-bootstrap';
 
 var Deal = (props) => (
-		<Panel header={props.dealInfo.description}>
+		<Panel 
+		header={props.dealInfo.description}
+		footer={
+			<Button bsStyle="info" onClick={() => props.handleSelect(props.dealInfo)}>Start a Campaign</Button>
+		}>
 			<div>
 				<img src={props.dealInfo.small_image} ></img>
 				<a href={props.dealInfo.url}>See this deal on Amazon</a>

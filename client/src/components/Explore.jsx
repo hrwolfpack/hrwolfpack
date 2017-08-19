@@ -13,6 +13,7 @@ class Explore extends React.Component {
 		}
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSearch = this.handleSearch.bind(this);
+		this.handleSelect = this.handleSelect.bind(this);
 	}
 
 	handleChange(event) {
@@ -35,6 +36,10 @@ class Explore extends React.Component {
 		});
 	}
 
+	handleSelect(dealInfo) {
+		console.log('i am selected: ', dealInfo);
+	}
+
 	render() {
 		return (
 			<div>
@@ -51,7 +56,7 @@ class Explore extends React.Component {
 						Search
 					</Button>
 				</form>
-				<Deals dealInfos={this.state.deals} />
+				<Deals dealInfos={this.state.deals} handleSelect={this.handleSelect}/>
 			</div>
 		);
 	}
