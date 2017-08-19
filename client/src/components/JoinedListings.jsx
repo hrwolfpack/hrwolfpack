@@ -7,6 +7,11 @@ import { Carousel, Col, Grid, Row } from 'react-bootstrap';
 const imgStyle = {
   width: '100%',
 };
+
+var divStyle = {
+  margin:'100px'
+};
+
 class JoinedListings extends React.Component {
 
   constructor(props){
@@ -30,7 +35,7 @@ class JoinedListings extends React.Component {
 
   render () {
     return (
-      <div>
+      <div >
         <Carousel>
           <Carousel.Item>
             <img style={imgStyle} width={900} height={500} alt="900x500" src="http://forselfhealing.net/images/news8.jpg"/>
@@ -55,6 +60,7 @@ class JoinedListings extends React.Component {
           </Carousel.Item>
         </Carousel>
         <Listings
+        style={divStyle}
         currentListings={this.state.currentListings}
         userId={this.props.userId}
         socket={this.props.socket}/>

@@ -5,6 +5,10 @@ import Form from './ListingsForm.jsx';
 import { Button, Modal, FormGroup, Grid, Row } from 'react-bootstrap';
 import $ from 'jquery';
 
+var divStyle = {
+  margin:'100px 50px 50px 0'
+};
+
 class InitiatedListings extends React.Component {
 
   constructor(props){
@@ -61,8 +65,8 @@ class InitiatedListings extends React.Component {
 
   render () {
     return (
-      <div>
-        <Button bsStyle="primary" onClick={this.showModal}>Create Listing</Button>
+      <div >
+        <Button style={divStyle} bsStyle="primary" onClick={this.showModal}>Create Listing</Button>
         <Modal show={this.state.lgShow}  bsSize="large" aria-labelledby="contained-modal-title-sm" onKeyDown={this.handleKeyDown}>
           <Modal.Header >
             <Modal.Title id="contained-modal-title-sm">Create New Listing</Modal.Title>

@@ -7,7 +7,7 @@ import CampaignModal from './CampaignModal.jsx';
 
 
 var divStyle = {
-  margin:'200px'
+  margin:'100px'
 };
 
 class Explore extends React.Component {
