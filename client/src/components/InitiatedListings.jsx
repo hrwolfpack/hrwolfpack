@@ -15,6 +15,8 @@ class InitiatedListings extends React.Component {
     };
     this.hideModal = this.hideModal.bind(this);
     this.showModal = this.showModal.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+
   }
 
   componentDidMount() {
@@ -51,11 +53,17 @@ class InitiatedListings extends React.Component {
     });
   }
 
+  handleKeyDown (e) {
+    if (e.keyCode === 27) {
+      this.hideModal();
+    }
+  }
+
   render () {
     return (
       <div>
         <Button bsStyle="primary" onClick={this.showModal}>Create Listing</Button>
-        <Modal show={this.state.lgShow}  bsSize="large" aria-labelledby="contained-modal-title-sm">
+        <Modal show={this.state.lgShow}  bsSize="large" aria-labelledby="contained-modal-title-sm" onKeyDown={this.handleKeyDown}>
           <Modal.Header >
             <Modal.Title id="contained-modal-title-sm">Create New Listing</Modal.Title>
           </Modal.Header>
@@ -70,11 +78,15 @@ class InitiatedListings extends React.Component {
             <Button bsStyle="danger" onClick={this.hideModal}>Cancel</Button>
           </Modal.Footer>
         </Modal>
-        <Listings 
-        currentListings={this.state.currentListings} 
-        userId={this.props.userId} 
+        <Grid>
+          <Row>
+        <Listings
+        currentListings={this.state.currentListings}
+        userId={this.props.userId}
         socket={this.props.socket}/>
-      </div>
+      </Row>
+    </Grid>
+  </div>
     )
   }
 }
