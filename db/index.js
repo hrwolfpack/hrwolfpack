@@ -51,16 +51,22 @@ User.belongsToMany(Listing, { through: UserListings});
 Listing.belongsToMany(User, { through: UserListings});
 //create Users and listings table
 
-User.sync();
+
+User.sync()
 // .then(() => User.create({username: 'dylan', password: '123d'}))
 // .then(() => User.create({username: 'clarence', password: '123c'}))
 // .then(() => User.create({username: 'kevin', password: '123k'}))
 // .then(() => User.create({username: 'jason', password: '123j'}))
 // .then(() => User.create({username: 'fred', password: '1234'}))
-
-Listing.sync();
+// .then(() => User.create({username: 'tyler', password: '123t'}))
+.then(() => {
+  return Listing.sync();
+})
+.then(() => {
+  return UserListings.sync();
+});
 // .then(() => Listing.create({
-//   name: '20 pack of shampoo',
+//   name: '69 pack of shampoo',
 //   initializer: 1,
 //   price: 5.00,
 //   complete: true,
@@ -83,9 +89,16 @@ Listing.sync();
 //   complete: false,
 //   location: '1015 Folsom St, San Francisco, CA 94103',
 //   num_of_participants: 4
-// }));
+// }))
+// .then(() => Listing.create({
+//   name: '40 lbs of Weed',
+//   initializer: 3,
+//   price: 200.00,
+//   complete: false,
+//   location: '1552 11th Ave, San Francisco, CA 94103',
+//   num_of_participants: 3
+// }))
 
-UserListings.sync();
 
 
 exports.User = User;

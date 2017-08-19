@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const db = require('../db');
+const amazonApiHandler = require('./amazon.js');
 
 router.get('/listings', (req, res) => {
 	db.Listing.findAll()
@@ -93,6 +94,8 @@ router.get('/initiatedListings', (req, res) => {
 		console.log('Error: ', err);
 	});
 });
+
+router.post('/api', amazonApiHandler);
 
 router.get('/*', (req, res) => {
 	res.sendFile(path.join(__dirname, '../client/dist/index.html'));
