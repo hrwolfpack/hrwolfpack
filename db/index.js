@@ -3,7 +3,7 @@ var Sequelize = require('sequelize');
 var db = new Sequelize('wolfpack', 'root', '', {
 	host: 'localhost',
 	dialect: 'mysql',
-  logging: false,
+	logging: false,
 	define: {
         timestamps: false
     }
@@ -22,13 +22,13 @@ db
 
 
 //define schema
-var User = db.define('User', {
+var User = db.define('user', {
   id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
   username: Sequelize.STRING,
   password: Sequelize.STRING
 }, {underscored: true});
 
-var Listing = db.define('Listing', {
+var Listing = db.define('listing', {
   id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
   name: Sequelize.STRING,
 	description: Sequelize.STRING,
@@ -43,7 +43,7 @@ var Listing = db.define('Listing', {
   created_dt: Sequelize.DATE
 }, {underscored: true});
 
-var UserListings = db.define('UserListings', {
+var UserListings = db.define('userListings', {
   received: { type: Sequelize.BOOLEAN, defaultValue: false}
 });
 
