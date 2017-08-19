@@ -62,8 +62,6 @@ app.get('/logout', (req, res) => {
   res.redirect('/login');
 });
 
-<<<<<<< a661ab224f269d9c8a787b0f081138f501c3029c
-=======
 app.get('/api', (req, res) => {
 
   const access_key_id = aws_cred.access_key_id;
@@ -134,7 +132,6 @@ app.get('/api', (req, res) => {
   });
 });
 
->>>>>>> format listings to cards
 app.use(router);
 
 let port = process.env.PORT || 3000;

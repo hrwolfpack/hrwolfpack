@@ -1,6 +1,6 @@
 import React from 'react';
 import Listing from './Listing.jsx';
-import { ListGroup, Button, Modal, Col, Thumbnail, Grid, Row,  } from 'react-bootstrap';
+import { ListGroup, Button, Modal, Thumbnail, Grid, Row,  } from 'react-bootstrap';
 
 class Listings extends React.Component {
 	constructor(props) {
@@ -10,7 +10,7 @@ class Listings extends React.Component {
 
 	render() {
 		return (
-					<Col xs={4} md={4}>
+					<div>
 						{this.props.currentListings.map((listingInfo, i) => {
 							return <Listing
 								listingInfo={listingInfo}
@@ -18,8 +18,8 @@ class Listings extends React.Component {
 								userId={this.props.userId}
 								socket={this.props.socket}/>
 						})}
-					</Col>
-					
+					</div>
+
 		);
 	}
 	}

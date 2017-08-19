@@ -230,48 +230,19 @@ class Listing extends React.Component {
             </Modal.Footer>
           </Modal>
 
-        			<Thumbnail src={this.props.listingInfo.image_url} alt="242x200">
-  		        	<h3>{this.props.listingInfo.name}</h3>
-  		        	<p>{this.props.listingInfo.price}</p>
-  		        	<p>
-  		          	<Button bsStyle="default">Join</Button>
-                  <Button bsStyle="primary" onClick={this.showModal}>More Info</Button>
-  		        	</p>
-        			</Thumbnail>
-
 
               <Grid>
                   <Row>
                   <Col xs={6} md={4}>
-                    <Thumbnail src="/assets/thumbnaildiv.png" alt="242x200">
-                      <h3>Thumbnail label</h3>
-                      <p>Description</p>
+                    <Thumbnail src={this.props.listingInfo.image_url}alt="242x200">
+                      <h3>{this.props.listingInfo.name}</h3>
+                      <p>{this.props.listingInfo.price}</p>
                       <p>
-                        <Button bsStyle="primary">Button</Button>&nbsp;
-                        <Button bsStyle="default">Button</Button>
+                        <Button bsStyle="primary" onClick={this.showModal}>More Info</Button>
                       </p>
                     </Thumbnail>
                   </Col>
-                  <Col xs={6} md={4}>
-                    <Thumbnail src="/assets/thumbnaildiv.png" alt="242x200">
-                      <h3>Thumbnail label</h3>
-                      <p>Description</p>
-                      <p>
-                        <Button bsStyle="primary">Button</Button>&nbsp;
-                        <Button bsStyle="default">Button</Button>
-                      </p>
-                    </Thumbnail>
-                  </Col>
-                  <Col xs={6} md={4}>
-                    <Thumbnail src="/assets/thumbnaildiv.png" alt="242x200">
-                      <h3>Thumbnail label</h3>
-                      <p>Description</p>
-                      <p>
-                        <Button bsStyle="primary">Button</Button>&nbsp;
-                        <Button bsStyle="default">Button</Button>
-                      </p>
-                    </Thumbnail>
-                  </Col>
+
                   </Row>
                 </Grid>
         </div>
@@ -291,3 +262,23 @@ export default Listing;
 // </Col>
 // </Row>
 // </Grid>
+// <Col xs={6} md={4}>
+//   <Thumbnail src="/assets/thumbnaildiv.png" alt="242x200">
+//     <h3>Thumbnail label</h3>
+//     <p>Description</p>
+//     <p>
+//       <Button bsStyle="primary">Button</Button>&nbsp;
+//       <Button bsStyle="default">Button</Button>
+//     </p>
+//   </Thumbnail>
+// </Col>
+// <Col xs={6} md={4}>
+//   <Thumbnail src="/assets/thumbnaildiv.png" alt="242x200">
+//     <h3>Thumbnail label</h3>
+//     <p>Description</p>
+//     <p>
+//       <Button bsStyle="primary">Button</Button>&nbsp;
+//       <Button bsStyle="default">Button</Button>
+//     </p>
+//   </Thumbnail>
+// </Col>
