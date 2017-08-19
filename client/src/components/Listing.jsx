@@ -225,15 +225,12 @@ class Listing extends React.Component {
             </Modal.Body>
             <Modal.Footer>
               <Button bsStyle="danger" onClick={this.hideModal}>Exit</Button>
-
               {this.state.btShow ? <Button onClick={this.handleJoin} >Join the Pack</Button>: null}
             </Modal.Footer>
           </Modal>
 
 
-              <Grid>
-                  <Row>
-                  <Col xs={6} md={4}>
+                  <Col xs={4} md={4}>
                     <Thumbnail src={this.props.listingInfo.image_url}alt="242x200">
                       <h3>{this.props.listingInfo.name}</h3>
                       <p>{this.props.listingInfo.price}</p>
@@ -243,8 +240,7 @@ class Listing extends React.Component {
                     </Thumbnail>
                   </Col>
 
-                  </Row>
-                </Grid>
+                  
         </div>
       );
     }

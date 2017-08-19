@@ -11,6 +11,8 @@ class Listings extends React.Component {
 	render() {
 		return (
 					<div>
+						<Grid>
+							<Row>
 						{this.props.currentListings.map((listingInfo, i) => {
 							return <Listing
 								listingInfo={listingInfo}
@@ -18,6 +20,8 @@ class Listings extends React.Component {
 								userId={this.props.userId}
 								socket={this.props.socket}/>
 						})}
+					</Row>
+				</Grid>
 					</div>
 
 		);
