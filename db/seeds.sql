@@ -16,7 +16,6 @@ CREATE TABLE users (
   UNIQUE (username)
 );
 
-
 CREATE TABLE listings (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(50) NOT NULL,
@@ -35,17 +34,16 @@ CREATE TABLE listings (
   FOREIGN KEY (initializer) REFERENCES users (id)
 );
 
-
 CREATE TABLE userListings (
   id INT NOT NULL AUTO_INCREMENT,
   user_id INT NOT NULL,
   listing_id INT NOT NULL,
   received INT NOT NULL DEFAULT 0,
-  PRIMARY KEY (id),
+  CONSTRAINT primk PRIMARY KEY (id),
   UNIQUE(user_id, listing_id),
-  FOREIGN KEY (user_id)
+  CONSTRAINT fork1 FOREIGN KEY (user_id)
     REFERENCES users (id),
-  FOREIGN KEY (listing_id)
+  CONSTRAINT fork2 FOREIGN KEY (listing_id)
     REFERENCES listings (id)
 );
 
@@ -63,9 +61,9 @@ VALUES ('100 pack of protein bars', '100 Clif Bar brand Builder Bar protein bars
 
 -- -- Case 1: Full-participation closed listing (completed transaction) created by Dylan and joined by 3 other participants
 -- INSERT INTO userListings (user_id, listing_id, received) VALUES (2, 1, 1), (3, 1, 1), (4, 1, 1);
-
+--
 -- -- Case 2: Full-participation open listing (incomplete transaction) created by Dylan and joined by 2 other participants
 -- INSERT INTO userListings (user_id, listing_id, received) VALUES (3, 2, 1), (4, 2, 0);
-
+--
 -- -- Case 3: Partial-participation open listing created by Clarence requiring 4 participants, but only Dylan has joined (initializer from case 1)
 -- INSERT INTO userListings (user_id, listing_id, received) VALUES (1, 3, 0);

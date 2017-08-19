@@ -16,7 +16,6 @@ CREATE TABLE users (
   UNIQUE (username)
 );
 
-
 CREATE TABLE listings (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(50) NOT NULL,
@@ -35,16 +34,15 @@ CREATE TABLE listings (
   FOREIGN KEY (initializer) REFERENCES users (id)
 );
 
-
 CREATE TABLE userListings (
   id INT NOT NULL AUTO_INCREMENT,
   user_id INT NOT NULL,
   listing_id INT NOT NULL,
   received INT NOT NULL DEFAULT 0,
-  PRIMARY KEY (id),
+  CONSTRAINT primk PRIMARY KEY (id),
   UNIQUE(user_id, listing_id),
-  FOREIGN KEY (user_id)
+  CONSTRAINT fork1 FOREIGN KEY (user_id)
     REFERENCES users (id),
-  FOREIGN KEY (listing_id)
+  CONSTRAINT fork2 FOREIGN KEY (listing_id)
     REFERENCES listings (id)
 );
