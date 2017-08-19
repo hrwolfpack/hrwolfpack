@@ -4,10 +4,14 @@ import Dashboard from './Dashboard.jsx';
 import NewListings from './NewListings.jsx';
 import JoinedListings from './JoinedListings.jsx';
 import InitiatedListings from './InitiatedListings.jsx';
+import Explore from './Explore.jsx';
 
 var Main = (props) => (
 	<div>
 	    <Switch>
+	      <Route exact path="/" render={(propz) => (
+	        <Explore />
+	      )}/>
 	      <Route exact path="/new" render={(propz) => (
 	        <NewListings
 	        userId={props.userId}
@@ -22,9 +26,6 @@ var Main = (props) => (
 	        <InitiatedListings 
 	        userId={props.userId}
 	        socket={props.socket}/>
-	      )}/>
-	      <Route exact path="/" render={(propz) => (
-	        <div>Welcome to the Dashboard</div>
 	      )}/>
 	    </Switch>
 	</div>
