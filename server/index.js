@@ -12,6 +12,7 @@ const db = require('../db');
 const parseString = require('xml2js').parseString;
 const CryptoJS = require('crypto-js');
 const aws_cred = require('../config');
+const request = require('request');
 
 let app = express();
 //Use middleware
@@ -68,7 +69,7 @@ app.get('/api', (req, res) => {
   const endpoint = 'webservices.amazon.com';
   const uri = '/onca/xml';
   const associateTag = aws_cred.associate_tag;
-  const searchTerm = req.query.product;
+  const searchTerm = 'protein';//req.query.product;
   const pairs = [];
   const product_list = [];
   const params = {
