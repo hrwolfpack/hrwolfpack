@@ -46,6 +46,7 @@ class Explore extends React.Component {
 			prePopulate: dealInfo
 		});
 		this.showModal();
+		// this.props.history.push('/initiated');
 	}
 
 	hideModal(e){
@@ -83,6 +84,7 @@ class Explore extends React.Component {
 				socket={this.props.socket}
 				hideModal={this.hideModal}
 				prePopulate={this.state.prePopulate}
+				history={this.props.history}
 				/>
 				<Deals dealInfos={this.state.deals} handleSelect={this.handleSelect}/>
 			</div>
