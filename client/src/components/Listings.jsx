@@ -1,6 +1,6 @@
 import React from 'react';
 import Listing from './Listing.jsx';
-import { ListGroup, Button, Modal } from 'react-bootstrap';
+import { ListGroup, Button, Modal, Col, Thumbnail, Grid, Row,  } from 'react-bootstrap';
 
 class Listings extends React.Component {
 	constructor(props) {
@@ -10,21 +10,19 @@ class Listings extends React.Component {
 
 	render() {
 		return (
-		  <div>
-
-				{this.props.currentListings.map((listingInfo, i) => {
-		      return <Listing
-		      listingInfo={listingInfo}
-		      key={i}
-		      userId={this.props.userId}
-		      socket={this.props.socket}/>
-
-		    })}
-
-		  </div>
+					<Col xs={4} md={4}>
+						{this.props.currentListings.map((listingInfo, i) => {
+							return <Listing
+								listingInfo={listingInfo}
+								key={i}
+								userId={this.props.userId}
+								socket={this.props.socket}/>
+						})}
+					</Col>
+					
 		);
 	}
-}
+	}
 
 export default Listings;
 

@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom';
 
 var Header = (props) => (
 	<div>
-	    <div>
-	      Hello, {props.currentUser}
-	    </div>
+
 	    <Navbar>
 	      <Navbar.Header>
 	        <Navbar.Brand>
-	          <div>Wolfpack</div>
+
+							<div>
+					      Hello, {props.currentUser}
+					    </div>
 	        </Navbar.Brand>
 	      </Navbar.Header>
 	      <Nav>
@@ -27,7 +28,7 @@ var Header = (props) => (
 	          <Link to="/initiated">Listings You Initiated</Link>
 	        </NavItem>
 	      </Nav>
-	    </Navbar> 
+	    </Navbar>
 	</div>
 );
 
