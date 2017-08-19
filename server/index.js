@@ -71,7 +71,7 @@ app.get('/api', (req, res) => {
   const searchTerm = req.query.product;
   const pairs = [];
   const product_list = [];
-	const params = {
+  const params = {
 		'Service': 'AWSECommerceService',
 		'Operation': 'ItemSearch',
 		'AWSAccessKeyId': access_key_id,
