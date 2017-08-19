@@ -62,6 +62,7 @@ app.get('/logout', (req, res) => {
   res.redirect('/login');
 });
 
+
 app.use(router);
 
 let port = process.env.PORT || 3000;

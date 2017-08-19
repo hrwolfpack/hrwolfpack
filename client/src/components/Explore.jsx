@@ -5,6 +5,11 @@ import Deal from './Deal.jsx';
 import Deals from './Deals.jsx';
 import CampaignModal from './CampaignModal.jsx';
 
+
+var divStyle = {
+  margin:'100px'
+};
+
 class Explore extends React.Component {
 	constructor(props) {
 		super(props);
@@ -65,21 +70,21 @@ class Explore extends React.Component {
 
 	render() {
 		return (
-			<div>
+			<div style={divStyle}>
 				<form>
-					<FormGroup>
-						<FormControl
-						type="text"
-						value={this.state.value}
-						placeholder="Search for good deals around the web"
-						onChange={this.handleChange}
-						/>
-					</FormGroup>
 					<Button bsStyle="primary" onClick={this.handleSearch}>
 						Search
 					</Button>
+					<FormGroup>
+						<FormControl
+							type="text"
+							value={this.state.value}
+							placeholder="Search for good deals around the web"
+							onChange={this.handleChange}
+							/>
+					</FormGroup>
 				</form>
-				<CampaignModal 
+				<CampaignModal
 				userId={this.props.userId}
 				lgShow={this.state.lgShow}
 				socket={this.props.socket}

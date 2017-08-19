@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { FormGroup, InputGroup, FormControl, Button, DropdownButton, MenuItem } from 'react-bootstrap';
+import { FormGroup, InputGroup, FormControl, Button, DropdownButton, MenuItem, Grid } from 'react-bootstrap';
 import $ from 'jquery';
 
 class Form extends React.Component {
@@ -27,9 +27,11 @@ class Form extends React.Component {
         description: this.props.prePopulate.long_description,
         img_url: this.props.prePopulate.medium_image,
         url: this.props.prePopulate.url
+
       });
     }
   }
+
 
   onChange(e){
     this.setState({

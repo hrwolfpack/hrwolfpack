@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom';
 import Listings from './Listings.jsx';
 import $ from 'jquery';
 
+
+var divStyle = {
+  margin:'100px 50px 50px 0'
+};
 class NewListings extends React.Component {
 
   constructor(props){
@@ -35,10 +39,10 @@ class NewListings extends React.Component {
 
   render () {
     return (
-      <div>
-        <Listings 
-        currentListings={this.state.currentListings} 
-        userId={this.props.userId} 
+      <div style={divStyle}>
+        <Listings
+        currentListings={this.state.currentListings}
+        userId={this.props.userId}
         socket={this.props.socket}/>
       </div>
     )

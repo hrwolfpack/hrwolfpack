@@ -1,54 +1,64 @@
 var expect = require('chai').expect;
 var request = require('request');
 var db = require('../db');
+var chai = require('chai');
+var chaiHTTP = require('chai-http');
+var should = chai.should();
+var server = require('../server/index.js');
 
-describe('Server Side Testing', function() {
 
-  describe('Integration Testing', function() {
+describe('Create a new listing', function() {
 
-    beforeEach(function(done) {
-    	request({
-    		method: 'POST',
-    		uri: 'http://127.0.0.1:3000/login',
-    		json: {
-    			username: 'dylan',
-    			password: '123d'
-    		}
-    	}, function(data) {
-    		console.log(data);
-    		done();
-    	});
-    });
+})
 
-    // afterEach(function() {
 
-    // });
-
-    it('should insert into Listing after post request to "/listings"', function(done) {
-      request({
-	      method: 'POST',
-	      uri: 'http://127.0.0.1:3000/listings',
-	      json: {
-		      name: '6 Packs of Chicken Breast',
-		      price: 12,
-		      location: '50 Webster, San Francisco, CA 94102'
-	  	  },
-      }, function() {
-      	db.Listing.findAndCountAll()
-      	.then(result => {
-      		expect(result.count).to.equal(4);
-      	 	done();
-      	});
-      });
-    });
-
-    it('should return index when the value is present', function() {
-      expect([1,2,3].indexOf(3)).to.equal(2);
-    });
-
-  });
-
-});
+// describe('Server Side Testing', function() {
+//
+//   describe('Integration Testing', function() {
+//
+//     beforeEach(function(done) {
+//     	request({
+//     		method: 'POST',
+//     		uri: 'http://127.0.0.1:3000/login',
+//     		json: {
+//     			username: 'dylan',
+//     			password: '123d'
+//     		}
+//     	}, function(data) {
+//     		console.log(data);
+//     		done();
+//     	});
+//     });
+//
+//     // afterEach(function() {
+//
+//     // });
+//
+//     it('should insert into Listing after post request to "/listings"', function(done) {
+//       request({
+// 	      method: 'POST',
+// 	      uri: 'http://127.0.0.1:3000/listings',
+// 	      json: {
+// 		      name: '6 Packs of Chicken Breast',
+// 		      price: 12,
+// 		      location: '50 Webster, San Francisco, CA 94102'
+// 	  	  },
+//       }, function() {
+//       	db.Listing.findAndCountAll()
+//       	.then(result => {
+//       		expect(result.count).to.equal(4);
+//       	 	done();
+//       	});
+//       });
+//     });
+//
+//     it('should return index when the value is present', function() {
+//       expect([1,2,3].indexOf(3)).to.equal(2);
+//     });
+//
+//   });
+//
+// });
 
 
 // tests
