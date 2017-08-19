@@ -11,7 +11,9 @@
     "start": "node server/index.js",
     "test": "mocha",
     "react-dev": "webpack -d --watch",
-    "server-dev": "nodemon server/index.js"
+    "server-dev": "nodemon server/index.js",
+    "load-seeds": "mysql -u root < db/seeds.sql",
+    "create-schema": "mysql -u root < db/schema.sql"
   },
   "dependencies": {
     "axios": "^0.16.2",
