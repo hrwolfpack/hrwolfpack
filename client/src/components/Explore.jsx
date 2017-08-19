@@ -3,17 +3,21 @@ import { FormGroup, FormControl, Button, Well } from 'react-bootstrap';
 import axios from 'axios';
 import Deal from './Deal.jsx';
 import Deals from './Deals.jsx';
+import CampaignModal from './CampaignModal.jsx';
 
 class Explore extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			value: '',
-			deals: []
+			deals: [],
+			lgShow: false
 		}
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSearch = this.handleSearch.bind(this);
 		this.handleSelect = this.handleSelect.bind(this);
+		this.hideModal = this.hideModal.bind(this);
+		this.showModal = this.showModal.bind(this);
 	}
 
 	handleChange(event) {
@@ -37,7 +41,20 @@ class Explore extends React.Component {
 	}
 
 	handleSelect(dealInfo) {
-		console.log('i am selected: ', dealInfo);
+		this.showModal();
+	}
+
+	hideModal(e){
+	this.setState({
+	  lgShow: false
+	});
+	}
+
+	showModal(e){
+	// e.preventDefault();
+	this.setState({
+	  lgShow: true
+	});
 	}
 
 	render() {
@@ -56,6 +73,12 @@ class Explore extends React.Component {
 						Search
 					</Button>
 				</form>
+				<CampaignModal 
+				userId={this.props.userId}
+				lgShow={this.state.lgShow}
+				socket={this.props.socket}
+				hideModal={this.hideModal}
+				/>
 				<Deals dealInfos={this.state.deals} handleSelect={this.handleSelect}/>
 			</div>
 		);
