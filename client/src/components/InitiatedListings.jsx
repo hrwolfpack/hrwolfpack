@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Listings from './Listings.jsx';
 import Form from './ListingsForm.jsx';
-import { Button, Modal, FormGroup } from 'react-bootstrap';
+import { Button, Modal, FormGroup, Grid, Row } from 'react-bootstrap';
 import $ from 'jquery';
 
 class InitiatedListings extends React.Component {

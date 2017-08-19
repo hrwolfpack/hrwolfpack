@@ -17,10 +17,13 @@ class Form extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({
-      name: this.props.prePopulate.description
-    })
+    if (this.props.prePopulate) {
+      this.setState({
+        name: this.props.prePopulate.description
+      });
+    }
   }
+
 
   onChange(e){
     this.setState({
