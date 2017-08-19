@@ -63,9 +63,8 @@ module.exports = (req, res) => {
             'small_image': product.SmallImage ? product.SmallImage[0].URL[0] : defaultImage,
             'medium_image': product.MediumImage ? product.MediumImage[0].URL[0] : defaultImage,
             'large_image': product.LargeImage ? product.LargeImage[0].URL[0] : defaultImage,
-            'url': product.DetailPageURL[0],
-            'description': product.ItemAttributes[0].Title[0],
-            'list_price': product.ItemAttributes[0].ListPrice?product.ItemAttributes[0].ListPrice[0].FormattedPrice[0]:'N/A',
+            'url': product.DetailPageURL[0].substring(0, product.DetailPageURL[0].indexOf('?')),            'description': product.ItemAttributes[0].Title[0],
+            'list_price': product.ItemAttributes[0].ListPrice ? product.ItemAttributes[0].ListPrice[0].FormattedPrice[0].slice(1) : 'N/A',
             'long_description': product.ItemAttributes[0].Feature ? product.ItemAttributes[0].Feature.join('; ') : 'N/A'
           });
         });

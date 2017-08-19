@@ -66,7 +66,7 @@ app.use(router);
 
 let port = process.env.PORT || 3000;
 var server = app.listen(port, () => console.log('Listening on port ', port));
-
+// module.exports = app.listen(port, () => console.log('Listening on port ', port));
 
 
 //socket setup
@@ -76,11 +76,16 @@ io.on('connection', (socket) => {
 	console.log('Make socket connection', socket.id);
 
 	socket.on('newListing', (data) => {
-		db.Listing.create(
-			{name: data.name,
-				price: parseInt(data.price),
-				location: data.location,
-				initializer: data.initializer})
+		db.Listing.create({
+			name: data.name,
+			price: Number(data.price),
+			location: data.location,
+			initializer: data.initializer,
+			description: data.description,
+			image_url: data.image_url,
+			url: data.url,
+			num_of_participants: data.num_of_participants
+			})
 			.then(listing => {
 				io.sockets.emit('newListing', listing);
 			})

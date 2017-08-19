@@ -11,15 +11,24 @@ class Form extends React.Component {
       description: "",
       price: "",
       location: "",
+      img_url: "",
+      url: "",
+      packSize: ""
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentDidMount() {
-    this.setState({
-      name: this.props.prePopulate.description
-    })
+    if (this.props.prePopulate) {
+      this.setState({
+        name: this.props.prePopulate.description,
+        price: this.props.prePopulate.list_price,
+        description: this.props.prePopulate.long_description,
+        img_url: this.props.prePopulate.medium_image,
+        url: this.props.prePopulate.url
+      });
+    }
   }
 
   onChange(e){
@@ -35,7 +44,10 @@ class Form extends React.Component {
       description: this.state.description,
       price: this.state.price,
       location: this.state.location,
-      initializer: this.props.userId
+      initializer: this.props.userId,
+      image_url: this.state.img_url,
+      url: this.state.url,
+      num_of_participants: this.state.packSize
     });
     this.props.hideModal();
     this.props.history.push('/initiated');
@@ -61,7 +73,7 @@ class Form extends React.Component {
             <InputGroup.Addon>$</InputGroup.Addon>
             <FormControl
               type="text"
-              placeholder="Price"
+              placeholder="Price (eg. 11, 7.53 or 78.40)"
               name="price"
               value={this.state.price}
               onChange={this.onChange}
@@ -81,19 +93,54 @@ class Form extends React.Component {
             <InputGroup.Addon></InputGroup.Addon>
           </InputGroup>
         </FormGroup>
-        <DropdownButton
-          componentClass={InputGroup.Button}
-          id="input-dropdown-addon"
-          title="Pack Size"
-          >
-          <MenuItem key="1">2</MenuItem>
-          <MenuItem key="2">3</MenuItem>
-          <MenuItem key="3">4</MenuItem>
-          <MenuItem key="4">5</MenuItem>
-          <MenuItem key="5">6</MenuItem>
-          <MenuItem key="6">7</MenuItem>
-          <MenuItem key="7">8</MenuItem>
-        </DropdownButton>
+        <FormGroup>
+          <InputGroup>
+            <FormControl
+              type="text"
+              placeholder="How many more wolves do you want in your pack? (eg. 3, 2 or 8)"
+              name="packSize"
+              value={this.state.packSize}
+              onChange={this.onChange}
+              />
+            <InputGroup.Addon></InputGroup.Addon>
+          </InputGroup>
+        </FormGroup>
+        <FormGroup>
+          <InputGroup>
+            <FormControl
+              type="text"
+              placeholder="Link to Item"
+              name="url"
+              value={this.state.url}
+              onChange={this.onChange}
+              />
+            <InputGroup.Addon></InputGroup.Addon>
+          </InputGroup>
+        </FormGroup>
+        <FormGroup>
+          <InputGroup>
+            <FormControl
+              type="text"
+              placeholder="Item Image URL"
+              name="img_url"
+              value={this.state.img_url}
+              onChange={this.onChange}
+              />
+            <InputGroup.Addon></InputGroup.Addon>
+          </InputGroup>
+        </FormGroup>
+        <FormGroup>
+          <InputGroup>
+            <FormControl
+              type="text"
+              placeholder="Description for your Campaign"
+              name="description"
+              value={this.state.description}
+              onChange={this.onChange}
+              />
+            <InputGroup.Addon></InputGroup.Addon>
+          </InputGroup>
+        </FormGroup>
         <Button bsStyle="success" onClick={this.onSubmit}>Create</Button>
       </form>
     );
@@ -101,3 +148,17 @@ class Form extends React.Component {
 }
 
 export default Form;
+
+        // <DropdownButton
+        //   componentClass={InputGroup.Button}
+        //   id="input-dropdown-addon"
+        //   title="Pack Size"
+        //   >
+        //   <MenuItem key="1">2</MenuItem>
+        //   <MenuItem key="2">3</MenuItem>
+        //   <MenuItem key="3">4</MenuItem>
+        //   <MenuItem key="4">5</MenuItem>
+        //   <MenuItem key="5">6</MenuItem>
+        //   <MenuItem key="6">7</MenuItem>
+        //   <MenuItem key="7">8</MenuItem>
+        // </DropdownButton>
