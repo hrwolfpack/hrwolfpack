@@ -27,9 +27,11 @@ class Form extends React.Component {
         description: this.props.prePopulate.long_description,
         img_url: this.props.prePopulate.medium_image,
         url: this.props.prePopulate.url
+
       });
     }
   }
+
 
   onChange(e){
     this.setState({
