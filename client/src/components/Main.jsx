@@ -11,6 +11,7 @@ var Main = (props) => (
 	    <Switch>
 	      <Route exact path="/" render={(propz) => (
 	        <Explore 
+	        {...propz}
 	        userId={props.userId}
 	        socket={props.socket}/>
 	      )}/>

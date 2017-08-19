@@ -38,6 +38,7 @@ class Form extends React.Component {
       initializer: this.props.userId
     });
     this.props.hideModal();
+    this.props.history.push('/initiated');
   }
 
   render () {

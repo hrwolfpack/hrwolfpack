@@ -14,7 +14,8 @@ var CampaignModal = (props) => (
 	        <Form
 	        socket={props.socket} userId={props.userId}
 	        hideModal={props.hideModal}
-	        prePopulate={props.prePopulate}/>
+	        prePopulate={props.prePopulate}
+	        history={props.history}/>
 	      </Modal.Body>
 	      <Modal.Footer>
 	        <Button bsStyle="danger" onClick={props.hideModal}>Cancel</Button>
