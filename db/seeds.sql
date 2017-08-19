@@ -30,8 +30,8 @@ CREATE TABLE listings (
   num_of_participants INT NOT NULL,
   created_dt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
-  UNIQUE (initializer, created_dt),
-  FOREIGN KEY (initializer) REFERENCES users (id)
+  UNIQUE (initializer, created_dt)
+  -- FOREIGN KEY (initializer) REFERENCES users (id)
 );
 
 CREATE TABLE userListings (
@@ -40,11 +40,11 @@ CREATE TABLE userListings (
   listing_id INT NOT NULL,
   received INT NOT NULL DEFAULT 0,
   CONSTRAINT primk PRIMARY KEY (id),
-  UNIQUE(user_id, listing_id),
-  CONSTRAINT fork1 FOREIGN KEY (user_id)
-    REFERENCES users (id),
-  CONSTRAINT fork2 FOREIGN KEY (listing_id)
-    REFERENCES listings (id)
+  UNIQUE(user_id, listing_id)
+  -- CONSTRAINT fork1 FOREIGN KEY (user_id)
+  --   REFERENCES users (id),
+  -- CONSTRAINT fork2 FOREIGN KEY (listing_id)
+  --   REFERENCES listings (id)
 );
 
 INSERT INTO users (username, password)

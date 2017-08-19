@@ -66,7 +66,7 @@ app.use(router);
 
 let port = process.env.PORT || 3000;
 var server = app.listen(port, () => console.log('Listening on port ', port));
-
+// module.exports = app.listen(port, () => console.log('Listening on port ', port));
 
 
 //socket setup

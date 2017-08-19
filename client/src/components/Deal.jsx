@@ -8,7 +8,8 @@ var Deal = (props) => (
 			<Button bsStyle="info" onClick={() => props.handleSelect(props.dealInfo)}>Start a Campaign</Button>
 		}>
 			<div>
-				<img src={props.dealInfo.small_image} ></img>
+				<img src={props.dealInfo.medium_image} ></img>
+				<span>Price: {props.dealInfo.list_price}</span>
 				<a href={props.dealInfo.url}>See this deal on Amazon</a>
 				<p>{props.dealInfo.long_description}</p>
 			</div>

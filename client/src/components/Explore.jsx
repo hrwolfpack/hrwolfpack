@@ -32,6 +32,7 @@ class Explore extends React.Component {
 			query: this.state.value
 		})
 		.then(res => {
+			console.log(res.data);
 			this.setState({
 				deals: res.data
 			});
