@@ -47,26 +47,3 @@ var Header = (props) => (
 );
 
 export default Header;
-
-// <Navbar>
-// 	<Navbar.Header>
-// 		<Navbar.Brand>
-//
-//
-// 		</Navbar.Brand>
-// 	</Navbar.Header>
-// 	<Nav>
-// 		<NavItem>
-// 			<Link to="/">Explore</Link>
-// 		</NavItem>
-// 		<NavItem>
-// 			<Link to="/new">New Listings Near You</Link>
-// 		</NavItem>
-// 		<NavItem>
-// 			<Link to="/joined">Listings You Joined</Link>
-// 		</NavItem>
-// 		<NavItem>
-// 			<Link to="/initiated">Listings You Initiated</Link>
-// 		</NavItem>
-// 	</Nav>
-// </Navbar>
