@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Listings from './Listings.jsx';
-import Form from './ListingsForm.jsx'
+import Form from './ListingsForm.jsx';
 import { Button, Modal, FormGroup } from 'react-bootstrap';
 import $ from 'jquery';
 

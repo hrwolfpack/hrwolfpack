@@ -10,7 +10,9 @@ var Main = (props) => (
 	<div>
 	    <Switch>
 	      <Route exact path="/" render={(propz) => (
-	        <Explore />
+	        <Explore 
+	        userId={props.userId}
+	        socket={props.socket}/>
 	      )}/>
 	      <Route exact path="/new" render={(propz) => (
 	        <NewListings
