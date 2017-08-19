@@ -16,6 +16,12 @@ class Form extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  componentDidMount() {
+    this.setState({
+      name: this.props.prePopulate.description
+    })
+  }
+
   onChange(e){
     this.setState({
       [e.target.name]: e.target.value
