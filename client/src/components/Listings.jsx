@@ -20,9 +20,9 @@ class Listings extends React.Component {
 								userId={this.props.userId}
 								socket={this.props.socket}/>
 						})}
-					</Row>
-				</Grid>
-					</div>
+						</Row>
+					</Grid>
+				</div>
 
 		);
 	}

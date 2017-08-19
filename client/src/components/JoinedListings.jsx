@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Listings from './Listings.jsx';
 import $ from 'jquery';
 import { Carousel, Col, Grid, Row } from 'react-bootstrap';
+<<<<<<< HEAD
 
 const imgStyle = {
   width: '100%',
@@ -11,7 +12,12 @@ const imgStyle = {
 var divStyle = {
   margin:'100px'
 };
+=======
+>>>>>>> ee6a5ff2567df8fe4ff02d32447a1661f0b3f6a2
 
+const imgStyle = {
+  width: '100%',
+};
 class JoinedListings extends React.Component {
 
   constructor(props){
@@ -35,7 +41,7 @@ class JoinedListings extends React.Component {
 
   render () {
     return (
-      <div >
+      <div>
         <Carousel>
           <Carousel.Item>
             <img style={imgStyle} width={900} height={500} alt="900x500" src="http://forselfhealing.net/images/news8.jpg"/>
