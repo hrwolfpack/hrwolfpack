@@ -44,7 +44,10 @@ class Form extends React.Component {
       description: this.state.description,
       price: this.state.price,
       location: this.state.location,
-      initializer: this.props.userId
+      initializer: this.props.userId,
+      image_url: this.state.img_url,
+      url: this.state.url,
+      num_of_participants: this.state.packSize
     });
     this.props.hideModal();
     this.props.history.push('/initiated');
@@ -70,7 +73,7 @@ class Form extends React.Component {
             <InputGroup.Addon>$</InputGroup.Addon>
             <FormControl
               type="text"
-              placeholder="Price"
+              placeholder="Price (eg. 11, 7.53 or 78.40)"
               name="price"
               value={this.state.price}
               onChange={this.onChange}
@@ -94,7 +97,7 @@ class Form extends React.Component {
           <InputGroup>
             <FormControl
               type="text"
-              placeholder="How many more wolves do you want in your pack?"
+              placeholder="How many more wolves do you want in your pack? (eg. 3, 2 or 8)"
               name="packSize"
               value={this.state.packSize}
               onChange={this.onChange}

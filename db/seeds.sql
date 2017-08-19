@@ -19,8 +19,9 @@ CREATE TABLE users (
 CREATE TABLE listings (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(200) NOT NULL,
-  description VARCHAR(100),
+  description VARCHAR(500),
   image_url VARCHAR(200),
+  url VARCHAR(200),
   initializer INT NOT NULL,
   price DECIMAL(5,2) NOT NULL,
   completed INT NOT NULL DEFAULT 0,

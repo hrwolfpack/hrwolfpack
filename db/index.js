@@ -33,6 +33,7 @@ var Listing = db.define('listing', {
   name: Sequelize.STRING,
 	description: Sequelize.STRING,
 	image_url: Sequelize.STRING,
+  url: Sequelize.STRING,
   initializer: { type: Sequelize.INTEGER, defaultValue: 1},
   price: Sequelize.DECIMAL(5, 2),
   completed: { type: Sequelize.BOOLEAN, defaultValue: false},
