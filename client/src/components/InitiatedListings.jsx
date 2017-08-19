@@ -65,9 +65,8 @@ class InitiatedListings extends React.Component {
 
   render () {
     return (
-      <div >
-        <Button style={divStyle} bsStyle="primary" onClick={this.showModal}>Create Listing</Button>
       <div>
+        <Button style={divStyle} bsStyle="primary" onClick={this.showModal}>Create Listing</Button>
         <Modal show={this.state.lgShow}  bsSize="large" aria-labelledby="contained-modal-title-sm" onKeyDown={this.handleKeyDown}>
           <Modal.Header >
             <Modal.Title id="contained-modal-title-sm">Create New Listing</Modal.Title>

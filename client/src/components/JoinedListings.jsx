@@ -3,17 +3,11 @@ import ReactDOM from 'react-dom';
 import Listings from './Listings.jsx';
 import $ from 'jquery';
 import { Carousel, Col, Grid, Row } from 'react-bootstrap';
-<<<<<<< HEAD
 
-const imgStyle = {
-  width: '100%',
-};
 
 var divStyle = {
   margin:'100px'
 };
-=======
->>>>>>> ee6a5ff2567df8fe4ff02d32447a1661f0b3f6a2
 
 const imgStyle = {
   width: '100%',
