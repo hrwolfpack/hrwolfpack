@@ -18,7 +18,8 @@ class Listings extends React.Component {
 								listingInfo={listingInfo}
 								key={i}
 								userId={this.props.userId}
-								socket={this.props.socket}/>
+								socket={this.props.socket}
+								history={this.props.history}/>
 						})}
 						</Row>
 					</Grid>

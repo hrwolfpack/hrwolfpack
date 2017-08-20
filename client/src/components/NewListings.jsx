@@ -54,7 +54,8 @@ class NewListings extends React.Component {
         <Listings 
         currentListings={this.state.currentListings} 
         userId={this.props.userId} 
-        socket={this.props.socket}/>
+        socket={this.props.socket}
+        history={this.props.history}/>
       );
     } else {
       view = (<div>This is the map!</div>);

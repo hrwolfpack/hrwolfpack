@@ -112,6 +112,8 @@ class Listing extends React.Component {
             userId: this.props.userId,
             packSize: this.props.listingInfo.num_of_participants
         });
+        this.hideModal();
+        this.props.history.push('/joined');
     }
 
     handleArrive() {
