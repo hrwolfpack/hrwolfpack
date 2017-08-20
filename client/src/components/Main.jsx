@@ -16,16 +16,19 @@ var Main = (props) => (
 	      )}/>
 	      <Route exact path="/new" render={(propz) => (
 	        <NewListings
+	        {...propz}
 	        userId={props.userId}
 	        socket={props.socket}/>
 	      )}/>
 	      <Route exact path="/joined" render={(propz) => (
-	        <JoinedListings
+	        <JoinedListings 
+	        {...propz}
 	        userId={props.userId}
 	        socket={props.socket}/>
 	      )}/>
 	      <Route exact path="/initiated" render={(propz) => (
-	        <InitiatedListings
+	        <InitiatedListings 
+	        {...propz}
 	        userId={props.userId}
 	        socket={props.socket}/>
 	      )}/>
