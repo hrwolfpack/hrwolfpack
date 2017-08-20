@@ -219,11 +219,11 @@ class Listing extends React.Component {
           		<li>initializer: {this.props.listingInfo.initializer}</li>
           		<li>price: {this.props.listingInfo.price}</li>
           		<li>pick up location: {this.props.listingInfo.location}</li>
-          		<li>required num of wolves: {this.props.listingInfo.num_of_participants}</li>
+          		<li>required num of wolves to join: {this.props.listingInfo.num_of_participants}</li>
               <li>num of wolves joined: {this.state.listingParticipants.length}</li>
-              <li>num of wolves received the goods: {this.state.receivedParticipants.length}</li>
+              <li>num of wolves who received the goods: {this.state.receivedParticipants.length}</li>
               <li>Description: {this.props.listingInfo.description}</li>
-              <li>Link: <a href={this.props.listingInfo.url}>Click Me</a></li>
+              <li>Link: <a href={this.props.listingInfo.url}>{this.props.listingInfo.name}</a></li>
           	</ul>
 
             </Modal.Body>
@@ -237,7 +237,8 @@ class Listing extends React.Component {
             <Col xs={4} md={4}>
                 <Thumbnail src={this.props.listingInfo.image_url}alt="242x200">
                   <h3>{this.props.listingInfo.name}</h3>
-                  <p>{this.props.listingInfo.price}</p>
+                  <p>Original Bulk Price: <span style={{fontSize: '1.1em', fontWeight: 'bold', color: 'green'}}>${this.props.listingInfo.price}</span></p>
+                  <p><strong style={{fontSize: '1.4em', fontWeight: 'bold'}}>You pay</strong> <span style={{fontSize: '1.4em', fontWeight: 'bold', color: '#B12704'}}>${((this.props.listingInfo.price / (Number(this.props.listingInfo.num_of_participants) + 1) )).toFixed(2)}</span></p>
                   <p>
                     <Button bsStyle="primary" onClick={this.showModal}>More Info</Button>
                   </p>
