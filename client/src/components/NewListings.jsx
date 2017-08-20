@@ -61,7 +61,7 @@ class NewListings extends React.Component {
     }
 
     return (
-      <div>
+      <div style={divStyle}>
         <ButtonToolbar>
           <ToggleButtonGroup 
           type="radio" 
@@ -72,9 +72,7 @@ class NewListings extends React.Component {
             <ToggleButton value={2}>Map View</ToggleButton>
           </ToggleButtonGroup>
         </ButtonToolbar>
-        <div style={divStyle}>
-          {view}
-        </div>
+        {view}
       </div>
     )
   }
