@@ -242,7 +242,8 @@ class Listing extends React.Component {
                 <Thumbnail src={this.props.listingInfo.image_url}alt="220x150" style={boxStyle}>
                   <h3>{this.props.listingInfo.name}</h3>
                   <p>Original Bulk Price: <span style={{fontSize: '1.1em', fontWeight: 'bold', color: 'green'}}>${this.props.listingInfo.price}</span></p>
-                  <p><strong style={{fontSize: '1.4em', fontWeight: 'bold'}}>You pay</strong> <span style={{fontSize: '1.4em', fontWeight: 'bold', color: '#B12704'}}>${((this.props.listingInfo.price / (Number(this.props.listingInfo.num_of_participants) + 1) )).toFixed(2)}</span></p>
+                  <p><strong style={{fontSize: '1.4em', fontWeight: 'bold'}}>You pay</strong> <span style={{fontSize: '1.4em', fontWeight: 'bold', color: '#B12704'}}>${((this.props.listingInfo.price / (Number(this.props.listingInfo.num_of_participants) + 1) )).toFixed(2)}
+                  </span></p>
                   <div>
                     <Button bsStyle="primary" onClick={this.showModal}>More Info</Button>
                   </div>
