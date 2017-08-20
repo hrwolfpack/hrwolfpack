@@ -19,7 +19,7 @@ CREATE TABLE users (
 CREATE TABLE listings (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(200) NOT NULL,
-  description VARCHAR(500),
+  description TEXT,
   image_url VARCHAR(200),
   url VARCHAR(200),
   initializer INT NOT NULL,

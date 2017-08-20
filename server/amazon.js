@@ -1,16 +1,21 @@
+'use strict';
 const db = require('../db');
 const parseString = require('xml2js').parseString;
 const CryptoJS = require('crypto-js');
-const aws_cred = require('../config');
+const cred = require('../config');
 const request = require('request');
 
 
 module.exports = (req, res) => {
-  const access_key_id = aws_cred.access_key_id;
-  const secret_key = aws_cred.secret_key ;
+  if (req.body.query.trim() === '') {
+    return;
+  }
+
+  const access_key_id = cred.access_key_id;
+  const secret_key = cred.secret_key ;
   const endpoint = 'webservices.amazon.com';
   const uri = '/onca/xml';
-  const associateTag = aws_cred.associate_tag;
+  const associateTag = cred.associate_tag;
   const searchTerm = req.body.query;//req.query.product;
   const pairs = [];
   const product_list = [];
@@ -23,7 +28,7 @@ module.exports = (req, res) => {
 		'Keywords': searchTerm,
 		'ResponseGroup': 'Images,ItemAttributes' //, OfferSummary
 	};
-	
+
   const defaultImage = 'http://p5cdn4static.sharpschool.com/UserFiles/Servers/Server_5990980/Image/Wolf%20pack%20generic.png';
 
   let keys, canonical_query_string, string_to_sign, hash, signature, request_url,
@@ -65,7 +70,7 @@ module.exports = (req, res) => {
             'large_image': product.LargeImage ? product.LargeImage[0].URL[0] : defaultImage,
             'url': product.DetailPageURL[0].substring(0, product.DetailPageURL[0].indexOf('?')),            'description': product.ItemAttributes[0].Title[0],
             'list_price': product.ItemAttributes[0].ListPrice ? product.ItemAttributes[0].ListPrice[0].FormattedPrice[0].slice(1) : 'N/A',
-            'long_description': product.ItemAttributes[0].Feature ? product.ItemAttributes[0].Feature.join('; ') : 'N/A'
+            'long_description': product.ItemAttributes[0].Feature ? product.ItemAttributes[0].Feature.join('; ') : ''
           });
         });
 

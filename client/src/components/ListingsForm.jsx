@@ -13,10 +13,17 @@ class Form extends React.Component {
       location: "",
       img_url: "",
       url: "",
-      packSize: ""
+      packSize: "",
+      formValidationErrors: {
+        item: "",
+        price: "",
+        location: "",
+        packSize: ""
+      }
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+
   }
 
   componentDidMount() {
@@ -41,24 +48,74 @@ class Form extends React.Component {
 
   onSubmit(e){
     e.preventDefault();
-    this.props.socket.emit('newListing', {
-      name: this.state.name,
-      description: this.state.description,
-      price: this.state.price,
-      location: this.state.location,
-      initializer: this.props.userId,
-      image_url: this.state.img_url,
-      url: this.state.url,
-      num_of_participants: this.state.packSize
+
+    this.setState({
+      formValidationErrors: {
+        item: "",
+        price: "",
+        location: "",
+        packSize: ""
+      }
+    }, () => {
+      let errCount = 0;
+      let errors = {};
+
+      if (this.state.name.trim() === '') {
+        errCount++;
+        errors['item'] = 'Please enter name of your item';
+      }
+
+      if (this.state.price <= 0 || isNaN(this.state.price)) {
+        errCount++;
+        errors['price'] = 'Please enter a valid price';
+      }
+
+      if (this.state.location.trim() === '') {
+        errCount++;
+        errors['location'] = 'Please enter a valid location';
+      }
+
+      if (this.state.packSize.trim() === '' || isNaN(this.state.packSize) || this.state.packSize < 1) {
+        errCount++;
+        errors['packSize'] = 'Please enter 1 or more additional wolves';
+      }
+
+      if (errCount > 0) {
+        this.setState({
+          formValidationErrors: {
+            item: errors.item || this.state.formValidationErrors.item,
+            price: errors.price || this.state.formValidationErrors.price,
+            location: errors.location || this.state.formValidationErrors.location,
+            packSize: errors.packSize || this.state.formValidationErrors.packSize
+          }
+        });
+
+        return;
+      }
+
+      this.props.socket.emit('newListing', {
+        name: this.state.name,
+        description: this.state.description,
+        price: this.state.price,
+        location: this.state.location,
+        initializer: this.props.userId,
+        image_url: this.state.img_url,
+        url: this.state.url,
+        num_of_participants: this.state.packSize
+      });
+      this.props.hideModal();
+      this.props.history.push('/initiated');
+
     });
-    this.props.hideModal();
-    this.props.history.push('/initiated');
   }
 
   render () {
+    const errorStyle = {
+      color: 'red'
+    };
     return (
       <form>
-        <FormGroup>
+        <FormGroup controlId="item" validationState={this.state.formValidationErrors.item.length > 0 ? "error" : null}>
           <InputGroup>
             <FormControl
               type="text"
@@ -69,12 +126,13 @@ class Form extends React.Component {
               />
             <InputGroup.Addon></InputGroup.Addon>
           </InputGroup>
+          <span style={errorStyle}>{this.state.formValidationErrors.item}</span>
         </FormGroup>
-        <FormGroup>
+        <FormGroup controlId="price" validationState={this.state.formValidationErrors.price.length > 0 ? "error" : null}>
           <InputGroup>
             <InputGroup.Addon>$</InputGroup.Addon>
             <FormControl
-              type="text"
+              type="number"
               placeholder="Price (eg. 11, 7.53 or 78.40)"
               name="price"
               value={this.state.price}
@@ -82,8 +140,9 @@ class Form extends React.Component {
               />
             <InputGroup.Addon></InputGroup.Addon>
           </InputGroup>
+          <span style={errorStyle}>{this.state.formValidationErrors.price}</span>
         </FormGroup>
-        <FormGroup>
+        <FormGroup controlId="location" validationState={this.state.formValidationErrors.location.length > 0 ? "error" : null}>
           <InputGroup>
             <FormControl
               type="text"
@@ -94,11 +153,12 @@ class Form extends React.Component {
               />
             <InputGroup.Addon></InputGroup.Addon>
           </InputGroup>
+          <span style={errorStyle}>{this.state.formValidationErrors.location}</span>
         </FormGroup>
-        <FormGroup>
-          <InputGroup>
+        <FormGroup controlId="packSize" validationState={this.state.formValidationErrors.packSize.length > 0 ? "error" : null}>
+          <InputGroup id='packSize'>
             <FormControl
-              type="text"
+              type="number"
               placeholder="How many more wolves do you want in your pack? (eg. 3, 2 or 8)"
               name="packSize"
               value={this.state.packSize}
@@ -106,6 +166,7 @@ class Form extends React.Component {
               />
             <InputGroup.Addon></InputGroup.Addon>
           </InputGroup>
+          <span style={errorStyle}>{this.state.formValidationErrors.packSize}</span>
         </FormGroup>
         <FormGroup>
           <InputGroup>
