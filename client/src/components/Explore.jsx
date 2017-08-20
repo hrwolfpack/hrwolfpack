@@ -37,7 +37,6 @@ class Explore extends React.Component {
 			query: this.state.value
 		})
 		.then(res => {
-			console.log(res.data);
 			this.setState({
 				deals: res.data
 			});
@@ -52,7 +51,6 @@ class Explore extends React.Component {
 			prePopulate: dealInfo
 		});
 		this.showModal();
-		// this.props.history.push('/initiated');
 	}
 
 	hideModal(e){
