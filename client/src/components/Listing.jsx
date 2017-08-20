@@ -3,6 +3,12 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import { ListGroup, Button, Modal, Col, Thumbnail, Grid, Row, Panel,  } from 'react-bootstrap';
 
+
+var boxStyle = {
+  boxShadow: '3px 3px 5px 6px grey',
+  margin: '1em'
+};
+
 class Listing extends React.Component {
     constructor(props) {
         super(props);
@@ -230,53 +236,19 @@ class Listing extends React.Component {
               {this.state.btShow ? <Button onClick={this.handleJoin} >Join the Pack</Button>: null}
             </Modal.Footer>
           </Modal>
-
-
             <Col xs={4} md={4} >
-                <Thumbnail src={this.props.listingInfo.image_url}alt="242x200">
+                <Thumbnail src={this.props.listingInfo.image_url}alt="220x150" style={boxStyle}>
                   <h3>{this.props.listingInfo.name}</h3>
-                  <p>{this.props.listingInfo.price}</p>
-                  <p>
+                  <p>${this.props.listingInfo.price}</p>
+                  <p>Current Pack Size: {this.props.listingInfo.num_of_participants}</p>
+                  <div>
                     <Button bsStyle="primary" onClick={this.showModal}>More Info</Button>
-                  </p>
+                  </div>
                 </Thumbnail>
               </Col >
-
-
         </div>
       );
     }
 }
 
 export default Listing;
-
-// <Panel header={this.props.listingInfo.name} footer={footer}>
-//     <img src={this.props.listingInfo.image_url}/>
-//     </Panel>
-//
-// <Grid>
-//   <Row>
-//     <Col xs={4} md={4}>
-// </Col>
-// </Row>
-// </Grid>
-// <Col xs={6} md={4}>
-//   <Thumbnail src="/assets/thumbnaildiv.png" alt="242x200">
-//     <h3>Thumbnail label</h3>
-//     <p>Description</p>
-//     <p>
-//       <Button bsStyle="primary">Button</Button>&nbsp;
-//       <Button bsStyle="default">Button</Button>
-//     </p>
-//   </Thumbnail>
-// </Col>
-// <Col xs={6} md={4}>
-//   <Thumbnail src="/assets/thumbnaildiv.png" alt="242x200">
-//     <h3>Thumbnail label</h3>
-//     <p>Description</p>
-//     <p>
-//       <Button bsStyle="primary">Button</Button>&nbsp;
-//       <Button bsStyle="default">Button</Button>
-//     </p>
-//   </Thumbnail>
-// </Col>
