@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { FormGroup, InputGroup, FormControl, Button, DropdownButton, MenuItem, Grid } from 'react-bootstrap';
+import { FormGroup, InputGroup, FormControl, Button, DropdownButton, MenuItem, Grid, HelpBlock } from 'react-bootstrap';
 import $ from 'jquery';
 
 class Form extends React.Component {
@@ -129,6 +129,10 @@ class Form extends React.Component {
           <span style={errorStyle}>{this.state.formValidationErrors.item}</span>
         </FormGroup>
         <FormGroup controlId="price" validationState={this.state.formValidationErrors.price.length > 0 ? "error" : null}>
+          <label
+            className={'control-label'}
+            htmlFor='price'>Total Price
+          </label>
           <InputGroup>
             <InputGroup.Addon>$</InputGroup.Addon>
             <FormControl
@@ -141,6 +145,25 @@ class Form extends React.Component {
             <InputGroup.Addon></InputGroup.Addon>
           </InputGroup>
           <span style={errorStyle}>{this.state.formValidationErrors.price}</span>
+        </FormGroup>
+        <FormGroup controlId="pricePerWolf">
+          <label
+            className={'control-label'}
+            htmlFor='pricePerWolf'>Price Per Wolf
+          </label>
+          <InputGroup>
+            <InputGroup.Addon>$</InputGroup.Addon>
+            <FormControl
+              type="number"
+              placeholder=""
+              name="pricePerWolf"
+              value={((this.state.price / (Number(this.state.packSize) + 1) )).toFixed(2)}
+              onChange={this.onChange}
+              readOnly="true"
+              />
+            <InputGroup.Addon></InputGroup.Addon>
+          </InputGroup>
+          <HelpBlock>This is the price that each wolf will have to pay.</HelpBlock>
         </FormGroup>
         <FormGroup controlId="location" validationState={this.state.formValidationErrors.location.length > 0 ? "error" : null}>
           <InputGroup>
