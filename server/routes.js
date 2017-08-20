@@ -39,14 +39,14 @@ router.get('/newListings', (req, res) => {
 		where: {initializer: {$ne: req.user.id}}
 	})
 	.then(results => {
-		notInitListingArray = results.map(item => item.id);
+		notInitListingArray = results.map(item => item.id); //produce array of all the listing id for the listings this user didn't create
 		return db.UserListings.findAll({
 			where: {user_id: req.user.id}
 		});
 	})
 	.then(results => {
-		partListingArray = results.map(item => item.listing_id);
-		return notInitListingArray.filter(id => {
+		partListingArray = results.map(item => item.listing_id); //produce array of all the listing id for the listings this user participated
+		return notInitListingArray.filter(id => { //produce array of listing id for listings that user did not init or parti
 			return !partListingArray.includes(id);
 		});
 	})
