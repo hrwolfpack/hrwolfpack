@@ -5,11 +5,10 @@ import $ from 'jquery';
 import MapContainer from './MapContainer.jsx';
 import { ButtonToolbar, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 
-
-
 var divStyle = {
   margin:'100px 50px 50px 0'
 };
+
 class NewListings extends React.Component {
 
   constructor(props){
