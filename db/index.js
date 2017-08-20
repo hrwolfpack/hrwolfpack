@@ -1,7 +1,13 @@
 var Sequelize = require('sequelize');
+var cred = require('../config');
 //create 'wolfpack' database
-var db = new Sequelize('wolfpack', 'root', '', {
-	host: 'localhost',
+var db_name = cred.db_name || 'wolfpack';
+var db_username = cred.db_username || 'root';
+var db_password = cred.db_password || '';
+var db_host = cred.db_host || 'localhost';
+
+var db = new Sequelize(db_name, db_username, db_password, {
+	host: db_host,
 	dialect: 'mysql',
 	logging: false,
 	define: {

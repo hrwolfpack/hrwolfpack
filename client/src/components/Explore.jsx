@@ -79,7 +79,7 @@ class Explore extends React.Component {
 						<FormControl
 							type="text"
 							value={this.state.value}
-							placeholder="Search for good deals around the web"
+							placeholder="Search for deals around the web"
 							onChange={this.handleChange}
 							/>
 					</FormGroup>

@@ -9,10 +9,6 @@ const passportConfig = require('./passport.js');
 const router = require('./routes.js');
 const socket = require('socket.io');
 const db = require('../db');
-const parseString = require('xml2js').parseString;
-const CryptoJS = require('crypto-js');
-const aws_cred = require('../config');
-const request = require('request');
 
 let app = express();
 //Use middleware
