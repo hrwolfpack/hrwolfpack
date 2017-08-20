@@ -1,4 +1,3 @@
-'use strict';
 const db = require('../db');
 const parseString = require('xml2js').parseString;
 const CryptoJS = require('crypto-js');
