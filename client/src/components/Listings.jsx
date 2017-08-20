@@ -12,7 +12,7 @@ class Listings extends React.Component {
 		return (
 					<div>
 						<Grid>
-							<Row>
+							<Row responsive="true">
 						{this.props.currentListings.map((listingInfo, i) => {
 							return <Listing
 								listingInfo={listingInfo}
