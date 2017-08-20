@@ -232,7 +232,7 @@ class Listing extends React.Component {
           </Modal>
 
 
-            <Col xs={4} md={4}>
+            <Col xs={4} md={4} >
                 <Thumbnail src={this.props.listingInfo.image_url}alt="242x200">
                   <h3>{this.props.listingInfo.name}</h3>
                   <p>{this.props.listingInfo.price}</p>
