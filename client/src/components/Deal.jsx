@@ -10,7 +10,7 @@ var Deal = (props) => (
 			<div>
 				<img src={props.dealInfo.medium_image} ></img>
 				<span>Price: {props.dealInfo.list_price}</span>
-				&nbsp;<a href={props.dealInfo.url}>See this deal on Amazon</a>
+				&nbsp;<a href={props.dealInfo.url} target="_blank">See this deal on Amazon</a>
 				<p>{props.dealInfo.long_description}</p>
 			</div>
 		</Panel>
