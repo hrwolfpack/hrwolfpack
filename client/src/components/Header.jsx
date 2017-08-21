@@ -21,9 +21,6 @@ var Header = (props) => (
 					<NavItem>
 					<Link to="/new">New Listings Near You</Link>
 				</NavItem>
-				<NavItem>
-					<Link to="/map">ViewMap</Link>
-				</NavItem>
 
 				<NavItem eventKey={2} href="#">
 					<Link to="/joined">Listings You Joined</Link>
