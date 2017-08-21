@@ -18,29 +18,35 @@ var Header = (props) => (
 					<NavItem>
 						<Link to="/">Explore</Link>
 					</NavItem>
+
 					<NavItem>
-					<Link to="/new">New Listings Near You</Link>
-				</NavItem>
+						<Link to="/new">New Listings Near You</Link>
+					</NavItem>
 
-				<NavItem eventKey={2} href="#">
-					<Link to="/joined">Listings You Joined</Link>
-				</NavItem>
+					<NavItem eventKey={2} href="#">
+						<Link to="/joined">Listings You Joined</Link>
+					</NavItem>
 
-				<NavItem eventKey={2} href="#">
-					<Link to="/initiated">Listings You Initiated</Link>
-				</NavItem>
-				<NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
-					<MenuItem eventKey={3.1}>Action</MenuItem>
-					<MenuItem eventKey={3.2}>Another action</MenuItem>
-					<MenuItem eventKey={3.3}>Something else here</MenuItem>
-					<MenuItem divider />
-					<MenuItem eventKey={3.3}>Separated link</MenuItem>
-				</NavDropdown>
-			</Nav>
-			<Nav pullRight>
-				<NavItem eventKey={1} href="#">Log Out</NavItem>
-			</Nav>
-		</Navbar.Collapse>
+					<NavItem eventKey={2} href="#">
+						<Link to="/initiated">Listings You Initiated</Link>
+					</NavItem>
+
+					<NavItem>
+						<Link to="/testimonials">Reviews</Link>
+					</NavItem>
+
+					<NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
+						<MenuItem eventKey={3.1}>Action</MenuItem>
+						<MenuItem eventKey={3.2}>Another action</MenuItem>
+						<MenuItem eventKey={3.3}>Something else here</MenuItem>
+						<MenuItem divider />
+						<MenuItem eventKey={3.3}>Separated link</MenuItem>
+					</NavDropdown>
+				</Nav>
+				<Nav pullRight>
+					<NavItem eventKey={1} href="#">Log Out</NavItem>
+				</Nav>
+			</Navbar.Collapse>
 	</Navbar>
 </div>
 );

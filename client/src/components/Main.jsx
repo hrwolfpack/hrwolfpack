@@ -4,6 +4,7 @@ import NewListings from './NewListings.jsx';
 import JoinedListings from './JoinedListings.jsx';
 import InitiatedListings from './InitiatedListings.jsx';
 import Explore from './Explore.jsx';
+import Testimonials from './Testimonials.jsx'
 
 
 var Main = (props) => (
@@ -33,6 +34,12 @@ var Main = (props) => (
 	        userId={props.userId}
 	        socket={props.socket}/>
 	      )}/>
+			<Route exact path="/testimonials" render={(propz) => (
+					<Testimonials
+						{...propz}
+						userId={props.userId}
+						socket={props.socket}/>
+				)}/>
 	    </Switch>
 	</div>
 );
