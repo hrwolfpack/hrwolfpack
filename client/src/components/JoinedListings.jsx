@@ -9,9 +9,7 @@ var divStyle = {
   margin:'100px'
 };
 
-const imgStyle = {
-  width: '100%',
-};
+
 class JoinedListings extends React.Component {
 
   constructor(props){
@@ -36,7 +34,6 @@ class JoinedListings extends React.Component {
   render () {
     return (
       <div>
-
         <Listings
         style={divStyle}
         currentListings={this.state.currentListings}
