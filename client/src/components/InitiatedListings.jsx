@@ -6,7 +6,7 @@ import { Button, Modal, FormGroup, Grid, Row } from 'react-bootstrap';
 import $ from 'jquery';
 
 var divStyle = {
-  margin:'100px 50px 50px 0'
+  margin:'100px 50px 50px 50px'
 };
 
 class InitiatedListings extends React.Component {

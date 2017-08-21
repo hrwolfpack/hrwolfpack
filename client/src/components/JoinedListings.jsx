@@ -6,7 +6,7 @@ import { Carousel, Col, Grid, Row } from 'react-bootstrap';
 
 
 var divStyle = {
-  margin:'100px'
+  margin: '100px 50px 50px 50px'
 };
 
 
