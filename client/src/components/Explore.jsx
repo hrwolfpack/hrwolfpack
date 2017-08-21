@@ -7,7 +7,9 @@ import CampaignModal from './CampaignModal.jsx';
 
 
 var divStyle = {
-  margin:'100px'
+  margin:'100px',
+  backgroundImage: "url('../../dist/images/wolfPack.png')"
+
 };
 
 class Explore extends React.Component {
