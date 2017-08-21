@@ -6,7 +6,6 @@ import { ListGroup, Button, Modal, Col, Thumbnail, Grid, Row, Panel,  } from 're
 
 var boxStyle = {
   boxShadow: '3px 3px 5px 6px grey',
-  margin: '1em'
 };
 
 class Listing extends React.Component {
@@ -238,7 +237,7 @@ class Listing extends React.Component {
               {this.state.btShow ? <Button onClick={this.handleJoin} >Join the Pack</Button>: null}
             </Modal.Footer>
           </Modal>
-            <Col xs={4} md={4} >
+            <Col xs={6} md={4} >
                 <Thumbnail src={this.props.listingInfo.image_url}alt="220x150" style={boxStyle}>
                   <h3>{this.props.listingInfo.name}</h3>
                   <p>Original Bulk Price: <span style={{fontSize: '1.1em', fontWeight: 'bold', color: 'green'}}>${this.props.listingInfo.price}</span></p>
@@ -248,7 +247,7 @@ class Listing extends React.Component {
                     <Button bsStyle="primary" onClick={this.showModal}>More Info</Button>
                   </div>
                 </Thumbnail>
-              </Col >
+              </Col>
         </div>
       );
     }

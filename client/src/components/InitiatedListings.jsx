@@ -82,14 +82,12 @@ class InitiatedListings extends React.Component {
             <Button bsStyle="danger" onClick={this.hideModal}>Cancel</Button>
           </Modal.Footer>
         </Modal>
-        <Grid>
-          <Row>
+
         <Listings
         currentListings={this.state.currentListings}
         userId={this.props.userId}
         socket={this.props.socket}/>
-      </Row>
-    </Grid>
+
   </div>
     )
   }

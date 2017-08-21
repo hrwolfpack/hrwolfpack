@@ -40,6 +40,7 @@ class JoinedListings extends React.Component {
           <Carousel.Item>
             <img style={imgStyle} width={900} height={500} alt="900x500" src="http://forselfhealing.net/images/news8.jpg"/>
             <Carousel.Caption>
+              <h1>Voted Best App of 2017!</h1>
               <h3>First slide label</h3>
               <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
             </Carousel.Caption>

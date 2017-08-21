@@ -5,14 +5,12 @@ import { ListGroup, Button, Modal, Thumbnail, Grid, Row,  } from 'react-bootstra
 class Listings extends React.Component {
 	constructor(props) {
 		super(props);
-
 	}
-
 	render() {
 		return (
-					<div>
-						<Grid>
-							<Row>
+			<div>
+				<Grid>
+					<Row>
 						{this.props.currentListings.map((listingInfo, i) => {
 							return <Listing
 								listingInfo={listingInfo}
@@ -21,14 +19,11 @@ class Listings extends React.Component {
 								socket={this.props.socket}
 								history={this.props.history}/>
 						})}
-						</Row>
-					</Grid>
-				</div>
-
+					</Row>
+				</Grid>
+			</div>
 		);
 	}
-	}
+}
 
 export default Listings;
-
-//<Button bsStyle="primary" onClick={this.showModal}>Create Listing</Button>
