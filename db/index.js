@@ -1,5 +1,5 @@
 var Sequelize = require('sequelize');
-var cred = require('../config');
+// var cred = require('../config');
 var pg = require('pg');
 pg.defaults.ssl = true;
 
