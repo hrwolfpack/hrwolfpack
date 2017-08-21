@@ -154,6 +154,9 @@ class Listing extends React.Component {
       }
     }
 
+    thumbClick (e) {
+      console.log('thumclicked');
+    }
     render() {
       var footer;
       if (this.state.initializer) { //if current user is the initializer for this listing
@@ -213,7 +216,7 @@ class Listing extends React.Component {
       return (
         <div>
 
-          <Modal show={this.state.lgShow}  bsSize="small" aria-labelledby="contained-modal-title-sm"  onKeyDown={this.handleKeyDown}>
+          <Modal show={this.state.lgShow}  bsSize="large" aria-labelledby="contained-modal-title-sm"  onKeyDown={this.handleKeyDown}>
             <Modal.Header >
               <Modal.Title id="contained-modal-title-sm"><div>{this.props.listingInfo.name}</div></Modal.Title>
             </Modal.Header>
@@ -245,6 +248,7 @@ class Listing extends React.Component {
                   </span></p>
                   <div>
                     <Button bsStyle="primary" onClick={this.showModal}>More Info</Button>
+                    <p>{footer}</p>
                   </div>
                 </Thumbnail>
               </Col>
