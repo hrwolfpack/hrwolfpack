@@ -34,7 +34,9 @@ class Explore extends React.Component {
 		});
 	}
 
-	handleSearch() {
+	handleSearch(e) {
+    e.preventDefault();
+
 		axios.post('/api', {
 			query: this.state.value
 		})
@@ -75,7 +77,7 @@ class Explore extends React.Component {
           <h1>Welcome to the Pack!</h1>
           <p>Search for deals near you!</p>
           <div>
-				    <form>
+				    <form onSubmit={this.handleSearch}>
 					    <Button bsStyle="primary" onClick={this.handleSearch}>Search</Button>
 					      <FormGroup>
 						      <FormControl
