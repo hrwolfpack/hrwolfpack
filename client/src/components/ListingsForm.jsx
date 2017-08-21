@@ -64,7 +64,6 @@ class Form extends React.Component {
       });
       this.props.hideModal();
       this.props.history.push('/initiated');
-
     });
   }
 
