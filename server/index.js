@@ -77,6 +77,8 @@ io.on('connection', (socket) => {
 			name: data.name,
 			price: Number(data.price),
 			location: data.location,
+			lat: data.lat,
+			lng: data.lng,
 			initializer: data.initializer,
 			description: data.description,
 			image_url: data.image_url,

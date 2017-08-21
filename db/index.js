@@ -46,6 +46,8 @@ var Listing = db.define('listing', {
   arrived: { type: Sequelize.BOOLEAN, defaultValue: false},
   packed: { type: Sequelize.BOOLEAN, defaultValue: false},
   location: Sequelize.STRING,
+	lat: { type: Sequelize.DECIMAL(10, 8), defaultValue: 0 },
+	lng: { type: Sequelize.DECIMAL(11, 8), defaultValue: 0 },
   num_of_participants:{ type: Sequelize.INTEGER, defaultValue: 4},
   created_dt: Sequelize.DATE
 }, {underscored: true});

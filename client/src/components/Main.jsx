@@ -5,6 +5,7 @@ import JoinedListings from './JoinedListings.jsx';
 import InitiatedListings from './InitiatedListings.jsx';
 import Explore from './Explore.jsx';
 
+
 var Main = (props) => (
 	<div>
 	    <Switch>
@@ -21,13 +22,13 @@ var Main = (props) => (
 	        socket={props.socket}/>
 	      )}/>
 	      <Route exact path="/joined" render={(propz) => (
-	        <JoinedListings 
+	        <JoinedListings
 	        {...propz}
 	        userId={props.userId}
 	        socket={props.socket}/>
 	      )}/>
 	      <Route exact path="/initiated" render={(propz) => (
-	        <InitiatedListings 
+	        <InitiatedListings
 	        {...propz}
 	        userId={props.userId}
 	        socket={props.socket}/>
