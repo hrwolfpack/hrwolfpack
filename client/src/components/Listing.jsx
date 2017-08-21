@@ -153,10 +153,6 @@ class Listing extends React.Component {
         this.hideModal();
       }
     }
-
-    thumbClick (e) {
-      console.log('thumclicked');
-    }
     render() {
       var footer;
       if (this.state.initializer) { //if current user is the initializer for this listing
