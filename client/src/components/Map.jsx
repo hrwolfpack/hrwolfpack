@@ -190,7 +190,7 @@ class Map extends React.Component {
               <li>num of wolves joined: {this.state.listingParticipants.length}</li>
               <li>num of wolves received the goods: {this.state.receivedParticipants.length}</li>
               <li>Description: {this.state.currentListing.description}</li>
-              <li>Link: <a href={this.state.currentListing.url}>Click Me</a></li>
+              <li>Link: <a href={this.state.currentListing.url} target="_blank">{this.state.currentListing.name}</a></li>
           	</ul>
 
             </Modal.Body>

@@ -228,7 +228,7 @@ class Listing extends React.Component {
               <li>num of wolves joined: {this.state.listingParticipants.length}</li>
               <li>num of wolves who received the goods: {this.state.receivedParticipants.length}</li>
               <li>Description: {this.props.listingInfo.description}</li>
-              <li>Link: <a href={this.props.listingInfo.url}>{this.props.listingInfo.name}</a></li>
+              <li>Link: <a href={this.props.listingInfo.url} target="_blank">{this.props.listingInfo.name}</a></li>
           	</ul>
 
             </Modal.Body>
