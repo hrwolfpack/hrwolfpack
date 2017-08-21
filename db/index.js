@@ -21,12 +21,6 @@ pg.defaults.ssl = true;
 var db_url = process.env.DATABASE_URL || 'postgres://svntauetywrtss:55f43a82d494c48a4e4fa78280e969f4ae787e010d673b173ac1b9c8edced9e0@ec2-184-73-249-56.compute-1.amazonaws.com:5432/dbnte43httuu78';
 var db = new Sequelize(db_url);
 
-//staging
-// var db = new Sequelize('postgres://svntauetywrtss:55f43a82d494c48a4e4fa78280e969f4ae787e010d673b173ac1b9c8edced9e0@ec2-184-73-249-56.compute-1.amazonaws.com:5432/dbnte43httuu78');
-
-//production
-// var db = new Sequelize('postgres://vdzxhcdefalggv:92cc10539f76f333d3a52a5a47227177fd05635db543e25e180557c05ed97c00@ec2-50-19-219-69.compute-1.amazonaws.com:5432/dbsp7ma4q35gml');
-
 //test connection
 db
   .authenticate()
