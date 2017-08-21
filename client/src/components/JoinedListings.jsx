@@ -6,7 +6,7 @@ import { Carousel, Col, Grid, Row } from 'react-bootstrap';
 
 
 var divStyle = {
-  margin:'100px'
+  margin:'200px'
 };
 
 
@@ -33,9 +33,9 @@ class JoinedListings extends React.Component {
 
   render () {
     return (
-      <div>
+      <div style={divStyle}>
         <Listings
-        style={divStyle}
+
         currentListings={this.state.currentListings}
         userId={this.props.userId}
         socket={this.props.socket}/>
