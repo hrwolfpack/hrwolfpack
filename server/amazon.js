@@ -53,7 +53,7 @@ module.exports = (req, res) => {
 
   signature = hash.toString(CryptoJS.enc.Base64);
 
-  request_url = `http://${endpoint}${uri}?${canonical_query_string}&Signature=` + encodeURIComponent(signature);
+  request_url = `https://${endpoint}${uri}?${canonical_query_string}&Signature=` + encodeURIComponent(signature);
 
   request.get({url: request_url}, function(err, response, body) {
     if(err) { console.log('Error:', err); return; }
