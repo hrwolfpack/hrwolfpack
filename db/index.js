@@ -50,10 +50,16 @@ var Listing = db.define('listing', {
   completed: { type: Sequelize.BOOLEAN, defaultValue: false},
   arrived: { type: Sequelize.BOOLEAN, defaultValue: false},
   packed: { type: Sequelize.BOOLEAN, defaultValue: false},
+<<<<<<< c7537d4bc052f0d345e5cf75feeab55aee96f660
   location: Sequelize.TEXT,
 	lat: { type: Sequelize.DECIMAL(10, 8), defaultValue: 0 },
 	lng: { type: Sequelize.DECIMAL(11, 8), defaultValue: 0 },
 
+=======
+  location: Sequelize.STRING,
+	lat: { type: Sequelize.DECIMAL(10, 8), defaultValue: 37.783774 },
+	lng: { type: Sequelize.DECIMAL(11, 8), defaultValue: -122.408976 },
+>>>>>>> show status of wolfpack assembling/completed etc on listings cards
   num_of_participants:{ type: Sequelize.INTEGER, defaultValue: 4},
   created_dt: Sequelize.DATE
 }, {underscored: true});
