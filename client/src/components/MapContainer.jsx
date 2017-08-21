@@ -18,10 +18,6 @@ class MapContainer extends React.Component {
 
   render() {
     return (
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Map feature functional and styled
       <div style={{position: 'absolute', height: `100%`, width: `100%`}}>
         <Map
           containerElement={<div style= {{width:100+'%', height:100+'%'}}/>}
@@ -33,31 +29,6 @@ class MapContainer extends React.Component {
           history={this.props.history}
         />
       </div>
-<<<<<<< HEAD
-=======
-      <Grid>
-        <Row>
-          <Col md={12}>
-            <div style={{
-              width: '700px',
-              height: '600px'
-            }}>
-              <Map
-                containerElement={<div style= {{width:100+'%', height:100+'%'}}/>}
-                mapElement={<div style= {{width:100+'%', height:100+'%'}}/>}
-                mapCenter={this.state.mapCenter}
-                listings={this.props.currentListings}
-                userId={this.props.userId}
-                socket={this.props.socket}
-                history={this.props.history}
-              />
-            </div>
-          </Col>
-        </Row>
-      </Grid>
->>>>>>> Integrate new listings into map component for marker rendering
-=======
->>>>>>> Map feature functional and styled
     )
   }
 }
