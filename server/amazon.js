@@ -1,20 +1,20 @@
 const db = require('../db');
 const parseString = require('xml2js').parseString;
 const CryptoJS = require('crypto-js');
-const cred = require('../config');
 const request = require('request');
 
+const cred = process.env.HEROKU_ENV || require('../config');
 
 module.exports = (req, res) => {
   if (req.body.query.trim() === '') {
     return;
   }
 
-  const access_key_id = cred.access_key_id;
-  const secret_key = cred.secret_key ;
+  const access_key_id = process.env.access_key_id || cred.access_key_id;
+  const secret_key = process.env.secret_key || cred.secret_key ;
   const endpoint = 'webservices.amazon.com';
   const uri = '/onca/xml';
-  const associateTag = cred.associate_tag;
+  const associateTag = process.env.associate_tag || cred.associate_tag;
   const searchTerm = req.body.query;//req.query.product;
   const pairs = [];
   const product_list = [];
