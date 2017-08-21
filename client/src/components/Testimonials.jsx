@@ -20,18 +20,17 @@ const Testimonials = (props) => (
         <img style={imgStyle} width={900} height={500} alt="900x500" src="http://pinnaclepellet.com/images/900x500-prince-george.jpg"/>
         <Carousel.Caption>
           <h1>Best thing since the ACA.</h1>
-          <h3>Barack O.</h4>
+          <h3>Barack O.</h3>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
         <img style={imgStyle} width={900} height={500} alt="900x500" src="https://media.mnn.com/assets/images/2014/03/Bahamas-Intro.jpg"/>
         <Carousel.Caption>
-          <h3>Third slide label</h3>
+          <h1></h1>
           <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>
-    <h2>hello</h2>
   </div>
 
 );
