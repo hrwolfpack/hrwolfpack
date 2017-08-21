@@ -153,7 +153,6 @@ class Listing extends React.Component {
         this.hideModal();
       }
     }
-
     render() {
       var footer;
       if (this.state.initializer) { //if current user is the initializer for this listing
@@ -213,7 +212,7 @@ class Listing extends React.Component {
       return (
         <div>
 
-          <Modal show={this.state.lgShow}  bsSize="small" aria-labelledby="contained-modal-title-sm"  onKeyDown={this.handleKeyDown}>
+          <Modal show={this.state.lgShow}  bsSize="large" aria-labelledby="contained-modal-title-sm"  onKeyDown={this.handleKeyDown}>
             <Modal.Header >
               <Modal.Title id="contained-modal-title-sm"><div>{this.props.listingInfo.name}</div></Modal.Title>
             </Modal.Header>
@@ -240,11 +239,12 @@ class Listing extends React.Component {
             <Col xs={6} md={4} >
                 <Thumbnail src={this.props.listingInfo.image_url}alt="220x150" style={boxStyle}>
                   <h3>{this.props.listingInfo.name}</h3>
-                  <p>Original Bulk Price: <span style={{fontSize: '1.1em', fontWeight: 'bold', color: 'green'}}>${this.props.listingInfo.price}</span></p>
-                  <p><strong style={{fontSize: '1.4em', fontWeight: 'bold'}}>You pay</strong> <span style={{fontSize: '1.4em', fontWeight: 'bold', color: '#B12704'}}>${((this.props.listingInfo.price / (Number(this.props.listingInfo.num_of_participants) + 1) )).toFixed(2)}
+                  <p>Original Bulk Price: <span style={{fontSize: '1.1em', fontWeight: 'bold', color: '#B12704'}}>${this.props.listingInfo.price}</span></p>
+                  <p><strong style={{fontSize: '1.4em', fontWeight: 'bold'}}>You pay</strong> <span style={{fontSize: '1.4em', fontWeight: 'bold', color: 'green'}}>${((this.props.listingInfo.price / (Number(this.props.listingInfo.num_of_participants) + 1) )).toFixed(2)}
                   </span></p>
                   <div>
                     <Button bsStyle="primary" onClick={this.showModal}>More Info</Button>
+                    <p style={{fontStyle: 'italic', color: 'grey'}}>{footer}</p>
                   </div>
                 </Thumbnail>
               </Col>

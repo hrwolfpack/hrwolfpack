@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormGroup, FormControl, Button, Well } from 'react-bootstrap';
+import { FormGroup, FormControl, Button, Well, Jumbotron } from 'react-bootstrap';
 import axios from 'axios';
 import Deal from './Deal.jsx';
 import Deals from './Deals.jsx';
@@ -69,19 +69,22 @@ class Explore extends React.Component {
 	render() {
 		return (
 			<div style={divStyle}>
-				<form>
-					<Button bsStyle="primary" onClick={this.handleSearch}>
-						Search
-					</Button>
-					<FormGroup>
-						<FormControl
-							type="text"
-							value={this.state.value}
-							placeholder="Search for deals around the web"
-							onChange={this.handleChange}
-							/>
-					</FormGroup>
-				</form>
+        <Jumbotron>
+          <h1>Welcome to the Pack!</h1>
+          <p>Search for deals near you!</p>
+          <div>
+				    <form>
+					    <Button bsStyle="primary" onClick={this.handleSearch}>Search</Button>
+					      <FormGroup>
+						      <FormControl
+    							type="text"
+    							value={this.state.value}
+    							placeholder="Search for deals around the web"
+    							onChange={this.handleChange}
+							    />
+					      </FormGroup>
+				    </form>
+          </div>
 				<CampaignModal
 				userId={this.props.userId}
 				lgShow={this.state.lgShow}
@@ -91,6 +94,8 @@ class Explore extends React.Component {
 				history={this.props.history}
 				/>
 				<Deals dealInfos={this.state.deals} handleSelect={this.handleSelect}/>
+        </Jumbotron>
+
 			</div>
 		);
 	}
