@@ -90,7 +90,6 @@ class Form extends React.Component {
        });
        return;
 
-    //  else {
     }
        getListingCoordinates(this.state.location, (results) => {
          console.log(results);
@@ -109,7 +108,6 @@ class Form extends React.Component {
          this.props.hideModal();
          this.props.history.push('/initiated');
        });
-
      });
   }
 

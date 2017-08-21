@@ -6,14 +6,18 @@ import MapContainer from './MapContainer.jsx';
 import { ButtonToolbar, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 
 let toggleBtnStyle = {
-  marginTop: '100px',
+  marginTop: '70px',
   display:'flex',
   alignItems:'center',
   justifyContent:'center',
 };
 
 let cardsStyle = {
-  margin:'10px 50px 50px 0px',
+  margin:'10px 50px 50px 50px'
+};
+
+let mapStyle = {
+  margin: '10px 50px 50px 0px'
 };
 
 class NewListings extends React.Component {
@@ -58,20 +62,24 @@ class NewListings extends React.Component {
     var view;
     if (this.state.toggleValue === 1) {
       view = (
-        <Listings
-        currentListings={this.state.currentListings}
-        userId={this.props.userId}
-        socket={this.props.socket}
-        history={this.props.history}/>
-      );
-    } else {
-      view = (
-        <MapContainer
+        <div style={cardsStyle}>
+          <Listings
           currentListings={this.state.currentListings}
           userId={this.props.userId}
           socket={this.props.socket}
-          history={this.props.history}
-          />
+          history={this.props.history}/>
+        </div>
+      );
+    } else {
+      view = (
+        <div style={mapStyle}>
+          <MapContainer
+            currentListings={this.state.currentListings}
+            userId={this.props.userId}
+            socket={this.props.socket}
+            history={this.props.history}
+            />
+        </div>
       )
     }
 
@@ -89,9 +97,7 @@ class NewListings extends React.Component {
             </ToggleButtonGroup>
           </ButtonToolbar>
         </div>
-        <div style={cardsStyle}>
-          {view}
-        </div>
+        {view}
       </div>
     )
   }

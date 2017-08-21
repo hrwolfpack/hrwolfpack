@@ -2,7 +2,7 @@ import React from 'react';
 import Map from './Map.jsx';
 import {Grid, Row, Col} from 'react-bootstrap';
 import $ from 'jquery';
-import getListingCoordinates from '../../Geocode.js'
+import getListingCoordinates from '../../Geocode.js';
 
 class MapContainer extends React.Component {
 
