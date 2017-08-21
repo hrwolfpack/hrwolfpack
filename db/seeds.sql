@@ -53,14 +53,14 @@ CREATE TABLE userListings (
 INSERT INTO users (username, password)
 VALUES ('dylan', '123d'), ('clarence', '123c'), ('kevin', '123k'), ('jason', '123j'), ('fred', '1234');
 
-INSERT INTO listings (name, description, image_url, initializer, price, completed, location, num_of_participants)
-VALUES ('20 pack of shampoo', '20 bottles of Herbal Essences shampoo 32oz', 'https://images-na.ssl-images-amazon.com/images/I/81BZskZAufL._SY355_.jpg', 1, 5.00, 1, '944 Market St, San Francisco, CA 94121', 3);
+INSERT INTO listings (name, description, image_url, initializer, price, completed, location, lat, lng, num_of_participants)
+VALUES ('20 pack of shampoo', '20 bottles of Herbal Essences shampoo 32oz', 'https://images-na.ssl-images-amazon.com/images/I/81BZskZAufL._SY355_.jpg', 1, 5.00, 1, '944 Market St, San Francisco, CA 94121', 37.7836924, -122.40896659, 3);
 
-INSERT INTO listings (name, description, image_url, initializer, price, completed, location, num_of_participants, created_dt)
-VALUES ('30 pack of paper towels', '30 Bounty brand paper towel rolls', 'https://images-na.ssl-images-amazon.com/images/I/71cPnhz81gL._SY355_.jpg', 1, 7.50, 0, '944 Market St, San Francisco, CA 94121', 2, '2017-08-11 20:11:30');
+INSERT INTO listings (name, description, image_url, initializer, price, completed, location, lat, lng, num_of_participants, created_dt)
+VALUES ('30 pack of paper towels', '30 Bounty brand paper towel rolls', 'https://images-na.ssl-images-amazon.com/images/I/71cPnhz81gL._SY355_.jpg', 1, 7.50, 0, '1 St. Francis Place, San Francisco, CA', 37.7838234, -122.3977092, 2, '2017-08-11 20:11:30');
 
-INSERT INTO listings (name, description, image_url, initializer, price, completed, location, num_of_participants)
-VALUES ('100 pack of protein bars', '100 Clif Bar brand Builder Bar protein bars ', 'https://images-na.ssl-images-amazon.com/images/I/41D0dDvgfAL._SY355_.jpg', 2, 20.00, 0, '1015 Folsom St, San Francisco, CA 94103', 4);
+INSERT INTO listings (name, description, image_url, initializer, price, completed, location, lat, lng, num_of_participants)
+VALUES ('100 pack of protein bars', '100 Clif Bar brand Builder Bar protein bars ', 'https://images-na.ssl-images-amazon.com/images/I/41D0dDvgfAL._SY355_.jpg', 2, 20.00, 0, '1015 Folsom St, San Francisco, CA 94103', 37.77812669, -122.4057869, 4);
 
 -- -- Case 1: Full-participation closed listing (completed transaction) created by Dylan and joined by 3 other participants
 -- INSERT INTO userListings (user_id, listing_id, received) VALUES (2, 1, 1), (3, 1, 1), (4, 1, 1);

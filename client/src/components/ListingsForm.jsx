@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { FormGroup, InputGroup, FormControl, Button, DropdownButton, MenuItem, Grid, HelpBlock } from 'react-bootstrap';
 import $ from 'jquery';
+import getListingCoordinates from '../../Geocode.js'
 
 class Form extends React.Component {
   constructor(props){
@@ -48,56 +49,15 @@ class Form extends React.Component {
 
   onSubmit(e){
     e.preventDefault();
-
-    this.setState({
-      formValidationErrors: {
-        item: "",
-        price: "",
-        location: "",
-        packSize: ""
-      }
-    }, () => {
-      let errCount = 0;
-      let errors = {};
-
-      if (this.state.name.trim() === '') {
-        errCount++;
-        errors['item'] = 'Please enter name of your item';
-      }
-
-      if (this.state.price <= 0 || isNaN(this.state.price)) {
-        errCount++;
-        errors['price'] = 'Please enter a valid price';
-      }
-
-      if (this.state.location.trim() === '') {
-        errCount++;
-        errors['location'] = 'Please enter a valid location';
-      }
-
-      if (this.state.packSize.trim() === '' || isNaN(this.state.packSize) || this.state.packSize < 1) {
-        errCount++;
-        errors['packSize'] = 'Please enter 1 or more additional wolves';
-      }
-
-      if (errCount > 0) {
-        this.setState({
-          formValidationErrors: {
-            item: errors.item || this.state.formValidationErrors.item,
-            price: errors.price || this.state.formValidationErrors.price,
-            location: errors.location || this.state.formValidationErrors.location,
-            packSize: errors.packSize || this.state.formValidationErrors.packSize
-          }
-        });
-
-        return;
-      }
-
+    getListingCoordinates(this.state.location, (results) => {
+      console.log(results);
       this.props.socket.emit('newListing', {
         name: this.state.name,
         description: this.state.description,
         price: this.state.price,
         location: this.state.location,
+        lat: results.results[0].geometry.location.lat,
+        lng: results.results[0].geometry.location.lng,
         initializer: this.props.userId,
         image_url: this.state.img_url,
         url: this.state.url,
