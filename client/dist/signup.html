@@ -1,23 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>WolfPack Signup</title>
-</head>
-<body>
+<title>WolfPack Login</title>
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-<form action="/signup" method="post">
-    <div>
-        <label>Username:</label>
-        <input type="text" name="username"/>
+</head>
+<body style="background-image: url(https://previews.123rf.com/images/macrovector/macrovector1402/macrovector140200069/25636469-Supermarket-food-items-seamless-of-fresh-and-natural-vegetables-fruits-meat-and-dairy-products-isola-Stock-Vector.jpg);">
+  <div class="jumbotron jumboBackground" style="background-image: url(https://d1fywv0iz2cv2w.cloudfront.net/videos/burpy-process.jpg);">
+    <div class="page-header">
+      <h1>Welcome to Wolf Pack!</h1>
     </div>
-    <div>
-        <label>Password:</label>
-        <input type="password" name="password"/>
-    </div>
-    <div>
-        <input type="submit" value="Sign Up"/>
-    </div>
-</form>
+    <p>.</p>
+  </div>
+
+<div class="container mainDiv">
+    <div class="row">
+		<div class="span12">
+			<form class="form-horizontal" action='/signup' method="POST">
+			  <fieldset>
+			    <div id="legend">
+			      <legend class="">Sign Up</legend>
+			    </div>
+			    <div class="control-group">
+			      <!-- Username -->
+			      <label class="control-label"  for="username">Username</label>
+			      <div class="controls">
+			        <input type="text" id="username" name="username" placeholder="" class="input-xlarge">
+			      </div>
+			    </div>
+			    <div class="control-group">
+			      <!-- Password-->
+			      <label class="control-label" for="password">Password</label>
+			      <div class="controls">
+			        <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+			      </div>
+			    </div>
+			    <div class="control-group">
+			      <!-- Button -->
+			      <div class="controls">
+			        <button class="btn btn-success">Login</button>
+			      </div>
+			    </div>
+			  </fieldset>
+			</form>
+		</div>
+	</div>
+</div>
 
 </body>
 </html>
