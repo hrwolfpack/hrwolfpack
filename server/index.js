@@ -43,7 +43,7 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.post('/login',
 	passport.authenticate('local-login', {
-		successRedirect: '/',
+		successRedirect: '/new',
 		failureRedirect: '/login'})
 );
 
