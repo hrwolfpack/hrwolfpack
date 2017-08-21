@@ -19,7 +19,7 @@ const Testimonials = (props) => (
       <Carousel.Item>
         <img style={imgStyle} width={900} height={500} alt="900x500" src="http://pinnaclepellet.com/images/900x500-prince-george.jpg"/>
         <Carousel.Caption>
-          <h1>"Best thing since the ACA."</h1>
+          <h1>"Best thing since the Affordable Care Act."</h1>
           <h3>-Barack O.</h3>
         </Carousel.Caption>
       </Carousel.Item>
