@@ -8,6 +8,7 @@
     "node": ">=6.4.0"
   },
   "scripts": {
+    "heroku-postbuild": "webpack -p",
     "start": "node server/index.js",
     "test": "mocha",
     "react-dev": "webpack -d --watch",

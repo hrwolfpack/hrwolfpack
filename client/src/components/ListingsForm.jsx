@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { FormGroup, InputGroup, FormControl, Button, DropdownButton, MenuItem, Grid, HelpBlock } from 'react-bootstrap';
 import $ from 'jquery';
-import getListingCoordinates from '../../Geocode.js'
+// import getListingCoordinates from '../../Geocode.js'
 
 class Form extends React.Component {
   constructor(props){
@@ -38,6 +38,12 @@ class Form extends React.Component {
 
       });
     }
+  }
+
+  getListingCoordinates(location, callback) {
+    $.get({
+      url: `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=AIzaSyAvZYSB--DSFanCYWoTz36qfFjlAUhhW_o`
+    }, callback)
   }
 
   onChange(e){
@@ -91,7 +97,7 @@ class Form extends React.Component {
        return;
 
     }
-       getListingCoordinates(this.state.location, (results) => {
+       this.getListingCoordinates(this.state.location, (results) => {
          console.log(results);
          this.props.socket.emit('newListing', {
            name: this.state.name,
