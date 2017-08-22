@@ -28,7 +28,7 @@ module.exports = (req, res) => {
 		'ResponseGroup': 'Images,ItemAttributes' //, OfferSummary
 	};
 
-  const defaultImage = 'http://p5cdn4static.sharpschool.com/UserFiles/Servers/Server_5990980/Image/Wolf%20pack%20generic.png';
+  const defaultImage = 'https://s-media-cache-ak0.pinimg.com/736x/fb/f4/b1/fbf4b1c067171f09158d3b2c0ee40265--wolves-website-funny-wolf.jpg';
 
   let keys, canonical_query_string, string_to_sign, hash, signature, request_url,
   productListings;
@@ -53,7 +53,7 @@ module.exports = (req, res) => {
 
   signature = hash.toString(CryptoJS.enc.Base64);
 
-  request_url = `http://${endpoint}${uri}?${canonical_query_string}&Signature=` + encodeURIComponent(signature);
+  request_url = `https://${endpoint}${uri}?${canonical_query_string}&Signature=` + encodeURIComponent(signature);
 
   request.get({url: request_url}, function(err, response, body) {
     if(err) { console.log('Error:', err); return; }

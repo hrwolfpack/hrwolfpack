@@ -67,7 +67,7 @@ var server = app.listen(port, () => console.log('Listening on port ', port));
 
 
 //socket setup
-var io = socket(server);
+var io = socket(server, {secure: true});
 
 io.on('connection', (socket) => {
 	console.log('Make socket connection', socket.id);
