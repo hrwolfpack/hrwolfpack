@@ -5,7 +5,8 @@ import { BrowserRouter } from 'react-router-dom';
 import Header from './components/Header.jsx';
 import Main from './components/Main.jsx';
 import io from 'socket.io-client';
-let socket = io('http://localhost:3000');
+let env = window.location.hostname + ':' + window.location.port;
+let socket = io(env);
 
 class App extends React.Component {
   constructor(props) {
